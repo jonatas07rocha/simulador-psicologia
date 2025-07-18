@@ -1,0 +1,207 @@
+/* --- Configuração Base e Fundo --- */
+:root {
+    --theme-color-primary: #16a34a; /* Cor padrão (verde) */
+    --background-start-light: #f5f7fa;
+    --background-end-light: #c3cfe2;
+    --background-start-dark: #232526;
+    --background-end-dark: #414345;
+    --text-light: #f8f9fa;
+    --text-dark: #212529;
+    --card-bg-light: white;
+    --card-bg-dark: #1f2937;
+    --border-light: #e9ecef;
+    --border-dark: #374151;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background-start-light);
+    background-image: linear-gradient(135deg, var(--background-start-light) 0%, var(--background-end-light) 100%);
+    color: var(--text-dark);
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.dark body {
+    background-color: var(--background-start-dark);
+    background-image: linear-gradient(135deg, var(--background-start-dark) 0%, var(--background-end-dark) 100%);
+    color: var(--text-light);
+}
+
+/* --- Animações --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.fade-in {
+    animation: fadeIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* --- Cabeçalho e Seletor de Tema --- */
+.app-header {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-light);
+}
+.dark .app-header {
+    background: rgba(29, 39, 51, 0.5);
+    border-bottom: 1px solid var(--border-dark);
+}
+#theme-toggle-btn {
+    background-color: #e9ecef;
+    color: #495057;
+}
+.dark #theme-toggle-btn {
+    background-color: #374151;
+    color: #e5e7eb;
+}
+
+/* --- Tela de Seleção --- */
+.selection-card {
+    position: relative;
+    background-color: var(--card-bg-light);
+    border-radius: 1rem;
+    border: 1px solid var(--border-light);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.dark .selection-card {
+    background-color: var(--card-bg-dark);
+    border-color: var(--border-dark);
+}
+.selection-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border-color: var(--theme-color-primary);
+}
+.card-title {
+    font-family: 'Lora', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+.card-description {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #6c757d;
+}
+.dark .card-description {
+    color: #adb5bd;
+}
+.checkmark-icon {
+    display: none;
+}
+.selection-card.completed .checkmark-icon {
+    display: block;
+}
+.selection-card.completed {
+    opacity: 0.85;
+}
+
+/* --- Container do Simulado --- */
+.main-card {
+    background-color: var(--card-bg-light);
+    border-radius: 1.25rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border-top: 6px solid var(--theme-color-primary);
+    transition: all 0.3s ease-in-out;
+}
+.dark .main-card {
+    background-color: var(--card-bg-dark);
+}
+#progress-bar {
+    background-color: var(--theme-color-primary);
+    transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* --- Questões e Opções --- */
+#question-text {
+    font-family: 'Lora', serif;
+}
+.option-btn {
+    border: 2px solid var(--border-light);
+    transition: all 0.2s ease;
+}
+.dark .option-btn {
+    border-color: var(--border-dark);
+}
+.option-btn:not([disabled]):hover {
+    border-color: var(--theme-color-primary);
+    transform: translateY(-2px);
+}
+.option-btn.selected {
+    border-color: var(--theme-color-primary);
+    background-color: color-mix(in srgb, var(--theme-color-primary) 15%, transparent);
+}
+.option-btn.correct {
+    background-color: #16a34a !important;
+    color: white !important;
+    border-color: #15803d !important;
+}
+.option-btn.incorrect {
+    background-color: #dc2626 !important;
+    color: white !important;
+    border-color: #b91c1c !important;
+}
+
+/* --- Feedback e Resultados --- */
+.feedback-card {
+    background-color: color-mix(in srgb, var(--border-light) 50%, transparent);
+}
+.dark .feedback-card {
+    background-color: #111827;
+}
+#results-circle {
+    stroke: var(--theme-color-primary);
+    transition: stroke-dasharray 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.action-btn {
+    background-color: var(--theme-color-primary);
+    transition: all 0.2s ease;
+}
+.action-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    filter: brightness(1.1);
+}
+
+/* --- Tela de Revisão --- */
+.review-question-item {
+    border-left: 4px solid;
+    transition: background-color 0.3s;
+}
+.review-question-item.correct {
+    border-color: #16a34a;
+    background-color: rgba(22, 163, 74, 0.05);
+}
+.dark .review-question-item.correct {
+    background-color: rgba(22, 163, 74, 0.1);
+}
+.review-question-item.incorrect {
+    border-color: #dc2626;
+    background-color: rgba(220, 38, 38, 0.05);
+}
+.dark .review-question-item.incorrect {
+    background-color: rgba(220, 38, 38, 0.1);
+}
+.review-option {
+    border: 1px solid var(--border-light);
+}
+.dark .review-option {
+    border: 1px solid var(--border-dark);
+}
+.review-option.user-selected {
+    background-color: rgba(220, 38, 38, 0.1);
+    border-color: #dc2626;
+}
+.review-option.correct-answer {
+    background-color: rgba(22, 163, 74, 0.1);
+    border-color: #16a34a;
+}
+
+/* --- Modal de Notificação --- */
+#notification-modal {
+    transition: opacity 0.3s ease-in-out;
+}
+#notification-modal.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
