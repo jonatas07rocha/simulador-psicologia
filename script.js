@@ -327,6 +327,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateQuestionCounter = () => {
         elements.questionCounter.textContent = `${Math.min(state.currentQuestionIndex + 1, state.currentQuizData.length)} / ${state.currentQuizData.length}`;
     };
+    
+    // *** FUNÇÃO CORRIGIDA ***
     const selectAnswer = (selectedBtn, selectedOption) => {
         const topCard = elements.cardStackContainer.querySelector('.question-card:last-child');
         if (!topCard || topCard.dataset.answered) return;
@@ -334,18 +336,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const currentQuestionItem = state.currentQuizData[state.currentQuestionIndex];
         const questionData = currentQuestionItem.questionData;
-        const isCorrect = selectedOption.trim() === questionData.answer.trim();
+        
+        const isCorrect = selectedOption.trim() === questionData.answer;
         state.userAnswers[state.currentQuestionIndex] = selectedOption;
 
+        // Desabilita todos os botões e destaca a resposta correta
         topCard.querySelectorAll('.option-btn').forEach(button => {
             button.disabled = true;
-            if (button.textContent.trim() === questionData.answer.trim()) button.classList.add('correct');
+            if (button.textContent.trim() === questionData.answer) {
+                button.classList.add('correct');
+            }
         });
+
+        // Destaca a escolha do usuário
         selectedBtn.classList.add(isCorrect ? 'correct' : 'incorrect');
 
+        // Lógica de pontuação e gravação de erros
         if (isCorrect) {
             if(state.quizMode !== 'exam') triggerConfetti();
-            if(state.quizMode !== 'exam') state.score++;
+            state.score++;
             if (state.currentQuizKey === 'error_quiz') {
                 const { originalQuizKey, originalIndex } = currentQuestionItem;
                 if (state.incorrectAnswers[originalQuizKey]) {
@@ -360,16 +369,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!state.incorrectAnswers[state.currentQuizKey].includes(originalIndex)) state.incorrectAnswers[state.currentQuizKey].push(originalIndex);
             }
         }
-        if (state.quizMode === 'exam' && isCorrect) state.score++;
         elements.score.textContent = state.score;
 
+        // Lógica de fluxo por modo de jogo
         if (state.quizMode === 'practice' || state.quizMode === 'challenge') {
             showFeedback(isCorrect, questionData.explanation);
-        } else {
-            topCard.classList.add(isCorrect ? 'swipe-correct' : 'swipe-incorrect');
-            topCard.addEventListener('animationend', handleCardSwipe, { once: true });
+        } else { // Modo Prova
+            setTimeout(() => {
+                 topCard.classList.add(isCorrect ? 'swipe-correct' : 'swipe-incorrect');
+                 topCard.addEventListener('animationend', handleCardSwipe, { once: true });
+            }, 300);
         }
     };
+
+    const showFeedback = (isCorrect, explanation) => {
+        elements.feedbackArea.classList.remove('hidden');
+        elements.feedbackTitle.textContent = isCorrect ? "Resposta Correta!" : "Resposta Incorreta!";
+        elements.feedbackTitle.className = `text-lg font-bold ${isCorrect ? 'text-green-700 dark:text-green-400' : 'text-red-700 dark:text-red-400'}`;
+        elements.feedbackArea.className = `feedback-card mt-6 p-4 border-l-4 fade-in ${isCorrect ? 'border-green-500' : 'border-red-500'}`;
+        elements.feedbackIcon.innerHTML = `<i data-lucide="${isCorrect ? 'check-circle' : 'x-circle'}" class="${isCorrect ? 'text-green-600' : 'text-red-600'}"></i>`;
+        elements.explanationText.innerHTML = `<strong>Justificativa:</strong> ${explanation || 'Justificativa não disponível.'}`;
+        lucide.createIcons();
+    };
+    
     const handleCardSwipe = () => {
         state.currentQuestionIndex++;
         if (state.currentQuestionIndex >= state.currentQuizData.length) {
@@ -407,12 +429,12 @@ document.addEventListener('DOMContentLoaded', () => {
         state.currentQuizData.forEach((item, index) => {
             const question = item.questionData;
             const userAnswer = state.userAnswers[index];
-            const isCorrect = userAnswer && userAnswer.trim() === question.answer.trim();
+            const isCorrect = userAnswer && userAnswer.trim() === question.answer;
             const questionElement = document.createElement('div');
             questionElement.className = `review-question-item p-4 rounded-lg ${isCorrect ? 'correct' : 'incorrect'}`;
             let optionsHtml = (question.options || []).map(option => {
                 let classes = 'review-option p-3 mt-2 rounded-md';
-                if (option.trim() === question.answer.trim()) classes += ' correct-answer';
+                if (option.trim() === question.answer) classes += ' correct-answer';
                 if (userAnswer && option.trim() === userAnswer.trim() && !isCorrect) classes += ' user-selected';
                 return `<div class="${classes}">${option}</div>`;
             }).join('');
@@ -450,9 +472,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     options = ['Certo', 'Errado'];
                     answer = q.gabarito.toUpperCase().startsWith('C') ? 'Certo' : 'Errado';
                 } else if (q.alternativas) {
-                    options = q.alternativas.map(alt => alt.text);
+                    options = q.alternativas.map(alt => alt.text.trim().replace(/\.$/, ''));
                     const correctAlternative = q.alternativas.find(alt => alt.key === q.gabarito);
-                    answer = correctAlternative ? correctAlternative.text : '';
+                    answer = correctAlternative ? correctAlternative.text.trim().replace(/\.$/, '') : '';
                 }
                 return { question: enunciado, options, answer, explanation: `Gabarito: ${q.gabarito}.` };
             });
@@ -501,6 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.backToResultsBtn.addEventListener('click', () => showScreen(elements.resultsContainer));
         elements.nextBtn.addEventListener('click', () => {
             const topCard = elements.cardStackContainer.querySelector('.question-card:last-child');
+            if (!topCard) return;
             const isCorrect = topCard.querySelector('.option-btn.correct.selected');
             topCard.classList.add(isCorrect ? 'swipe-correct' : 'swipe-incorrect');
             topCard.addEventListener('animationend', handleCardSwipe, { once: true });
