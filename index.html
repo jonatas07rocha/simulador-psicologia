@@ -17,19 +17,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- Seu CSS externo -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body class="min-h-screen">
+<body class="min-h-screen bg-slate-50 dark:bg-slate-900">
 
     <!-- Cabeçalho Fixo -->
     <header class="app-header sticky top-0 z-50 w-full">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center gap-3">
-                    <i data-lucide="brain-circuit" class="w-8 h-8 text-gray-700 dark:text-gray-200"></i>
-                    <span class="text-xl font-bold text-gray-800 dark:text-white">Simulados de Psicologia</span>
+                    <!-- Ícone SVG Personalizado -->
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-slate-700 dark:text-slate-200">
+                        <path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 22C14.3144 22 16.3454 20.6626 17.3681 18.7993" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 22C9.68561 22 7.6546 20.6626 6.63188 18.7993" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 16C5.64156 14.5348 6.68578 13.2874 8 12.3826" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M19 16C18.3584 14.5348 17.3142 13.2874 16 12.3826" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="text-xl font-bold text-slate-800 dark:text-white">PsicoSimulados</span>
                 </div>
-                <button id="theme-toggle-btn" class="p-2 rounded-full">
+                <button id="theme-toggle-btn" class="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
                     <i data-lucide="sun" class="h-6 w-6 hidden dark:block"></i>
                     <i data-lucide="moon" class="h-6 w-6 block dark:hidden"></i>
                 </button>
@@ -43,14 +51,14 @@
         <!-- Tela de Seleção de Tema -->
         <section id="selection-container" class="fade-in">
             <header class="text-center mb-10">
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-3">Plataforma de Simulados</h1>
-                <p class="text-lg text-gray-600 dark:text-gray-300">Escolha um tema, responda 10 questões e aprimore seus conhecimentos.</p>
+                <h1 class="text-4xl md:text-5xl font-bold text-slate-800 dark:text-white mb-3">Plataforma de Simulados</h1>
+                <p class="text-lg text-slate-600 dark:text-slate-300">Escolha um tema, responda 10 questões e aprimore seus conhecimentos.</p>
             </header>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Cards serão inseridos dinamicamente aqui -->
             </div>
             <div class="text-center mt-10">
-                <button id="clear-history-btn" class="text-sm font-semibold text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-500 transition inline-flex items-center gap-2">
+                <button id="clear-history-btn" class="text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-500 transition inline-flex items-center gap-2">
                     <i data-lucide="trash-2" class="w-4 h-4"></i>
                     Limpar histórico de questões respondidas
                 </button>
@@ -60,23 +68,23 @@
         <!-- Tela de Seleção de Modo -->
         <section id="mode-selection-container" class="hidden fade-in">
             <header class="text-center mb-10">
-                <h1 id="mode-selection-title" class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-3"></h1>
-                <p class="text-lg text-gray-600 dark:text-gray-300">Como você prefere estudar hoje?</p>
+                <h1 id="mode-selection-title" class="text-3xl md:text-4xl font-bold text-slate-800 dark:text-white mb-3"></h1>
+                <p class="text-lg text-slate-600 dark:text-slate-300">Como você prefere estudar hoje?</p>
             </header>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <button data-mode="practice" class="selection-card p-8 text-center">
                     <i data-lucide="swords" class="w-12 h-12 mx-auto mb-4 text-cyan-500"></i>
-                    <h2 class="text-2xl font-bold mb-2 text-gray-800 dark:text-white">Modo Prática</h2>
+                    <h2 class="text-2xl font-bold mb-2 text-slate-800 dark:text-white">Modo Prática</h2>
                     <p class="card-description">Receba feedback instantâneo após cada questão. Ideal para aprender e fixar conteúdo.</p>
                 </button>
                 <button data-mode="exam" class="selection-card p-8 text-center">
                     <i data-lucide="file-text" class="w-12 h-12 mx-auto mb-4 text-amber-500"></i>
-                    <h2 class="text-2xl font-bold mb-2 text-gray-800 dark:text-white">Modo Prova</h2>
+                    <h2 class="text-2xl font-bold mb-2 text-slate-800 dark:text-white">Modo Prova</h2>
                     <p class="card-description">Responda todas as questões e veja seu resultado completo apenas no final. Simule um teste real.</p>
                 </button>
             </div>
              <div class="text-center mt-12">
-                <button id="back-to-theme-selection-btn" class="font-semibold text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition inline-flex items-center gap-2">
+                <button id="back-to-theme-selection-btn" class="font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition inline-flex items-center gap-2">
                     <i data-lucide="arrow-left" class="w-4 h-4"></i>
                     Voltar para Temas
                 </button>
@@ -85,18 +93,18 @@
 
         <!-- Container do Simulado Ativo -->
         <section id="quiz-container" class="main-card hidden">
-            <div id="progress-bar-container" class="h-2 bg-gray-200 dark:bg-gray-700 rounded-t-2xl overflow-hidden">
+            <div id="progress-bar-container" class="h-2 bg-slate-200 dark:bg-slate-700 rounded-t-2xl overflow-hidden">
                 <div id="progress-bar" class="h-full"></div>
             </div>
             <div class="p-6 md:p-8">
-                <header class="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-4 mb-6">
+                <header class="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-4 mb-6">
                     <div>
-                        <h1 id="quiz-title" class="text-2xl font-bold"></h1>
-                        <p id="quiz-subtitle" class="text-sm font-medium text-gray-500 dark:text-gray-400"></p>
+                        <h1 id="quiz-title" class="text-2xl font-bold text-slate-800 dark:text-white"></h1>
+                        <p id="quiz-subtitle" class="text-sm font-medium text-slate-500 dark:text-slate-400"></p>
                     </div>
                     <div class="flex items-center gap-4">
-                        <span id="question-counter" class="font-semibold text-gray-700 dark:text-gray-300" aria-live="polite"></span>
-                        <span class="score-badge inline-flex items-center gap-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-3 py-1 rounded-full text-sm font-semibold">
+                        <span id="question-counter" class="font-semibold text-slate-700 dark:text-slate-300" aria-live="polite"></span>
+                        <span class="score-badge inline-flex items-center gap-1 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 px-3 py-1 rounded-full text-sm font-semibold">
                             <i data-lucide="star" class="w-4 h-4 text-amber-500"></i>
                             Pontos: <span id="score">0</span>
                         </span>
@@ -104,7 +112,7 @@
                 </header>
 
                 <div id="question-area" aria-live="assertive">
-                    <h2 id="question-text" class="text-xl/relaxed md:text-2xl/loose mb-8 min-h-[100px] text-gray-800 dark:text-gray-50"></h2>
+                    <h2 id="question-text" class="text-xl/relaxed md:text-2xl/loose mb-8 min-h-[100px] text-slate-800 dark:text-slate-50"></h2>
                     <div id="options-container" class="grid grid-cols-1 gap-4"></div>
                 </div>
 
@@ -113,11 +121,11 @@
                         <div id="feedback-icon"></div>
                         <h3 id="feedback-title" class="text-lg font-bold"></h3>
                     </div>
-                    <p id="explanation-text" class="mt-2 text-gray-700 dark:text-gray-300"></p>
+                    <p id="explanation-text" class="mt-2 text-slate-700 dark:text-slate-300"></p>
                 </div>
                 
                 <footer class="mt-8 flex justify-between items-center">
-                    <button id="back-to-menu-btn-quiz" class="font-semibold text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition inline-flex items-center gap-2">
+                    <button id="back-to-menu-btn-quiz" class="font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition inline-flex items-center gap-2">
                         <i data-lucide="x" class="w-4 h-4"></i>
                         Sair
                     </button>
@@ -128,17 +136,17 @@
                 </footer>
 
                 <div id="results-area" class="hidden text-center py-8">
-                    <h2 class="text-3xl font-bold mb-4">Simulado Finalizado!</h2>
+                    <h2 class="text-3xl font-bold mb-4 text-slate-800 dark:text-white">Simulado Finalizado!</h2>
                     <div class="relative w-48 h-48 mx-auto my-6">
                         <svg class="w-full h-full" viewBox="0 0 36 36">
-                            <path class="stroke-gray-200 dark:stroke-gray-700" stroke-width="3" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <path class="stroke-slate-200 dark:stroke-slate-700" stroke-width="3" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                             <path id="results-circle" stroke-width="3" fill="none" stroke-linecap="round" transform="rotate(-90 18 18)" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                         </svg>
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <span id="final-score" class="text-4xl font-bold"></span>
+                            <span id="final-score" class="text-4xl font-bold text-slate-800 dark:text-white"></span>
                         </div>
                     </div>
-                    <p class="text-lg mt-6 mb-8" id="final-message"></p>
+                    <p class="text-lg mt-6 mb-8 text-slate-600 dark:text-slate-300" id="final-message"></p>
                     <div class="flex flex-col md:flex-row gap-4 justify-center">
                         <button id="review-answers-btn" class="action-btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md inline-flex items-center gap-2">
                             <i data-lucide="search"></i>
@@ -148,7 +156,7 @@
                             <i data-lucide="rotate-cw"></i>
                             <span>Tentar Novamente</span>
                         </button>
-                        <button id="back-to-menu-btn-results" class="action-btn bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md inline-flex items-center gap-2">
+                        <button id="back-to-menu-btn-results" class="action-btn bg-slate-500 hover:bg-slate-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md inline-flex items-center gap-2">
                             <i data-lucide="home"></i>
                             <span>Menu Principal</span>
                         </button>
@@ -159,9 +167,9 @@
 
         <!-- Tela de Revisão -->
         <section id="review-container" class="main-card hidden p-6 md:p-8">
-            <header class="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-4 mb-6">
-                <h1 class="text-2xl font-bold">Revisão do Simulado</h1>
-                <button id="back-to-results-btn" class="action-btn bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md inline-flex items-center gap-2">
+            <header class="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-4 mb-6">
+                <h1 class="text-2xl font-bold text-slate-800 dark:text-white">Revisão do Simulado</h1>
+                <button id="back-to-results-btn" class="action-btn bg-slate-500 hover:bg-slate-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md inline-flex items-center gap-2">
                     <i data-lucide="arrow-left"></i>
                     <span>Voltar</span>
                 </button>
@@ -172,11 +180,11 @@
 
     <!-- Modal de Notificação -->
     <div id="notification-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-md text-center fade-in">
+        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-xl p-6 w-full max-w-md text-center fade-in">
             <div id="modal-icon" class="mx-auto mb-4"></div>
-            <h3 id="modal-title" class="text-2xl font-bold text-gray-800 dark:text-white mb-2"></h3>
-            <p id="modal-message" class="text-gray-600 dark:text-gray-300 mb-6"></p>
-            <button id="modal-close-btn" class="action-btn bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-lg">Fechar</button>
+            <h3 id="modal-title" class="text-2xl font-bold text-slate-800 dark:text-white mb-2"></h3>
+            <p id="modal-message" class="text-slate-600 dark:text-slate-300 mb-6"></p>
+            <button id="modal-close-btn" class="action-btn bg-slate-500 hover:bg-slate-600 text-white font-semibold py-2 px-6 rounded-lg">Fechar</button>
         </div>
     </div>
 
