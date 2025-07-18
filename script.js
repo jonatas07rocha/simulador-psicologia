@@ -303,9 +303,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Lógica do Baralho ---
     const populateCardStack = () => {
         elements.cardStackContainer.innerHTML = '';
-        const questionsToRender = state.currentQuizData.slice(state.currentQuestionIndex, state.currentQuestionIndex + 3).reverse();
-        questionsToRender.forEach(item => {
-            elements.cardStackContainer.appendChild(createQuestionCard(item.questionData));
+        // Renderiza as 3 primeiras cartas para o efeito de pilha
+        const questionsToRender = state.currentQuizData.slice(0, 3).reverse();
+        questionsToRender.forEach((item, index) => {
+            const card = createQuestionCard(item.questionData);
+            // A carta do topo (última a ser adicionada) é a ativa
+            if (index === questionsToRender.length - 1) {
+                card.dataset.active = "true";
+            }
+            elements.cardStackContainer.appendChild(card);
         });
         updateQuestionCounter();
     };
@@ -328,38 +334,36 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.questionCounter.textContent = `${Math.min(state.currentQuestionIndex + 1, state.currentQuizData.length)} / ${state.currentQuizData.length}`;
     };
     
-    // *** FUNÇÃO DE SELEÇÃO DE RESPOSTA TOTALMENTE REVISADA ***
-    const selectAnswer = (selectedBtn, selectedOption) => {
-        const topCard = elements.cardStackContainer.querySelector('.question-card:last-child');
-        if (!topCard || topCard.dataset.answered) return;
-        topCard.dataset.answered = 'true';
+    // *** FUNÇÃO DE SELEÇÃO DE RESPOSTA CORRIGIDA ***
+    const selectAnswer = (selectedBtn, selectedOptionText) => {
+        const activeCard = document.querySelector('.question-card[data-active="true"]');
+        if (!activeCard || activeCard.dataset.answered) return;
+        activeCard.dataset.answered = 'true';
 
         const currentQuestionItem = state.currentQuizData[state.currentQuestionIndex];
         const questionData = currentQuestionItem.questionData;
-        const isCorrect = selectedOption.trim() === questionData.answer;
-        
-        state.userAnswers[state.currentQuestionIndex] = selectedOption.trim();
+        const selectedAnswer = selectedOptionText.trim();
+        const correctAnswer = questionData.answer;
 
-        // 1. Desabilitar todos os botões e aplicar feedback visual
-        topCard.querySelectorAll('.option-btn').forEach(button => {
+        const isCorrect = selectedAnswer === correctAnswer;
+        state.userAnswers[state.currentQuestionIndex] = selectedAnswer;
+
+        // Feedback visual nos botões
+        activeCard.querySelectorAll('.option-btn').forEach(button => {
             button.disabled = true;
-            if (button.textContent.trim() === questionData.answer) {
+            if (button.textContent.trim() === correctAnswer) {
                 button.classList.add('correct');
             }
         });
-
         if (!isCorrect) {
             selectedBtn.classList.add('incorrect');
         }
 
-        // 2. Atualizar pontuação e registrar erros
+        // Atualizar pontuação e registrar erros
         if (isCorrect) {
-            // A pontuação no modo prova é calculada apenas no final para evitar dar dicas
-            if (state.quizMode !== 'exam') {
-                state.score++;
-                triggerConfetti();
-            }
-            // Remover da lista de erros se acertar
+            if (state.quizMode !== 'exam') state.score++;
+            if (state.quizMode === 'practice') triggerConfetti();
+            
             if (state.currentQuizKey === 'error_quiz') {
                 const { originalQuizKey, originalIndex } = currentQuestionItem;
                 if (state.incorrectAnswers[originalQuizKey]) {
@@ -368,7 +372,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         } else {
-            // Adicionar à lista de erros se errar (e não for o quiz de erros)
             if (state.currentQuizKey !== 'error_quiz') {
                 const { originalIndex } = currentQuestionItem;
                 if (!state.incorrectAnswers[state.currentQuizKey]) state.incorrectAnswers[state.currentQuizKey] = [];
@@ -378,21 +381,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         
-        // Atualiza a pontuação visível (exceto no modo prova)
-        if(state.quizMode !== 'exam') {
-            elements.score.textContent = state.score;
-        }
+        if(state.quizMode !== 'exam') elements.score.textContent = state.score;
 
-        // 3. Controlar o fluxo do quiz
-        if (state.quizMode === 'practice' || (state.quizMode === 'challenge' && !isCorrect)) {
-            // No modo prática, ou se errar no desafio, mostrar feedback e aguardar
+        // Controlar o fluxo do quiz
+        if (state.quizMode === 'practice') {
             showFeedback(isCorrect, questionData.explanation);
         } else {
-            // No modo prova, ou se acertar no desafio, avançar automaticamente
-            setTimeout(() => {
-                topCard.classList.add(isCorrect ? 'swipe-correct' : 'swipe-incorrect');
-                topCard.addEventListener('animationend', handleCardSwipe, { once: true });
-            }, state.quizMode === 'challenge' ? 400 : 800); // Avanço mais rápido no desafio
+            activeCard.dataset.swipeDirection = isCorrect ? 'swipe-correct' : 'swipe-incorrect';
+            setTimeout(() => advanceQuestion(activeCard), 800);
         }
     };
 
@@ -406,30 +402,38 @@ document.addEventListener('DOMContentLoaded', () => {
         lucide.createIcons();
     };
     
-    const handleCardSwipe = () => {
-        state.currentQuestionIndex++;
-        if (state.currentQuestionIndex >= state.currentQuizData.length) {
-            showResults();
-        } else {
-            const swipedCard = elements.cardStackContainer.querySelector('.question-card:last-of-type');
-            if (swipedCard) swipedCard.remove();
-            
-            // Adiciona a próxima carta ao fundo do baralho
-            const nextQuestionToAddIndex = state.currentQuestionIndex + 2;
-            if (nextQuestionToAddIndex < state.currentQuizData.length) {
-                const nextQuestionItem = state.currentQuizData[nextQuestionToAddIndex];
-                const newCard = createQuestionCard(nextQuestionItem.questionData);
-                elements.cardStackContainer.prepend(newCard);
+    const advanceQuestion = (cardToRemove) => {
+        // Aplica a animação de swipe
+        cardToRemove.classList.add(cardToRemove.dataset.swipeDirection || 'swipe-incorrect');
+        
+        // Quando a animação terminar, executa a lógica de avanço
+        cardToRemove.addEventListener('animationend', () => {
+            cardToRemove.remove();
+            state.currentQuestionIndex++;
+
+            if (state.currentQuestionIndex >= state.currentQuizData.length) {
+                showResults();
+            } else {
+                // Ativa a próxima carta no baralho
+                const nextCard = elements.cardStackContainer.querySelector('.question-card:last-child');
+                if(nextCard) nextCard.dataset.active = "true";
+
+                // Adiciona uma nova carta ao fundo para manter o efeito de pilha
+                const nextQuestionToAddIndex = state.currentQuestionIndex + 2;
+                if (nextQuestionToAddIndex < state.currentQuizData.length) {
+                    const nextQuestionItem = state.currentQuizData[nextQuestionToAddIndex];
+                    const newCard = createQuestionCard(nextQuestionItem.questionData);
+                    elements.cardStackContainer.prepend(newCard);
+                }
+                updateQuestionCounter();
             }
-            updateQuestionCounter();
-        }
+        }, { once: true });
     };
 
     // --- Lógica de Resultados e Revisão ---
     const showResults = (reason = 'completed') => {
         if (state.timerInterval) clearInterval(state.timerInterval);
         
-        // No modo prova, a pontuação final é calculada aqui
         if (state.quizMode === 'exam') {
             state.score = 0;
             state.userAnswers.forEach((answer, index) => {
@@ -555,12 +559,11 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.backToMenuBtnResults.addEventListener('click', showMenu);
         elements.backToResultsBtn.addEventListener('click', () => showScreen(elements.resultsContainer));
         elements.nextBtn.addEventListener('click', () => {
-            const topCard = elements.cardStackContainer.querySelector('.question-card:last-child');
-            if (!topCard) return;
-            const isCorrect = topCard.querySelector('.option-btn.incorrect') === null;
-            topCard.classList.add(isCorrect ? 'swipe-correct' : 'swipe-incorrect');
-            topCard.addEventListener('animationend', handleCardSwipe, { once: true });
-            elements.feedbackArea.classList.add('hidden');
+            const activeCard = document.querySelector('.question-card[data-active="true"]');
+            if (activeCard) {
+                elements.feedbackArea.classList.add('hidden');
+                advanceQuestion(activeCard);
+            }
         });
         elements.restartBtn.addEventListener('click', () => {
             if (state.currentQuizKey === 'error_quiz') startErrorQuiz();
