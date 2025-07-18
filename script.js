@@ -303,11 +303,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Lógica do Baralho ---
     const populateCardStack = () => {
         elements.cardStackContainer.innerHTML = '';
-        // Renderiza as 3 primeiras cartas para o efeito de pilha
         const questionsToRender = state.currentQuizData.slice(0, 3).reverse();
         questionsToRender.forEach((item, index) => {
             const card = createQuestionCard(item.questionData);
-            // A carta do topo (última a ser adicionada) é a ativa
             if (index === questionsToRender.length - 1) {
                 card.dataset.active = "true";
             }
@@ -334,7 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.questionCounter.textContent = `${Math.min(state.currentQuestionIndex + 1, state.currentQuizData.length)} / ${state.currentQuizData.length}`;
     };
     
-    // *** FUNÇÃO DE SELEÇÃO DE RESPOSTA CORRIGIDA ***
+    // *** FUNÇÃO DE SELEÇÃO DE RESPOSTA TOTALMENTE REVISADA ***
     const selectAnswer = (selectedBtn, selectedOptionText) => {
         const activeCard = document.querySelector('.question-card[data-active="true"]');
         if (!activeCard || activeCard.dataset.answered) return;
@@ -403,10 +401,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     const advanceQuestion = (cardToRemove) => {
-        // Aplica a animação de swipe
         cardToRemove.classList.add(cardToRemove.dataset.swipeDirection || 'swipe-incorrect');
-        
-        // Quando a animação terminar, executa a lógica de avanço
         cardToRemove.addEventListener('animationend', () => {
             cardToRemove.remove();
             state.currentQuestionIndex++;
@@ -414,11 +409,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (state.currentQuestionIndex >= state.currentQuizData.length) {
                 showResults();
             } else {
-                // Ativa a próxima carta no baralho
                 const nextCard = elements.cardStackContainer.querySelector('.question-card:last-child');
                 if(nextCard) nextCard.dataset.active = "true";
 
-                // Adiciona uma nova carta ao fundo para manter o efeito de pilha
                 const nextQuestionToAddIndex = state.currentQuestionIndex + 2;
                 if (nextQuestionToAddIndex < state.currentQuizData.length) {
                     const nextQuestionItem = state.currentQuizData[nextQuestionToAddIndex];
@@ -504,16 +497,18 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!themeInfo) return;
             const allQuestionsRaw = [...(themeData.questoesDiretoDoConcurso || []), ...(themeData.questoesDeConcurso || [])];
             const formattedQuestions = allQuestionsRaw.map(q => {
-                let options = [], answer = '', source = q.fonte || 'Fonte desconhecida', enunciado = `(${source}) ${q.enunciado}`;
+                let options = [], answer = '', source = q.fonte || 'Fonte desconhecida', enunciado = `(${source}) ${q.enunciado}`, explanation = `Gabarito: ${q.gabarito}.`;
                 if (q.tipo === 'CERTO_ERRADO') {
                     options = ['Certo', 'Errado'];
                     answer = q.gabarito.toUpperCase().startsWith('C') ? 'Certo' : 'Errado';
+                    explanation = `A resposta correta é "${answer}".`;
                 } else if (q.alternativas) {
                     options = q.alternativas.map(alt => alt.text.trim().replace(/\.$/, ''));
                     const correctAlternative = q.alternativas.find(alt => alt.key === q.gabarito);
                     answer = correctAlternative ? correctAlternative.text.trim().replace(/\.$/, '') : '';
+                    explanation = `A alternativa correta é a letra ${q.gabarito.toUpperCase()}.`;
                 }
-                return { question: enunciado, options, answer, explanation: `Gabarito: ${q.gabarito}.` };
+                return { question: enunciado, options, answer, explanation };
             });
             quizzes[themeInfo.key] = { title: themeData.tema, theme: { color: themeInfo.color, icon: themeInfo.icon }, data: formattedQuestions };
         });
@@ -562,6 +557,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const activeCard = document.querySelector('.question-card[data-active="true"]');
             if (activeCard) {
                 elements.feedbackArea.classList.add('hidden');
+                const isCorrect = !activeCard.querySelector('.option-btn.incorrect');
+                activeCard.dataset.swipeDirection = isCorrect ? 'swipe-correct' : 'swipe-incorrect';
                 advanceQuestion(activeCard);
             }
         });
