@@ -328,7 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.questionCounter.textContent = `${Math.min(state.currentQuestionIndex + 1, state.currentQuizData.length)} / ${state.currentQuizData.length}`;
     };
     
-    // *** FUNÇÃO CORRIGIDA ***
+    // *** FUNÇÃO CORRIGIDA E REFINADA ***
     const selectAnswer = (selectedBtn, selectedOption) => {
         const topCard = elements.cardStackContainer.querySelector('.question-card:last-child');
         if (!topCard || topCard.dataset.answered) return;
@@ -336,49 +336,68 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const currentQuestionItem = state.currentQuizData[state.currentQuestionIndex];
         const questionData = currentQuestionItem.questionData;
-        
         const isCorrect = selectedOption.trim() === questionData.answer;
+        
         state.userAnswers[state.currentQuestionIndex] = selectedOption;
 
-        // Desabilita todos os botões e destaca a resposta correta
+        // --- Passo 1: Lidar com o feedback visual nos botões ---
         topCard.querySelectorAll('.option-btn').forEach(button => {
             button.disabled = true;
+            // Sempre destacar a resposta correta em verde
             if (button.textContent.trim() === questionData.answer) {
                 button.classList.add('correct');
             }
         });
 
-        // Destaca a escolha do usuário
-        selectedBtn.classList.add(isCorrect ? 'correct' : 'incorrect');
+        // Se a resposta do usuário estiver incorreta, destacá-la em vermelho
+        if (!isCorrect) {
+            selectedBtn.classList.add('incorrect');
+        }
 
-        // Lógica de pontuação e gravação de erros
+        // --- Passo 2: Atualizar pontuação e registrar erros ---
         if (isCorrect) {
-            if(state.quizMode !== 'exam') triggerConfetti();
             state.score++;
+            if (state.quizMode !== 'exam') {
+                triggerConfetti();
+            }
+            // Se era um erro, removê-lo da lista de erros
             if (state.currentQuizKey === 'error_quiz') {
                 const { originalQuizKey, originalIndex } = currentQuestionItem;
                 if (state.incorrectAnswers[originalQuizKey]) {
                     state.incorrectAnswers[originalQuizKey] = state.incorrectAnswers[originalQuizKey].filter(idx => idx !== originalIndex);
-                    if (state.incorrectAnswers[originalQuizKey].length === 0) delete state.incorrectAnswers[originalQuizKey];
+                    if (state.incorrectAnswers[originalQuizKey].length === 0) {
+                        delete state.incorrectAnswers[originalQuizKey];
+                    }
                 }
             }
         } else {
+            // Se for um novo erro, adicioná-lo à lista de erros
             if (state.currentQuizKey !== 'error_quiz') {
                 const { originalIndex } = currentQuestionItem;
-                if (!state.incorrectAnswers[state.currentQuizKey]) state.incorrectAnswers[state.currentQuizKey] = [];
-                if (!state.incorrectAnswers[state.currentQuizKey].includes(originalIndex)) state.incorrectAnswers[state.currentQuizKey].push(originalIndex);
+                if (!state.incorrectAnswers[state.currentQuizKey]) {
+                    state.incorrectAnswers[state.currentQuizKey] = [];
+                }
+                if (!state.incorrectAnswers[state.currentQuizKey].includes(originalIndex)) {
+                    state.incorrectAnswers[state.currentQuizKey].push(originalIndex);
+                }
             }
         }
-        elements.score.textContent = state.score;
+        
+        // Atualizar a exibição da pontuação (exceto no modo prova)
+        if (state.quizMode !== 'exam') {
+            elements.score.textContent = state.score;
+        }
 
-        // Lógica de fluxo por modo de jogo
+        // --- Passo 3: Controlar o fluxo com base no modo do quiz ---
         if (state.quizMode === 'practice' || state.quizMode === 'challenge') {
+            // No modo prática, mostrar o feedback e esperar o usuário clicar em "Próxima"
             showFeedback(isCorrect, questionData.explanation);
         } else { // Modo Prova
+            // No modo prova, avançar automaticamente para a próxima carta após um curto atraso
             setTimeout(() => {
-                 topCard.classList.add(isCorrect ? 'swipe-correct' : 'swipe-incorrect');
-                 topCard.addEventListener('animationend', handleCardSwipe, { once: true });
-            }, 300);
+                topCard.classList.add(isCorrect ? 'swipe-correct' : 'swipe-incorrect');
+                topCard.addEventListener('animationend', handleCardSwipe, { once: true });
+            }, 400);
         }
     };
 
@@ -524,7 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.nextBtn.addEventListener('click', () => {
             const topCard = elements.cardStackContainer.querySelector('.question-card:last-child');
             if (!topCard) return;
-            const isCorrect = topCard.querySelector('.option-btn.correct.selected');
+            const isCorrect = !!topCard.querySelector('.option-btn.correct.incorrect') === false; // A bit tricky: if the selected is incorrect, it has both classes. We want to check if the selected button is NOT incorrect.
             topCard.classList.add(isCorrect ? 'swipe-correct' : 'swipe-incorrect');
             topCard.addEventListener('animationend', handleCardSwipe, { once: true });
             elements.feedbackArea.classList.add('hidden');
