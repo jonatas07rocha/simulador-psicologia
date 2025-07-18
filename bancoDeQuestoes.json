@@ -1,5 +1,3 @@
-Com certeza! Analisei o documento "Banco de Questões" e extraí todas as informações, estruturando-as em um arquivo JSON. A estrutura preserva a hierarquia dos temas e a formatação de cada questão, incluindo o enunciado, as alternativas e o gabarito correspondente.
-
 ```json
 {
   "bancoDeQuestoes": [
