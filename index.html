@@ -782,18 +782,21 @@
                         question: q.enunciado,
                         options: options,
                         answer: answer,
-                        explanation: `Gabarito: ${q.gabarito}. Fonte: ${q.fonte}` // Adicionando uma explicação padrão
+                        explanation: `Gabarito: ${q.gabarito}. Fonte: ${q.fonte}`
                     };
                 });
 
-                quizzes[themeInfo.key] = {
-                    title: themeData.tema,
-                    theme: {
-                        color: themeInfo.color,
-                        icon: themeInfo.icon
-                    },
-                    data: formattedQuestions
-                };
+                if (!quizzes[themeInfo.key]) {
+                    quizzes[themeInfo.key] = {
+                        title: themeData.tema,
+                        theme: {
+                            color: themeInfo.color,
+                            icon: themeInfo.icon
+                        },
+                        data: []
+                    };
+                }
+                quizzes[themeInfo.key].data.push(...formattedQuestions);
             });
 
             return quizzes;
@@ -801,7 +804,8 @@
 
         const loadQuestions = async () => {
             try {
-                const response = await fetch('bancoDeQuestoes.json');
+                // CORREÇÃO: Usar './' para garantir que o caminho seja relativo ao diretório atual.
+                const response = await fetch('./bancoDeQuestoes.json');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
