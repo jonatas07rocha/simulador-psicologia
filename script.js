@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
         modeSelectionTitle: document.getElementById('mode-selection-title'),
         modeButtons: document.querySelectorAll('[data-mode]'),
         backToThemeBtn: document.getElementById('back-to-theme-selection-btn'),
+        themeProgressContainer: document.getElementById('theme-progress-container'),
+        themeProgressText: document.getElementById('theme-progress-text'),
+        resetThemeProgressBtn: document.getElementById('reset-theme-progress-btn'),
         quizTitle: document.getElementById('quiz-title'),
         quizSubtitle: document.getElementById('quiz-subtitle'),
         questionCounter: document.getElementById('question-counter'),
@@ -56,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const state = {
         allQuestionsData: null,
         reviewDeck: [],
+        answeredQuestions: {}, // NOVO: Armazena IDs de questões respondidas por tema
         currentTheme: null,
         currentMode: null,
         quizQuestions: [],
@@ -109,16 +113,21 @@ document.addEventListener('DOMContentLoaded', () => {
         hideModal();
     };
 
-    // --- Funções de Gerenciamento de Dados (Revisão) --- //
+    // --- Funções de Gerenciamento de Dados (Revisão e Progresso) --- //
     const getQuestionId = (question) => `${question.fonte}-${question.numero}`.toLowerCase().replace(/[\/\s]/g, '-');
 
-    const loadReviewDeck = () => {
+    const loadDataFromStorage = () => {
         try {
-            const deck = localStorage.getItem('reviewDeck');
-            state.reviewDeck = deck ? JSON.parse(deck) : [];
+            const reviewDeck = localStorage.getItem('reviewDeck');
+            state.reviewDeck = reviewDeck ? JSON.parse(reviewDeck) : [];
+            
+            const answeredQuestions = localStorage.getItem('answeredQuestions');
+            state.answeredQuestions = answeredQuestions ? JSON.parse(answeredQuestions) : {};
+
         } catch (e) {
-            console.error("Erro ao carregar o baralho de revisão:", e);
+            console.error("Erro ao carregar dados do localStorage:", e);
             state.reviewDeck = [];
+            state.answeredQuestions = {};
         }
         updateReviewCard();
     };
@@ -126,6 +135,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveReviewDeck = () => {
         localStorage.setItem('reviewDeck', JSON.stringify(state.reviewDeck));
         updateReviewCard();
+    };
+    
+    const saveAnsweredQuestions = () => {
+        localStorage.setItem('answeredQuestions', JSON.stringify(state.answeredQuestions));
     };
 
     const addQuestionToReview = (question) => {
@@ -144,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const requestClearAllHistory = () => {
         showModal(
-            'Limpar Histórico',
+            'Limpar Histórico de Revisão',
             'Você tem certeza que deseja apagar permanentemente todas as questões da sua lista de revisão? Esta ação não pode ser desfeita.',
             { 
                 showCancel: true, 
@@ -167,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function init() {
         setupEventListeners();
         applyTheme(localStorage.getItem('theme') || 'light');
-        loadReviewDeck();
+        loadDataFromStorage();
         
         try {
             const response = await fetch('bancoDeQuestoes.json');
@@ -196,6 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.clearHistoryBtn.addEventListener('click', requestClearAllHistory);
         elements.modeButtons.forEach(btn => btn.addEventListener('click', handleModeSelection));
         elements.backToThemeBtn.addEventListener('click', () => showView('selection-container'));
+        elements.resetThemeProgressBtn.addEventListener('click', requestResetThemeProgress);
         elements.nextBtn.addEventListener('click', goToNextQuestion);
         
         elements.quizContainer.addEventListener('click', (e) => {
@@ -232,6 +246,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const themeIndex = parseInt(card.dataset.themeIndex, 10);
         state.currentTheme = state.allQuestionsData.bancoDeQuestoes[themeIndex];
         elements.modeSelectionTitle.textContent = `${state.currentTheme.tema}`;
+        
+        updateThemeProgressDisplay();
+
         showView('mode-selection-container');
     }
 
@@ -254,13 +271,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function startQuiz() {
+        const themeName = state.currentTheme.tema;
         const allThemeQuestions = [...(state.currentTheme.questoesDiretoDoConcurso || []), ...(state.currentTheme.questoesDeConcurso || [])];
-        if (allThemeQuestions.length < 1) {
-            showModal("Sem Questões", `O tema "${state.currentTheme.tema}" não possui questões disponíveis no momento.`);
+        
+        const answeredIds = new Set(state.answeredQuestions[themeName] || []);
+        const availableQuestions = allThemeQuestions.filter(q => !answeredIds.has(getQuestionId(q)));
+
+        if (availableQuestions.length < 1) {
+            showModal("Parabéns!", `Você concluiu todas as ${allThemeQuestions.length} questões deste tema. Resete o progresso para praticar novamente.`);
             return;
         }
-        const questionsToAsk = Math.min(allThemeQuestions.length, MAX_QUESTIONS_PER_QUIZ);
-        state.quizQuestions = allThemeQuestions.sort(() => 0.5 - Math.random()).slice(0, questionsToAsk);
+
+        const questionsToAsk = Math.min(availableQuestions.length, MAX_QUESTIONS_PER_QUIZ);
+        state.quizQuestions = availableQuestions.sort(() => 0.5 - Math.random()).slice(0, questionsToAsk);
+        
         setupAndLaunchQuiz();
     }
     
@@ -325,7 +349,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const question = state.quizQuestions[state.currentQuestionIndex];
         const userAnswerKey = selectedButton.dataset.key;
         
-        // CORREÇÃO: Extrai apenas o primeiro caractere para a comparação.
         const correctAnswerKey = question.gabarito.toLowerCase().trim().charAt(0);
         
         const isCorrect = userAnswerKey === correctAnswerKey;
@@ -388,6 +411,19 @@ document.addEventListener('DOMContentLoaded', () => {
     function showResults() {
         clearInterval(state.timerId);
         state.timerId = null;
+
+        // Salva o progresso das questões respondidas (exceto no modo de revisão)
+        if (state.currentMode !== 'review') {
+            const themeName = state.currentTheme.tema;
+            if (!state.answeredQuestions[themeName]) {
+                state.answeredQuestions[themeName] = [];
+            }
+            const answeredInThisSessionIds = state.quizQuestions.map(getQuestionId);
+            const newAnsweredIds = answeredInThisSessionIds.filter(id => !state.answeredQuestions[themeName].includes(id));
+            state.answeredQuestions[themeName].push(...newAnsweredIds);
+            saveAnsweredQuestions();
+        }
+
         const scorePercentage = state.quizQuestions.length > 0 ? (state.score / state.quizQuestions.length) * 100 : 0;
         const radius = 15.9155;
         const circumference = 2 * Math.PI * radius;
@@ -414,7 +450,6 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.reviewContent.innerHTML = state.userAnswers.map((answer, index) => {
             const { question, userAnswerKey, isCorrect } = answer;
             
-            // CORREÇÃO: Extrai apenas o primeiro caractere para a comparação.
             const correctAnswerKey = question.gabarito.toLowerCase().trim().charAt(0);
             
             let alternativesHTML;
@@ -467,6 +502,43 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Funções Utilitárias --- //
+    function updateThemeProgressDisplay() {
+        const themeName = state.currentTheme.tema;
+        const allThemeQuestions = [...(state.currentTheme.questoesDiretoDoConcurso || []), ...(state.currentTheme.questoesDeConcurso || [])];
+        const totalCount = allThemeQuestions.length;
+        const answeredCount = state.answeredQuestions[themeName]?.length || 0;
+        const remainingCount = totalCount - answeredCount;
+
+        if (totalCount > 0) {
+            elements.themeProgressText.textContent = `${remainingCount} de ${totalCount} questões disponíveis`;
+            elements.themeProgressContainer.classList.remove('hidden');
+            elements.resetThemeProgressBtn.style.display = answeredCount > 0 ? 'inline-block' : 'none';
+        } else {
+            elements.themeProgressContainer.classList.add('hidden');
+        }
+    }
+
+    const requestResetThemeProgress = () => {
+        showModal(
+            'Resetar Progresso do Tema?',
+            `Isso irá apagar seu progresso para o tema "${state.currentTheme.tema}", permitindo que você responda todas as questões novamente. Deseja continuar?`,
+            {
+                showCancel: true,
+                confirmText: 'Sim, resetar',
+                onConfirm: resetThemeProgress
+            }
+        );
+    };
+
+    const resetThemeProgress = () => {
+        const themeName = state.currentTheme.tema;
+        if (state.answeredQuestions[themeName]) {
+            delete state.answeredQuestions[themeName];
+            saveAnsweredQuestions();
+            updateThemeProgressDisplay();
+        }
+    };
+
     function applyTheme(theme) {
         document.documentElement.classList.toggle('dark', theme === 'dark');
         localStorage.setItem('theme', theme);
