@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Estado da Aplicação ---
     const state = {
         allQuestionsData: null,
-        reviewDeck: [],
+        reviewDeck: [], // Agora armazena apenas IDs
         currentTheme: null,
         currentMode: null,
         quizQuestions: [],
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn("Tone.js não pôde ser inicializado. O feedback de áudio está desativado.");
     }
 
-    // --- Lógica de Persistência (LocalStorage) ---
+    // --- Lógica de Persistência (LocalStorage) - APRIMORADA ---
     const getQuestionId = (question) => `${question.fonte}-${question.numero}`.toLowerCase().replace(/[\/\s]/g, '-');
 
     const loadReviewDeck = () => {
@@ -87,15 +87,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const addQuestionToReview = (question) => {
         const questionId = getQuestionId(question);
-        if (!state.reviewDeck.some(item => getQuestionId(item) === questionId)) {
-            state.reviewDeck.push(question);
+        if (!state.reviewDeck.includes(questionId)) {
+            state.reviewDeck.push(questionId);
         }
         saveReviewDeck();
     };
 
     const removeQuestionFromReview = (question) => {
         const questionId = getQuestionId(question);
-        state.reviewDeck = state.reviewDeck.filter(item => getQuestionId(item) !== questionId);
+        state.reviewDeck = state.reviewDeck.filter(id => id !== questionId);
         saveReviewDeck();
     };
     
@@ -182,7 +182,17 @@ document.addEventListener('DOMContentLoaded', () => {
     function startReviewSession() {
         state.currentMode = 'review';
         state.currentTheme = { tema: "Revisão" };
-        state.quizQuestions = [...state.reviewDeck].sort(() => 0.5 - Math.random());
+
+        const allQuestionsFlat = state.allQuestionsData.bancoDeQuestoes.flatMap(theme => [
+            ...(theme.questoesDiretoDoConcurso || []),
+            ...(theme.questoesDeConcurso || [])
+        ]);
+
+        state.quizQuestions = state.reviewDeck
+            .map(id => allQuestionsFlat.find(q => getQuestionId(q) === id))
+            .filter(Boolean) // Remove nulos caso uma questão não seja encontrada
+            .sort(() => 0.5 - Math.random());
+            
         if (state.quizQuestions.length === 0) {
             alert("Não há questões na sua lista de revisão.");
             return;
@@ -309,17 +319,97 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo(0, 0);
     }
     
-    // --- Funções de Renderização de Telas ---
-    function renderThemeSelection() { /* ... (sem alterações) ... */ }
-    function showResults() { /* ... (sem alterações) ... */ }
-    function renderReview() { /* ... (sem alterações) ... */ }
+    function renderThemeSelection() {
+        const themeCardsHTML = state.allQuestionsData.bancoDeQuestoes.map((themeData, index) => {
+            const totalQuestions = (themeData.questoesDiretoDoConcurso?.length || 0) + (themeData.questoesDeConcurso?.length || 0);
+            const iconName = THEME_ICONS[index % THEME_ICONS.length];
+            const iconColor = THEME_COLORS[index % THEME_COLORS.length];
+            return `<div class="selection-card theme-card p-6" data-theme-index="${index}"><i data-lucide="${iconName}" class="w-10 h-10 mb-4 ${iconColor}"></i><h2 class="text-xl font-bold mb-2 text-center text-gray-800 dark:text-white">${themeData.tema}</h2><p class="card-description text-sm">${totalQuestions} questões disponíveis</p></div>`;
+        }).join('');
+        elements.selectionGrid.querySelectorAll('.theme-card').forEach(card => card.remove());
+        elements.selectionGrid.insertAdjacentHTML('beforeend', themeCardsHTML);
+        lucide.createIcons();
+    }
     
-    // --- Funções Utilitárias ---
-    function applyTheme(theme) { /* ... (sem alterações) ... */ }
-    function toggleTheme() { /* ... (sem alterações) ... */ }
-    function startTimer() { /* ... (sem alterações) ... */ }
-    function updateTimerDisplay() { /* ... (sem alterações) ... */ }
-    function triggerConfetti() { /* ... (sem alterações) ... */ }
+    function showResults() {
+        clearInterval(state.timerId);
+        state.timerId = null;
+        const scorePercentage = state.quizQuestions.length > 0 ? (state.score / state.quizQuestions.length) * 100 : 0;
+        const radius = 15.9155;
+        const circumference = 2 * Math.PI * radius;
+        const offset = circumference - (scorePercentage / 100) * circumference;
+        elements.resultsCircle.style.strokeDasharray = circumference;
+        setTimeout(() => { elements.resultsCircle.style.strokeDashoffset = offset; }, 100);
+        elements.finalScore.textContent = `${Math.round(scorePercentage)}%`;
+        let message = "Continue praticando para melhorar!";
+        if (scorePercentage >= 90) {
+            message = "Excelente desempenho! Você está no caminho certo!";
+            triggerConfetti();
+        } else if (scorePercentage >= 70) {
+            message = "Ótimo resultado! Você está quase lá.";
+        } else if (scorePercentage >= 50) {
+            message = "Bom esforço! A prática leva à perfeição.";
+        }
+        elements.finalMessage.textContent = message;
+        showView('results-container');
+    }
+    
+    function renderReview() {
+        elements.reviewContent.innerHTML = state.userAnswers.map((answer, index) => {
+            const { question, userAnswerKey, isCorrect } = answer;
+            const gabaritoFormatado = question.gabarito.toLowerCase().trim();
+            const correctAnswerKey = gabaritoFormatado.startsWith('c') ? 'c' : gabaritoFormatado.startsWith('e') ? 'e' : gabaritoFormatado;
+            let alternativesHTML;
+            if (question.tipo === 'CERTO_ERRADO') {
+                alternativesHTML = `<p class="p-3 rounded-lg ${'c' === correctAnswerKey ? 'bg-green-100 dark:bg-green-900/50 font-bold' : ''} ${'c' === userAnswerKey && !isCorrect ? 'bg-red-100 dark:bg-red-900/50 line-through' : ''}">C) Certo</p><p class="p-3 rounded-lg ${'e' === correctAnswerKey ? 'bg-green-100 dark:bg-green-900/50 font-bold' : ''} ${'e' === userAnswerKey && !isCorrect ? 'bg-red-100 dark:bg-red-900/50 line-through' : ''}">E) Errado</p>`;
+            } else {
+                alternativesHTML = question.alternativas.map(alt => {
+                    const isUserAnswer = alt.key === userAnswerKey;
+                    const isCorrectAnswer = alt.key === correctAnswerKey;
+                    let classes = "p-3 rounded-lg";
+                    if (isCorrectAnswer) classes += " bg-green-100 dark:bg-green-900/50 font-bold";
+                    if (isUserAnswer && !isCorrect) classes += " bg-red-100 dark:bg-red-900/50 line-through";
+                    return `<p class="${classes}">${alt.key.toUpperCase()}) ${alt.text}</p>`;
+                }).join('');
+            }
+            return `<div class="border-b border-gray-200 dark:border-gray-700 pb-6"><p class="font-bold mb-2">Questão ${index + 1}: ${isCorrect ? '<span class="text-green-500">Correta</span>' : '<span class="text-red-500">Incorreta</span>'}</p><p class="text-gray-600 dark:text-gray-300 mb-4">${question.enunciado}</p><div class="space-y-2 text-sm">${alternativesHTML}</div></div>`;
+        }).join('');
+        showView('review-container');
+    }
+    
+    function applyTheme(theme) {
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+        localStorage.setItem('theme', theme);
+        lucide.createIcons();
+    }
+
+    function toggleTheme() {
+        const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    }
+
+    function startTimer() {
+        clearInterval(state.timerId);
+        state.timeLeft = state.quizQuestions.length * CHALLENGE_TIME_PER_QUESTION;
+        updateTimerDisplay();
+        state.timerId = setInterval(() => {
+            state.timeLeft--;
+            updateTimerDisplay();
+            if (state.timeLeft <= 0) showResults();
+        }, 1000);
+    }
+    
+    function updateTimerDisplay() {
+        const minutes = Math.floor(state.timeLeft / 60).toString().padStart(2, '0');
+        const seconds = (state.timeLeft % 60).toString().padStart(2, '0');
+        elements.timer.textContent = `${minutes}:${seconds}`;
+    }
+    
+    function triggerConfetti() {
+        if (window.confetti) {
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        }
+    }
 
     init();
 });
