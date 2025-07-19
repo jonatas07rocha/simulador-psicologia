@@ -198,7 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.backToThemeBtn.addEventListener('click', () => showView('selection-container'));
         elements.nextBtn.addEventListener('click', goToNextQuestion);
         
-        // Event delegation for the quit button inside the quiz
         elements.quizContainer.addEventListener('click', (e) => {
             if (e.target.closest('#back-to-menu-btn-quiz')) {
                 quitQuiz();
@@ -307,7 +306,6 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>`;
         elements.cardStackContainer.innerHTML = cardHTML;
 
-        // Animação de entrada
         setTimeout(() => {
             const card = elements.cardStackContainer.querySelector('.quiz-card');
             if(card) card.classList.remove('card-enter');
@@ -326,7 +324,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const question = state.quizQuestions[state.currentQuestionIndex];
         const userAnswerKey = selectedButton.dataset.key;
-        const correctAnswerKey = question.gabarito.toLowerCase().trim();
+        
+        // CORREÇÃO: Extrai apenas o primeiro caractere para a comparação.
+        const correctAnswerKey = question.gabarito.toLowerCase().trim().charAt(0);
+        
         const isCorrect = userAnswerKey === correctAnswerKey;
 
         state.userAnswers.push({ question, userAnswerKey, isCorrect });
@@ -412,7 +413,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderReview() {
         elements.reviewContent.innerHTML = state.userAnswers.map((answer, index) => {
             const { question, userAnswerKey, isCorrect } = answer;
-            const correctAnswerKey = question.gabarito.toLowerCase().trim();
+            
+            // CORREÇÃO: Extrai apenas o primeiro caractere para a comparação.
+            const correctAnswerKey = question.gabarito.toLowerCase().trim().charAt(0);
+            
             let alternativesHTML;
             if (question.tipo === 'CERTO_ERRADO') {
                 alternativesHTML = `
