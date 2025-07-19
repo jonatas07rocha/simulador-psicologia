@@ -137,7 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderThemeSelection() {
         const themes = state.allQuestions.bancoDeQuestoes;
         elements.selectionGrid.innerHTML = themes.map((themeData, index) => {
-            // LINHA CORRIGIDA: Adicionado 'optional chaining' (?.) e '|| 0' para segurança
             const totalQuestions = (themeData.questoesDiretoDoConcurso?.length || 0) + (themeData.questoesDeConcurso?.length || 0);
             
             return `
@@ -289,6 +288,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function goToNextQuestion() {
+        // *** LINHA ADICIONADA PARA A CORREÇÃO ***
+        elements.feedbackArea.classList.add('hidden');
+
         const card = document.querySelector('.quiz-card');
         if (card) {
             card.classList.add('card-exit');
