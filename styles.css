@@ -64,11 +64,10 @@ body {
     border-radius: 0.75rem;
     border: 1px solid #e5e7eb; /* cinza-200 */
     transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s;
-    cursor: pointer;
-    display: flex; /* Adicionado para layout com ícone */
-    flex-direction: column; /* Adicionado */
-    align-items: center; /* Adicionado */
-    justify-content: center; /* Adicionado */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 .selection-card:hover {
     transform: translateY(-5px);
@@ -114,54 +113,51 @@ body {
     border-radius: 1rem;
     padding: 1.5rem 2rem;
     box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-    border: 1px solid #e5e7eb; /* cinza-200 */
+    border: 1px solid #e5e7eb;
     transform-origin: bottom center;
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    /* *** ADICIONADO PARA CORRIGIR SOBREPOSIÇÃO *** */
     max-height: 60vh;
     overflow-y: auto;
 }
 
 .dark .quiz-card {
-    background-color: #1f2937; /* cinza-800 */
-    border-color: #374151; /* cinza-700 */
+    background-color: #1f2937;
+    border-color: #374151;
 }
 
-/* Estilo para simular o baralho */
 #card-stack-container {
     position: relative;
-    min-height: 400px; /* Garante espaço para a carta */
+    min-height: 400px;
 }
 #card-stack-container .quiz-card {
     position: absolute;
     width: 100%;
 }
 
-/* Animação de saída da carta */
 .card-exit {
     transform: translateY(-150%) rotate(15deg) scale(0.8);
     opacity: 0;
 }
 
 .answer-btn {
-    background-color: #f3f4f6; /* cinza-100 */
-    border: 1px solid #d1d5db; /* cinza-300 */
+    background-color: #f3f4f6;
+    border: 1px solid #d1d5db;
     transition: background-color 0.2s, border-color 0.2s, color 0.2s;
 }
 
 .answer-btn:hover:not(:disabled) {
-    background-color: #dbeafe; /* azul-100 */
-    border-color: #93c5fd; /* azul-300 */
+    background-color: #dbeafe;
+    border-color: #93c5fd;
 }
 
 .dark .answer-btn {
-    background-color: #374151; /* cinza-700 */
-    border-color: #4b5563; /* cinza-600 */
+    background-color: #374151;
+    border-color: #4b5563;
 }
 
 .dark .answer-btn:hover:not(:disabled) {
-    background-color: #1e40af; /* azul-800 */
-    border-color: #2563eb; /* azul-600 */
+    background-color: #1e40af;
+    border-color: #2563eb;
 }
 
 .answer-btn:disabled {
@@ -170,44 +166,49 @@ body {
 }
 
 .answer-btn.correct {
-    background-color: #dcfce7 !important; /* verde-100 */
-    border-color: #4ade80 !important; /* verde-400 */
-    color: #15803d !important; /* verde-700 */
+    background-color: #dcfce7 !important;
+    border-color: #4ade80 !important;
+    color: #15803d !important;
 }
 .dark .answer-btn.correct {
-    background-color: #14532d !important; /* verde-900 */
-    border-color: #22c55e !important; /* verde-500 */
-    color: #bbf7d0 !important; /* verde-200 */
+    background-color: #14532d !important;
+    border-color: #22c55e !important;
+    color: #bbf7d0 !important;
 }
 
 .answer-btn.incorrect {
-    background-color: #fee2e2 !important; /* vermelho-100 */
-    border-color: #f87171 !important; /* vermelho-400 */
-    color: #b91c1c !important; /* vermelho-700 */
+    background-color: #fee2e2 !important;
+    border-color: #f87171 !important;
+    color: #b91c1c !important;
 }
 .dark .answer-btn.incorrect {
-    background-color: #7f1d1d !important; /* vermelho-900 */
-    border-color: #ef4444 !important; /* vermelho-500 */
-    color: #fecaca !important; /* vermelho-200 */
+    background-color: #7f1d1d !important;
+    border-color: #ef4444 !important;
+    color: #fecaca !important;
 }
 
 /* --- Feedback e Ações --- */
-.feedback-card.correct {
-    border-color: #22c55e; /* verde-500 */
-    background-color: #f0fdf4; /* verde-50 */
+#feedback-footer {
+    transform: translateY(100%);
+    transition: transform 0.3s ease-out;
 }
-.dark .feedback-card.correct {
-    border-color: #22c55e;
-    background-color: #16653433;
+#feedback-footer.visible {
+    transform: translateY(0);
+}
+#feedback-area {
+    background-color: white;
+    box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
+}
+.dark #feedback-area {
+    background-color: #1f2937;
+    box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
 }
 
-.feedback-card.incorrect {
-    border-color: #ef4444; /* vermelho-500 */
-    background-color: #fef2f2; /* vermelho-50 */
+.feedback-card.correct {
+    border-color: #22c55e;
 }
-.dark .feedback-card.incorrect {
+.feedback-card.incorrect {
     border-color: #ef4444;
-    background-color: #991b1b33;
 }
 
 .action-btn {
@@ -221,19 +222,19 @@ body {
 }
 
 #next-btn {
-    background-color: #2563eb; /* azul-600 */
+    background-color: #2563eb;
 }
 #next-btn:hover {
-    background-color: #1d4ed8; /* azul-700 */
+    background-color: #1d4ed8;
 }
 
 /* --- Gráfico de Resultados --- */
 #results-circle {
-    stroke: #3b82f6; /* azul-500 */
+    stroke: #3b82f6;
     transition: stroke-dashoffset 1s ease-out;
 }
 .dark #results-circle {
-    stroke: #60a5fa; /* azul-400 */
+    stroke: #60a5fa;
 }
 
 
