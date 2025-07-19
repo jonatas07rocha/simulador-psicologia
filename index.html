@@ -36,7 +36,6 @@
     <header class="app-header sticky top-0 z-50 w-full">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <!-- *** ALTERAÇÃO FEITA AQUI: Título agora é clicável *** -->
                 <div id="home-link" class="flex items-center gap-3 cursor-pointer group">
                     <i data-lucide="brain-cog" class="w-8 h-8 text-gray-700 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"></i>
                     <span class="text-xl font-bold text-gray-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Simulados de Psicologia</span>
@@ -63,11 +62,26 @@
         <section id="selection-container" class="hidden fade-in">
             <header class="text-center mb-10">
                 <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 dark:text-white mb-3">Plataforma de Simulados</h1>
-                <p class="text-lg text-gray-600 dark:text-gray-300">Escolha um tema, responda 10 questões e aprimore seus conhecimentos.</p>
+                <p class="text-lg text-gray-600 dark:text-gray-300">Escolha um tema ou revise as questões que você errou.</p>
             </header>
+            
+            <!-- Grid para os Cards de Seleção -->
             <div id="selection-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Cards de seleção serão inseridos dinamicamente aqui -->
+                
+                <!-- Card de Revisão (será mostrado/oculto via JS) -->
+                <div id="review-card" class="selection-card p-6 border-2 border-purple-500/50 hover:border-purple-500 hidden col-span-1 md:col-span-2 cursor-pointer">
+                    <div class="flex items-center gap-4 w-full">
+                        <i data-lucide="history" class="w-10 h-10 text-purple-500 flex-shrink-0"></i>
+                        <div class="text-left">
+                            <h2 class="text-xl font-bold mb-1 text-gray-800 dark:text-white">Revisar Questões Erradas</h2>
+                            <p class="card-description text-sm"><span id="review-count">0</span> questões para revisar</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cards de tema serão inseridos dinamicamente aqui -->
             </div>
+
             <div class="text-center mt-10">
                 <button id="clear-history-btn" class="text-sm font-semibold text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-500 transition inline-flex items-center gap-2">
                     <i data-lucide="trash-2" class="w-4 h-4"></i>
@@ -86,17 +100,17 @@
                 <button data-mode="practice" class="selection-card p-6 text-center">
                     <i data-lucide="swords" class="w-10 h-10 mx-auto mb-4 text-cyan-500"></i>
                     <h2 class="text-xl font-bold mb-2 text-gray-800 dark:text-white">Modo Prática</h2>
-                    <p class="card-description">Feedback instantâneo após cada questão.</p>
+                    <p class="card-description">Feedback instantâneo.</p>
                 </button>
                 <button data-mode="exam" class="selection-card p-6 text-center">
                     <i data-lucide="file-text" class="w-10 h-10 mx-auto mb-4 text-amber-500"></i>
                     <h2 class="text-xl font-bold mb-2 text-gray-800 dark:text-white">Modo Prova</h2>
-                    <p class="card-description">Resultado completo apenas no final.</p>
+                    <p class="card-description">Resultado no final.</p>
                 </button>
                 <button data-mode="challenge" class="selection-card p-6 text-center">
                     <i data-lucide="timer" class="w-10 h-10 mx-auto mb-4 text-violet-500"></i>
                     <h2 class="text-xl font-bold mb-2 text-gray-800 dark:text-white">Modo Desafio</h2>
-                    <p class="card-description">Responda contra o relógio.</p>
+                    <p class="card-description">Contra o relógio.</p>
                 </button>
             </div>
              <div class="text-center mt-12">
@@ -199,7 +213,7 @@
         </section>
     </main>
 
-    <!-- Modal de Notificação (Este foi removido do script, mas pode ser reativado se necessário) -->
+    <!-- Modal de Notificação -->
     <div id="notification-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-md text-center fade-in-modal">
             <div id="modal-icon" class="mx-auto mb-4"></div>
