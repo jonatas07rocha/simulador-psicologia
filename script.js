@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // *** NOVO: Arrays de ícones e cores para os temas ***
+    const THEME_ICONS = ['scale', 'brain-circuit', 'brain-cog', 'graduation-cap', 'book-check', 'history'];
+    const THEME_COLORS = ['text-cyan-500', 'text-amber-500', 'text-violet-500', 'text-emerald-500', 'text-pink-500', 'text-sky-500'];
+
     // --- Referências aos Elementos do DOM ---
     const elements = {
         loader: document.getElementById('loader'),
@@ -104,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.modeButtons.forEach(btn => btn.addEventListener('click', handleModeSelection));
         elements.backToThemeBtn.addEventListener('click', () => showView('selection-container'));
         elements.nextBtn.addEventListener('click', goToNextQuestion);
-        elements.quitQuizBtn.addEventListener('click', quitQuiz); // Usando a nova função
+        elements.quitQuizBtn.addEventListener('click', quitQuiz);
         elements.restartBtn.addEventListener('click', startQuiz);
         elements.backToMenuResultsBtn.addEventListener('click', () => showView('selection-container'));
         elements.reviewAnswersBtn.addEventListener('click', renderReview);
@@ -128,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
             activeView.classList.remove('hidden');
             activeView.classList.add('fade-in');
         }
-        window.scrollTo(0, 0); // Rola a página para o topo ao mudar de tela
+        window.scrollTo(0, 0);
     }
     
     function quitQuiz() {
@@ -145,22 +149,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Lógica de Seleção de Tema e Modo ---
-
+    
+    // *** FUNÇÃO ATUALIZADA PARA USAR OS ARRAYS DE ÍCONES E CORES ***
     function renderThemeSelection() {
         const themes = state.allQuestions.bancoDeQuestoes;
         elements.selectionGrid.innerHTML = themes.map((themeData, index) => {
             const totalQuestions = (themeData.questoesDiretoDoConcurso?.length || 0) + (themeData.questoesDeConcurso?.length || 0);
-            const iconName = themeData.icon || 'book-open'; // Ícone padrão
+            
+            // Pega o ícone e a cor da lista, usando o índice do tema
+            const iconName = THEME_ICONS[index % THEME_ICONS.length];
+            const iconColor = THEME_COLORS[index % THEME_COLORS.length];
             
             return `
                 <div class="selection-card p-6" data-theme-index="${index}">
-                    <i data-lucide="${iconName}" class="w-10 h-10 mb-4 text-blue-500"></i>
+                    <i data-lucide="${iconName}" class="w-10 h-10 mb-4 ${iconColor}"></i>
                     <h2 class="text-xl font-bold mb-2 text-center text-gray-800 dark:text-white">${themeData.tema}</h2>
                     <p class="card-description text-sm">${totalQuestions} questões disponíveis</p>
                 </div>
             `;
         }).join('');
-        lucide.createIcons(); // Renderiza os ícones
+        lucide.createIcons();
     }
 
     function handleThemeSelection(e) {
