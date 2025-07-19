@@ -1,523 +1,212 @@
-document.addEventListener('DOMContentLoaded', () => {
-
-    // --- Configurações Iniciais ---
-    const THEME_ICONS = ['scale', 'brain-circuit', 'brain-cog', 'graduation-cap', 'book-check', 'history'];
-    const THEME_COLORS = ['text-cyan-500', 'text-amber-500', 'text-violet-500', 'text-emerald-500', 'text-pink-500', 'text-sky-500'];
-    const TOTAL_QUESTIONS = 10;
-    const CHALLENGE_TIME_PER_QUESTION = 20;
-
-    // --- Referências ao DOM ---
-    const elements = { /* ... (mesmos elementos de antes, o script os encontrará) ... */ };
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Simulados de Psicologia | Versão Aprimorada</title>
     
-    // --- Estado da Aplicação ---
-    const state = { /* ... (mesmo estado de antes) ... */ };
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     
-    // --- NOVO: Sintetizadores de Áudio ---
-    let correctSound, incorrectSound;
-    try {
-        correctSound = new Tone.Synth().toDestination();
-        incorrectSound = new Tone.Synth().toDestination();
-    } catch (e) {
-        console.warn("Tone.js não pôde ser inicializado. O feedback de áudio está desativado.");
-    }
+    <!-- Biblioteca de Ícones Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Biblioteca de Confetes -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    
+    <!-- Biblioteca de Áudio Tone.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
+    
+    <!-- Fonte Google Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    // --- Lógica de Persistência (LocalStorage) ---
-    // ... (permanece a mesma) ...
+    <!-- Seu CSS externo -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="min-h-screen overflow-x-hidden">
+    <!-- Canvas para Confetes -->
+    <canvas id="confetti-canvas"></canvas>
 
-    // --- Lógica do Quiz ---
+    <!-- Indicador de Carregamento -->
+    <div id="loader" class="fixed inset-0 bg-white dark:bg-gray-900 flex flex-col items-center justify-center z-[100]">
+        <div class="loader-spinner"></div>
+        <p class="mt-4 text-gray-600 dark:text-gray-300">Carregando questões...</p>
+    </div>
 
-    function handleAnswerClick(e) {
-        // ... (início da função permanece o mesmo) ...
+    <!-- Cabeçalho Fixo -->
+    <header class="app-header sticky top-0 z-50 w-full">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div id="home-link" class="flex items-center gap-3 cursor-pointer group">
+                    <i data-lucide="brain-cog" class="w-8 h-8 text-gray-700 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"></i>
+                    <span class="text-xl font-bold text-gray-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Simulados de Psicologia</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button id="theme-toggle-btn" class="p-2 rounded-full">
+                        <i data-lucide="sun" class="h-6 w-6 hidden dark:block"></i>
+                        <i data-lucide="moon" class="h-6 w-6 block dark:hidden"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Container Principal da Aplicação -->
+    <main id="app-container" class="w-full max-w-xl mx-auto my-8 md:my-12 px-4 pb-32">
         
-        // *** BUG CORRIGIDO AQUI ***
-        const gabaritoFormatado = question.gabarito.toLowerCase().trim();
-        const correctAnswerKey = gabaritoFormatado.startsWith('c') ? 'c' 
-                               : gabaritoFormatado.startsWith('e') ? 'e' 
-                               : gabaritoFormatado;
-
-        const isCorrect = userAnswerKey === correctAnswerKey;
-        
-        state.userAnswers.push({ question, userAnswerKey, isCorrect });
-
-        if (isCorrect) {
-            state.score++;
-            elements.score.textContent = state.score;
-            selectedButton.classList.add('correct');
-            triggerConfetti();
-            correctSound?.triggerAttackRelease("C5", "8n"); // Toca som de acerto
-
-            if (state.currentMode === 'review') {
-                removeQuestionFromReview(question);
-            }
-        } else {
-            selectedButton.classList.add('incorrect');
-            const correctButton = answerContainer.querySelector(`[data-key="${correctAnswerKey}"]`);
-            if (correctButton) correctButton.classList.add('correct');
-            incorrectSound?.triggerAttackRelease("C3", "8n"); // Toca som de erro
+        <!-- Tela de Seleção de Tema -->
+        <section id="selection-container" class="hidden fade-in">
+            <header class="text-center mb-10">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 dark:text-white mb-3">Plataforma de Simulados</h1>
+                <p class="text-lg text-gray-600 dark:text-gray-300">Escolha um tema ou revise as questões que você errou.</p>
+            </header>
             
-            if (state.currentMode !== 'review') {
-                addQuestionToReview(question);
-            }
-        }
-
-        const effectiveMode = state.currentMode === 'review' ? 'practice' : state.currentMode;
-        if (effectiveMode === 'practice') {
-            showFeedback(isCorrect, question.gabarito);
-        } else {
-            setTimeout(goToNextQuestion, 1200);
-        }
-    }
-
-    // --- ATUALIZADO: Funções de Feedback e Navegação ---
-
-    function showFeedback(isCorrect, correctAnswer) {
-        const footer = document.getElementById('feedback-footer');
-        const area = document.getElementById('feedback-area');
-        
-        area.classList.remove('correct', 'incorrect');
-        area.classList.add(isCorrect ? 'correct' : 'incorrect');
-
-        document.getElementById('feedback-icon').innerHTML = isCorrect 
-            ? `<i data-lucide="check-circle-2" class="w-8 h-8 text-green-600"></i>`
-            : `<i data-lucide="x-circle" class="w-8 h-8 text-red-600"></i>`;
-        
-        document.getElementById('feedback-title').textContent = isCorrect ? 'Resposta Correta!' : 'Resposta Incorreta!';
-        document.getElementById('explanation-text').textContent = isCorrect ? 'Muito bem! Continue assim.' : `A resposta correta era: ${correctAnswer}`;
-        
-        footer.classList.add('visible'); // Mostra o rodapé
-        lucide.createIcons();
-    }
-
-    function goToNextQuestion() {
-        document.getElementById('feedback-footer').classList.remove('visible'); // Esconde o rodapé
-        const card = document.querySelector('.quiz-card');
-        if (card) card.classList.add('card-exit');
-        
-        setTimeout(() => {
-            state.currentQuestionIndex++;
-            if (state.currentQuestionIndex < state.quizQuestions.length) {
-                renderCurrentQuestion();
-            } else {
-                showResults();
-            }
-        }, 500);
-    }
-    
-    // ... (Restante do código JS permanece o mesmo da versão anterior) ...
-    // O código completo é muito longo, mas as alterações principais estão destacadas acima.
-    // O ideal é substituir o arquivo inteiro pelo código completo da resposta anterior, e então aplicar estas mudanças pontuais.
-    
-    // Para facilitar, aqui está o código completo novamente com todas as correções e novas funcionalidades.
-    
-    // ***************************************************************
-    // ***** INÍCIO DO CÓDIGO COMPLETO PARA SUBSTITUIÇÃO DO script.js *****
-    // ***************************************************************
-
-    document.addEventListener('DOMContentLoaded', () => {
-
-        const THEME_ICONS = ['scale', 'brain-circuit', 'brain-cog', 'graduation-cap', 'book-check', 'history'];
-        const THEME_COLORS = ['text-cyan-500', 'text-amber-500', 'text-violet-500', 'text-emerald-500', 'text-pink-500', 'text-sky-500'];
-    
-        const elements = {
-            loader: document.getElementById('loader'),
-            homeLink: document.getElementById('home-link'),
-            selectionContainer: document.getElementById('selection-container'),
-            modeSelectionContainer: document.getElementById('mode-selection-container'),
-            quizContainer: document.getElementById('quiz-container'),
-            resultsContainer: document.getElementById('results-container'),
-            reviewContainer: document.getElementById('review-container'),
-            selectionGrid: document.getElementById('selection-grid'),
-            reviewCard: document.getElementById('review-card'),
-            reviewCount: document.getElementById('review-count'),
-            clearHistoryBtn: document.getElementById('clear-history-btn'),
-            modeSelectionTitle: document.getElementById('mode-selection-title'),
-            modeButtons: document.querySelectorAll('[data-mode]'),
-            backToThemeBtn: document.getElementById('back-to-theme-selection-btn'),
-            quizTitle: document.getElementById('quiz-title'),
-            quizSubtitle: document.getElementById('quiz-subtitle'),
-            questionCounter: document.getElementById('question-counter'),
-            score: document.getElementById('score'),
-            timerContainer: document.getElementById('timer-container'),
-            timer: document.getElementById('timer'),
-            cardStackContainer: document.getElementById('card-stack-container'),
-            feedbackFooter: document.getElementById('feedback-footer'),
-            feedbackArea: document.getElementById('feedback-area'),
-            feedbackIcon: document.getElementById('feedback-icon'),
-            feedbackTitle: document.getElementById('feedback-title'),
-            explanationText: document.getElementById('explanation-text'),
-            nextBtn: document.getElementById('next-btn'),
-            quitQuizBtn: document.getElementById('back-to-menu-btn-quiz'),
-            finalScore: document.getElementById('final-score'),
-            finalMessage: document.getElementById('final-message'),
-            resultsCircle: document.getElementById('results-circle'),
-            reviewAnswersBtn: document.getElementById('review-answers-btn'),
-            restartBtn: document.getElementById('restart-btn'),
-            backToMenuResultsBtn: document.getElementById('back-to-menu-btn-results'),
-            reviewContent: document.getElementById('review-content'),
-            backToResultsBtn: document.getElementById('back-to-results-btn'),
-            themeToggleBtn: document.getElementById('theme-toggle-btn'),
-        };
-    
-        const state = {
-            allQuestionsData: null,
-            reviewDeck: [],
-            currentTheme: null,
-            currentMode: null,
-            quizQuestions: [],
-            currentQuestionIndex: 0,
-            score: 0,
-            userAnswers: [],
-            timerId: null,
-            timeLeft: 0,
-        };
-        
-        const TOTAL_QUESTIONS = 10;
-        const CHALLENGE_TIME_PER_QUESTION = 20;
-    
-        let correctSound, incorrectSound;
-        try {
-            if (window.Tone) {
-                correctSound = new Tone.Synth().toDestination();
-                incorrectSound = new Tone.Synth().toDestination();
-            }
-        } catch (e) {
-            console.warn("Tone.js não pôde ser inicializado. O feedback de áudio está desativado.");
-        }
-    
-        const getQuestionId = (question) => `${question.fonte}-${question.numero}`.toLowerCase().replace(/[\/\s]/g, '-');
-    
-        const loadReviewDeck = () => {
-            const deck = localStorage.getItem('reviewDeck');
-            state.reviewDeck = deck ? JSON.parse(deck) : [];
-            updateReviewCard();
-        };
-    
-        const saveReviewDeck = () => {
-            localStorage.setItem('reviewDeck', JSON.stringify(state.reviewDeck));
-            updateReviewCard();
-        };
-    
-        const addQuestionToReview = (question) => {
-            const questionId = getQuestionId(question);
-            if (!state.reviewDeck.some(item => getQuestionId(item) === questionId)) {
-                state.reviewDeck.push(question);
-            }
-            saveReviewDeck();
-        };
-    
-        const removeQuestionFromReview = (question) => {
-            const questionId = getQuestionId(question);
-            state.reviewDeck = state.reviewDeck.filter(item => getQuestionId(item) !== questionId);
-            saveReviewDeck();
-        };
-        
-        const clearAllHistory = () => {
-            if (confirm("Você tem certeza que deseja apagar permanentemente todas as questões da sua lista de revisão?")) {
-                state.reviewDeck = [];
-                saveReviewDeck();
-            }
-        };
-    
-        const updateReviewCard = () => {
-            const count = state.reviewDeck.length;
-            if (count > 0) {
-                elements.reviewCount.textContent = count;
-                elements.reviewCard.classList.remove('hidden');
-            } else {
-                elements.reviewCard.classList.add('hidden');
-            }
-        };
-    
-        async function init() {
-            setupEventListeners();
-            applyTheme(localStorage.getItem('theme') || 'light');
-            loadReviewDeck();
-            
-            try {
-                const response = await fetch('bancoDeQuestoes.json');
-                if (!response.ok) throw new Error('Network response was not ok');
-                state.allQuestionsData = await response.json();
+            <div id="selection-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 
-                if (state.allQuestionsData.bancoDeQuestoes?.length > 0) {
-                     renderThemeSelection();
-                     showView('selection-container');
-                } else {
-                    showError("Nenhum tema encontrado no banco de questões.");
-                }
-            } catch (error) {
-                console.error('Failed to load questions:', error);
-                showError("Falha ao carregar as questões.");
-            } finally {
-                elements.loader.style.display = 'none';
-            }
-        }
-    
-        function setupEventListeners() {
-            elements.homeLink.addEventListener('click', quitQuiz);
-            elements.themeToggleBtn.addEventListener('click', toggleTheme);
-            elements.selectionGrid.addEventListener('click', handleThemeSelection);
-            elements.reviewCard.addEventListener('click', startReviewSession);
-            elements.clearHistoryBtn.addEventListener('click', clearAllHistory);
-            elements.modeButtons.forEach(btn => btn.addEventListener('click', handleModeSelection));
-            elements.backToThemeBtn.addEventListener('click', () => showView('selection-container'));
-            elements.nextBtn.addEventListener('click', goToNextQuestion);
-            elements.quitQuizBtn.addEventListener('click', quitQuiz);
-            elements.restartBtn.addEventListener('click', () => {
-                if (state.currentMode === 'review') startReviewSession();
-                else startQuiz();
-            });
-            elements.backToMenuResultsBtn.addEventListener('click', () => showView('selection-container'));
-            elements.reviewAnswersBtn.addEventListener('click', renderReview);
-            elements.backToResultsBtn.addEventListener('click', () => showView('results-container'));
-        }
-    
-        function renderThemeSelection() {
-            const themeCardsHTML = state.allQuestionsData.bancoDeQuestoes.map((themeData, index) => {
-                const totalQuestions = (themeData.questoesDiretoDoConcurso?.length || 0) + (themeData.questoesDeConcurso?.length || 0);
-                const iconName = THEME_ICONS[index % THEME_ICONS.length];
-                const iconColor = THEME_COLORS[index % THEME_COLORS.length];
-                return `
-                    <div class="selection-card theme-card p-6" data-theme-index="${index}">
-                        <i data-lucide="${iconName}" class="w-10 h-10 mb-4 ${iconColor}"></i>
-                        <h2 class="text-xl font-bold mb-2 text-center text-gray-800 dark:text-white">${themeData.tema}</h2>
-                        <p class="card-description text-sm">${totalQuestions} questões disponíveis</p>
+                <div id="review-card" class="selection-card p-6 border-2 border-purple-500/50 hover:border-purple-500 hidden col-span-1 md:col-span-2 cursor-pointer">
+                    <div class="flex items-center gap-4 w-full">
+                        <i data-lucide="history" class="w-10 h-10 text-purple-500 flex-shrink-0"></i>
+                        <div class="text-left">
+                            <h2 class="text-xl font-bold mb-1 text-gray-800 dark:text-white">Revisar Questões Erradas</h2>
+                            <p class="card-description text-sm"><span id="review-count">0</span> questões para revisar</p>
+                        </div>
                     </div>
-                `;
-            }).join('');
-            
-            elements.selectionGrid.querySelectorAll('.theme-card').forEach(card => card.remove());
-            elements.selectionGrid.insertAdjacentHTML('beforeend', themeCardsHTML);
-            lucide.createIcons();
-        }
+                </div>
+                
+                <!-- Cards de tema serão inseridos dinamicamente aqui -->
+            </div>
+
+            <div class="text-center mt-10">
+                <button id="clear-history-btn" class="text-sm font-semibold text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-500 transition inline-flex items-center gap-2">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    Limpar todo o histórico
+                </button>
+            </div>
+        </section>
+
+        <!-- Tela de Seleção de Modo -->
+        <section id="mode-selection-container" class="hidden fade-in">
+             <header class="text-center mb-10">
+                <h1 id="mode-selection-title" class="text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white mb-3"></h1>
+                <p class="text-lg text-gray-600 dark:text-gray-300">Como você prefere estudar hoje?</p>
+            </header>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <button data-mode="practice" class="selection-card p-6 text-center">
+                    <i data-lucide="swords" class="w-10 h-10 mx-auto mb-4 text-cyan-500"></i>
+                    <h2 class="text-xl font-bold mb-2 text-gray-800 dark:text-white">Modo Prática</h2>
+                    <p class="card-description">Feedback instantâneo.</p>
+                </button>
+                <button data-mode="exam" class="selection-card p-6 text-center">
+                    <i data-lucide="file-text" class="w-10 h-10 mx-auto mb-4 text-amber-500"></i>
+                    <h2 class="text-xl font-bold mb-2 text-gray-800 dark:text-white">Modo Prova</h2>
+                    <p class="card-description">Resultado no final.</p>
+                </button>
+                <button data-mode="challenge" class="selection-card p-6 text-center">
+                    <i data-lucide="timer" class="w-10 h-10 mx-auto mb-4 text-violet-500"></i>
+                    <h2 class="text-xl font-bold mb-2 text-gray-800 dark:text-white">Modo Desafio</h2>
+                    <p class="card-description">Contra o relógio.</p>
+                </button>
+            </div>
+             <div class="text-center mt-12">
+                <button id="back-to-theme-selection-btn" class="font-semibold text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition inline-flex items-center gap-2">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                    Voltar para Temas
+                </button>
+            </div>
+        </section>
+
+        <!-- Container do Simulado Ativo -->
+        <section id="quiz-container" class="hidden">
+             <header id="quiz-header" class="flex justify-between items-start mb-6 fade-in">
+                <div>
+                    <h1 id="quiz-title" class="text-2xl font-bold"></h1>
+                    <p id="quiz-subtitle" class="text-sm font-medium text-gray-500 dark:text-gray-400"></p>
+                </div>
+                <div class="flex flex-col items-end gap-2">
+                     <div id="timer-container" class="hidden items-center gap-2 text-lg font-mono font-semibold bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-md">
+                        <i data-lucide="clock" class="w-5 h-5"></i>
+                        <span id="timer">01:40</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span id="question-counter" class="font-semibold text-gray-700 dark:text-gray-300" aria-live="polite"></span>
+                        <span id="score-container" class="score-badge inline-flex items-center gap-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-3 py-1 rounded-full text-sm font-semibold">
+                            <i data-lucide="star" class="w-4 h-4 text-amber-500"></i>
+                            Pontos: <span id="score">0</span>
+                        </span>
+                    </div>
+                </div>
+            </header>
+             <div id="card-stack-container">
+             </div>
+             <footer class="mt-8 text-center"><button id="back-to-menu-btn-quiz" class="font-semibold text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition inline-flex items-center gap-2"><i data-lucide="x" class="w-4 h-4"></i>Sair do Simulado</button></footer>
+        </section>
+
+        <!-- Tela de Resultados -->
+        <section id="results-container" class="hidden text-center py-8 fade-in">
+            <h2 id="results-title" class="text-3xl font-extrabold mb-4">Simulado Finalizado!</h2>
+            <div class="relative w-48 h-48 mx-auto my-6">
+                <svg class="w-full h-full" viewBox="0 0 36 36">
+                    <path class="stroke-gray-200 dark:stroke-gray-700" stroke-width="3" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path id="results-circle" stroke-width="3" fill="none" stroke-linecap="round" transform="rotate(-90 18 18)" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                </svg>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <span id="final-score" class="text-4xl font-bold"></span>
+                </div>
+            </div>
+            <p class="text-lg mt-6 mb-8" id="final-message"></p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <button id="review-answers-btn" class="action-btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md inline-flex items-center gap-2">
+                    <i data-lucide="search"></i>
+                    <span>Revisar Respostas</span>
+                </button>
+                <button id="restart-btn" class="action-btn bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md inline-flex items-center gap-2">
+                    <i data-lucide="rotate-cw"></i>
+                    <span>Tentar Novamente</span>
+                </button>
+                <button id="back-to-menu-btn-results" class="action-btn bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md inline-flex items-center gap-2">
+                    <i data-lucide="home"></i>
+                    <span>Menu Principal</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Tela de Revisão -->
+        <section id="review-container" class="hidden main-card p-6 md:p-8">
+             <header class="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-4 mb-6">
+                <h1 class="text-2xl font-bold">Revisão do Simulado</h1>
+                <button id="back-to-results-btn" class="action-btn bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md inline-flex items-center gap-2">
+                    <i data-lucide="arrow-left"></i>
+                    <span>Voltar</span>
+                </button>
+            </header>
+            <div id="review-content" class="space-y-8"></div>
+        </section>
+    </main>
     
-        function handleThemeSelection(e) {
-            const card = e.target.closest('.theme-card');
-            if (!card) return;
-            const themeIndex = parseInt(card.dataset.themeIndex, 10);
-            state.currentTheme = state.allQuestionsData.bancoDeQuestoes[themeIndex];
-            elements.modeSelectionTitle.textContent = `${state.currentTheme.tema}`;
-            showView('mode-selection-container');
-        }
-    
-        function handleModeSelection(e) {
-            const button = e.target.closest('[data-mode]');
-            if (!button) return;
-            state.currentMode = button.dataset.mode;
-            startQuiz();
-        }
-        
-        function startReviewSession() {
-            state.currentMode = 'review';
-            state.currentTheme = { tema: "Revisão" };
-            state.quizQuestions = [...state.reviewDeck].sort(() => 0.5 - Math.random());
-            if (state.quizQuestions.length === 0) {
-                alert("Não há questões na sua lista de revisão.");
-                return;
-            }
-            setupAndLaunchQuiz();
-        }
-    
-        function startQuiz() {
-            const allThemeQuestions = [...(state.currentTheme.questoesDiretoDoConcurso || []), ...(state.currentTheme.questoesDeConcurso || [])];
-            state.quizQuestions = allThemeQuestions.sort(() => 0.5 - Math.random()).slice(0, TOTAL_QUESTIONS);
-            if (state.quizQuestions.length < 1) {
-                alert(`O tema "${state.currentTheme.tema}" não possui questões.`);
-                return;
-            }
-            setupAndLaunchQuiz();
-        }
-        
-        function setupAndLaunchQuiz() {
-            state.currentQuestionIndex = 0;
-            state.score = 0;
-            state.userAnswers = [];
-            elements.quizTitle.textContent = state.currentTheme.tema;
-            let modeText = state.currentMode === 'review' ? 'Revisão (Modo Prática)' : `Modo: ${state.currentMode.charAt(0).toUpperCase() + state.currentMode.slice(1)}`;
-            elements.quizSubtitle.textContent = modeText;
-            elements.score.textContent = '0';
-            elements.feedbackFooter.classList.remove('visible');
-            showView('quiz-container');
-            renderCurrentQuestion();
-            if (state.currentMode === 'challenge') {
-                startTimer();
-                elements.timerContainer.classList.remove('hidden');
-            } else {
-                elements.timerContainer.classList.add('hidden');
-            }
-        }
-        
-        function handleAnswerClick(e) {
-            const selectedButton = e.target.closest('.answer-btn');
-            if (!selectedButton) return;
-            const answerContainer = selectedButton.parentElement;
-            answerContainer.querySelectorAll('.answer-btn').forEach(btn => btn.disabled = true);
-            const question = state.quizQuestions[state.currentQuestionIndex];
-            const userAnswerKey = selectedButton.dataset.key;
-            const gabaritoFormatado = question.gabarito.toLowerCase().trim();
-            const correctAnswerKey = gabaritoFormatado.startsWith('c') ? 'c' : gabaritoFormatado.startsWith('e') ? 'e' : gabaritoFormatado;
-            const isCorrect = userAnswerKey === correctAnswerKey;
-            state.userAnswers.push({ question, userAnswerKey, isCorrect });
-            if (isCorrect) {
-                state.score++;
-                elements.score.textContent = state.score;
-                selectedButton.classList.add('correct');
-                triggerConfetti();
-                correctSound?.triggerAttackRelease("C5", "8n");
-                if (state.currentMode === 'review') {
-                    removeQuestionFromReview(question);
-                }
-            } else {
-                selectedButton.classList.add('incorrect');
-                const correctButton = answerContainer.querySelector(`[data-key="${correctAnswerKey}"]`);
-                if (correctButton) correctButton.classList.add('correct');
-                incorrectSound?.triggerAttackRelease("C3", "8n");
-                if (state.currentMode !== 'review') {
-                    addQuestionToReview(question);
-                }
-            }
-            const effectiveMode = state.currentMode === 'review' ? 'practice' : state.currentMode;
-            if (effectiveMode === 'practice') {
-                showFeedback(isCorrect, question.gabarito);
-            } else {
-                setTimeout(goToNextQuestion, 1200);
-            }
-        }
-    
-        function quitQuiz() {
-            if (state.timerId) {
-                clearInterval(state.timerId);
-                state.timerId = null;
-            }
-            state.currentTheme = null;
-            elements.feedbackFooter.classList.remove('visible');
-            showView('selection-container');
-        }
-        
-        function showView(viewId) {
-            [elements.selectionContainer, elements.modeSelectionContainer, elements.quizContainer, elements.resultsContainer, elements.reviewContainer].forEach(view => view.classList.add('hidden'));
-            const activeView = document.getElementById(viewId);
-            if (activeView) {
-                activeView.classList.remove('hidden');
-                activeView.classList.add('fade-in');
-            }
-            window.scrollTo(0, 0);
-        }
-        
-        function renderCurrentQuestion() {
-            elements.cardStackContainer.innerHTML = '';
-            const question = state.quizQuestions[state.currentQuestionIndex];
-            elements.questionCounter.textContent = `Questão ${state.currentQuestionIndex + 1} de ${state.quizQuestions.length}`;
-            const isCertoErrado = question.tipo === 'CERTO_ERRADO';
-            const alternativesHTML = isCertoErrado ? `<button class="answer-btn w-full text-left p-4 rounded-lg font-semibold" data-key="c">C) Certo</button><button class="answer-btn w-full text-left p-4 rounded-lg font-semibold" data-key="e">E) Errado</button>` : question.alternativas.map(alt => `<button class="answer-btn w-full text-left p-4 rounded-lg font-semibold" data-key="${alt.key}"><span class="font-bold mr-2">${alt.key.toUpperCase()})</span> ${alt.text}</button>`).join('');
-            const cardHTML = `<div class="quiz-card fade-in"><p class="text-sm text-gray-500 dark:text-gray-400 font-medium mb-4">${question.fonte}</p><p class="text-lg leading-relaxed mb-6">${question.enunciado}</p><div class="space-y-3" id="answer-options">${alternativesHTML}</div></div>`;
-            elements.cardStackContainer.innerHTML = cardHTML;
-            document.getElementById('answer-options').addEventListener('click', handleAnswerClick);
-        }
-    
-        function showFeedback(isCorrect, correctAnswer) {
-            elements.feedbackArea.classList.remove('correct', 'incorrect');
-            elements.feedbackArea.classList.add(isCorrect ? 'correct' : 'incorrect');
-            elements.feedbackIcon.innerHTML = isCorrect ? `<i data-lucide="check-circle-2" class="w-8 h-8 text-green-600"></i>` : `<i data-lucide="x-circle" class="w-8 h-8 text-red-600"></i>`;
-            elements.feedbackTitle.textContent = isCorrect ? 'Resposta Correta!' : 'Resposta Incorreta!';
-            elements.explanationText.textContent = isCorrect ? 'Muito bem! Continue assim.' : `A resposta correta era: ${correctAnswer}`;
-            elements.feedbackFooter.classList.add('visible');
-            lucide.createIcons();
-        }
-    
-        function goToNextQuestion() {
-            elements.feedbackFooter.classList.remove('visible');
-            const card = document.querySelector('.quiz-card');
-            if (card) card.classList.add('card-exit');
-            setTimeout(() => {
-                state.currentQuestionIndex++;
-                if (state.currentQuestionIndex < state.quizQuestions.length) {
-                    renderCurrentQuestion();
-                } else {
-                    showResults();
-                }
-            }, 500);
-        }
-    
-        function showResults() {
-            clearInterval(state.timerId);
-            state.timerId = null;
-            const scorePercentage = state.quizQuestions.length > 0 ? (state.score / state.quizQuestions.length) * 100 : 0;
-            const radius = 15.9155;
-            const circumference = 2 * Math.PI * radius;
-            const offset = circumference - (scorePercentage / 100) * circumference;
-            elements.resultsCircle.style.strokeDasharray = circumference;
-            setTimeout(() => { elements.resultsCircle.style.strokeDashoffset = offset; }, 100);
-            elements.finalScore.textContent = `${Math.round(scorePercentage)}%`;
-            let message = "Continue praticando para melhorar!";
-            if (scorePercentage >= 90) {
-                message = "Excelente desempenho! Você está no caminho certo!";
-                triggerConfetti();
-            } else if (scorePercentage >= 70) {
-                message = "Ótimo resultado! Você está quase lá.";
-            } else if (scorePercentage >= 50) {
-                message = "Bom esforço! A prática leva à perfeição.";
-            }
-            elements.finalMessage.textContent = message;
-            showView('results-container');
-        }
-        
-        function renderReview() {
-            elements.reviewContent.innerHTML = state.userAnswers.map((answer, index) => {
-                const { question, userAnswerKey, isCorrect } = answer;
-                const gabaritoFormatado = question.gabarito.toLowerCase().trim();
-                const correctAnswerKey = gabaritoFormatado.startsWith('c') ? 'c' : gabaritoFormatado.startsWith('e') ? 'e' : gabaritoFormatado;
-                let alternativesHTML;
-                if (question.tipo === 'CERTO_ERRADO') {
-                    alternativesHTML = `<p class="p-3 rounded-lg ${'c' === correctAnswerKey ? 'bg-green-100 dark:bg-green-900/50 font-bold' : ''} ${'c' === userAnswerKey && !isCorrect ? 'bg-red-100 dark:bg-red-900/50 line-through' : ''}">C) Certo</p><p class="p-3 rounded-lg ${'e' === correctAnswerKey ? 'bg-green-100 dark:bg-green-900/50 font-bold' : ''} ${'e' === userAnswerKey && !isCorrect ? 'bg-red-100 dark:bg-red-900/50 line-through' : ''}">E) Errado</p>`;
-                } else {
-                    alternativesHTML = question.alternativas.map(alt => {
-                        const isUserAnswer = alt.key === userAnswerKey;
-                        const isCorrectAnswer = alt.key === correctAnswerKey;
-                        let classes = "p-3 rounded-lg";
-                        if (isCorrectAnswer) classes += " bg-green-100 dark:bg-green-900/50 font-bold";
-                        if (isUserAnswer && !isCorrect) classes += " bg-red-100 dark:bg-red-900/50 line-through";
-                        return `<p class="${classes}">${alt.key.toUpperCase()}) ${alt.text}</p>`;
-                    }).join('');
-                }
-                return `<div class="border-b border-gray-200 dark:border-gray-700 pb-6"><p class="font-bold mb-2">Questão ${index + 1}: ${isCorrect ? '<span class="text-green-500">Correta</span>' : '<span class="text-red-500">Incorreta</span>'}</p><p class="text-gray-600 dark:text-gray-300 mb-4">${question.enunciado}</p><div class="space-y-2 text-sm">${alternativesHTML}</div></div>`;
-            }).join('');
-            showView('review-container');
-        }
-    
-        function applyTheme(theme) {
-            document.documentElement.classList.toggle('dark', theme === 'dark');
-            localStorage.setItem('theme', theme);
-            lucide.createIcons();
-        }
-    
-        function toggleTheme() {
-            const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-            applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
-        }
-    
-        function startTimer() {
-            clearInterval(state.timerId);
-            state.timeLeft = state.quizQuestions.length * CHALLENGE_TIME_PER_QUESTION;
-            updateTimerDisplay();
-            state.timerId = setInterval(() => {
-                state.timeLeft--;
-                updateTimerDisplay();
-                if (state.timeLeft <= 0) showResults();
-            }, 1000);
-        }
-        
-        function updateTimerDisplay() {
-            const minutes = Math.floor(state.timeLeft / 60).toString().padStart(2, '0');
-            const seconds = (state.timeLeft % 60).toString().padStart(2, '0');
-            elements.timer.textContent = `${minutes}:${seconds}`;
-        }
-        
-        function triggerConfetti() {
-            if (window.confetti) {
-                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-            }
-        }
-    
-        init();
-    });
-});
+    <!-- Rodapé Fixo para Feedback -->
+    <footer id="feedback-footer" class="fixed bottom-0 left-0 right-0 z-40">
+        <div class="max-w-xl mx-auto">
+             <div id="feedback-area" class="feedback-card p-4 border-t-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div id="feedback-icon"></div>
+                        <div>
+                            <h3 id="feedback-title" class="text-lg font-bold"></h3>
+                            <p id="explanation-text" class="text-sm text-gray-700 dark:text-gray-300"></p>
+                        </div>
+                    </div>
+                    <button id="next-btn" class="action-btn text-white font-semibold py-3 px-6 rounded-lg shadow-md inline-flex items-center justify-center gap-2">
+                        <span>Próxima</span>
+                        <i data-lucide="arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Seu JavaScript externo -->
+    <script src="script.js" defer></script>
+</body>
+</html>
