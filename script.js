@@ -332,7 +332,6 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.questionCounter.textContent = `${Math.min(state.currentQuestionIndex + 1, state.currentQuizData.length)} / ${state.currentQuizData.length}`;
     };
     
-    // *** FUNÇÃO DE SELEÇÃO DE RESPOSTA TOTALMENTE REVISADA ***
     const selectAnswer = (selectedBtn, selectedOptionText) => {
         const activeCard = document.querySelector('.question-card[data-active="true"]');
         if (!activeCard || activeCard.dataset.answered) return;
@@ -483,7 +482,36 @@ document.addEventListener('DOMContentLoaded', () => {
         updateSelectionScreen();
     };
 
-    // --- Carregamento de Dados ---
+    // --- Carregamento e Validação de Dados ---
+    const validateJsonData = (data) => {
+        if (!data || !Array.isArray(data.bancoDeQuestoes)) {
+            throw new Error("Estrutura principal do JSON inválida. A chave 'bancoDeQuestoes' (array) é esperada.");
+        }
+        data.bancoDeQuestoes.forEach((theme, themeIndex) => {
+            if (typeof theme.tema !== 'string') {
+                throw new Error(`Tema no índice ${themeIndex} não possui uma chave 'tema' (string).`);
+            }
+            const allQuestions = [...(theme.questoesDiretoDoConcurso || []), ...(theme.questoesDeConcurso || [])];
+            if (allQuestions.length === 0) {
+                throw new Error(`Tema "${theme.tema}" não possui questões.`);
+            }
+            allQuestions.forEach((q, qIndex) => {
+                const errorPrefix = `Erro no tema "${theme.tema}", questão #${q.numero || qIndex + 1}:`;
+                if (typeof q.enunciado !== 'string' || !q.enunciado) throw new Error(`${errorPrefix} chave 'enunciado' está faltando ou vazia.`);
+                if (typeof q.gabarito !== 'string' || !q.gabarito) throw new Error(`${errorPrefix} chave 'gabarito' está faltando ou vazia.`);
+
+                if (q.tipo === 'CERTO_ERRADO') {
+                    if (!/^[CE]/i.test(q.gabarito)) throw new Error(`${errorPrefix} gabarito para 'CERTO_ERRADO' deve ser 'C' ou 'E'.`);
+                } else {
+                    if (!Array.isArray(q.alternativas) || q.alternativas.length === 0) throw new Error(`${errorPrefix} chave 'alternativas' (array) está faltando ou vazia.`);
+                    const keys = q.alternativas.map(alt => alt.key);
+                    if (!keys.includes(q.gabarito)) throw new Error(`${errorPrefix} o 'gabarito' ("${q.gabarito}") não corresponde a nenhuma 'key' nas alternativas.`);
+                }
+            });
+        });
+        return true;
+    };
+
     const transformJsonToQuizzes = (jsonData) => {
         const themeMapping = {
             'Código de Ética Profissional': { key: 'etica', icon: 'shield-check', color: '#2563eb' },
@@ -517,11 +545,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadQuestions = async () => {
         try {
             const response = await fetch('bancoDeQuestoes.json');
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            state.allQuizzes = transformJsonToQuizzes(await response.json());
+            if (!response.ok) throw new Error(`Erro de rede! Status: ${response.status}`);
+            const jsonData = await response.json();
+            validateJsonData(jsonData); // Validação da estrutura
+            state.allQuizzes = transformJsonToQuizzes(jsonData);
         } catch (error) {
-            console.error("Não foi possível carregar o arquivo de questões:", error);
-            elements.loader.innerHTML = '<p class="text-red-500">Erro ao carregar questões. Verifique o console.</p>';
+            console.error("Falha ao carregar ou validar o arquivo de questões:", error);
+            elements.loader.innerHTML = `<div class="text-center p-4"><p class="text-red-500 font-semibold">Erro Crítico ao Carregar Questões</p><p class="text-sm text-gray-600 dark:text-gray-400 mt-2">${error.message}. Verifique o console para mais detalhes.</p></div>`;
         }
     };
 
