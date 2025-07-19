@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
         feedbackTitle: document.getElementById('feedback-title'),
         explanationText: document.getElementById('explanation-text'),
         nextBtn: document.getElementById('next-btn'),
-        quitQuizBtn: document.getElementById('back-to-menu-btn-quiz'),
         finalScore: document.getElementById('final-score'),
         finalMessage: document.getElementById('final-message'),
         resultsCircle: document.getElementById('results-circle'),
@@ -198,7 +197,14 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.modeButtons.forEach(btn => btn.addEventListener('click', handleModeSelection));
         elements.backToThemeBtn.addEventListener('click', () => showView('selection-container'));
         elements.nextBtn.addEventListener('click', goToNextQuestion);
-        elements.quitQuizBtn.addEventListener('click', quitQuiz);
+        
+        // Event delegation for the quit button inside the quiz
+        elements.quizContainer.addEventListener('click', (e) => {
+            if (e.target.closest('#back-to-menu-btn-quiz')) {
+                quitQuiz();
+            }
+        });
+
         elements.restartBtn.addEventListener('click', () => {
             if (state.currentMode === 'review') startReviewSession();
             else startQuiz();
@@ -287,7 +293,18 @@ document.addEventListener('DOMContentLoaded', () => {
             ? `<button class="answer-btn w-full text-left p-4 rounded-lg font-semibold" data-key="c">C) Certo</button><button class="answer-btn w-full text-left p-4 rounded-lg font-semibold" data-key="e">E) Errado</button>` 
             : question.alternativas.map(alt => `<button class="answer-btn w-full text-left p-4 rounded-lg font-semibold" data-key="${alt.key}"><span class="font-bold mr-2">${alt.key.toUpperCase()})</span> ${alt.text}</button>`).join('');
         
-        const cardHTML = `<div class="quiz-card card-enter"><p class="text-sm text-gray-500 dark:text-gray-400 font-medium mb-4">${question.fonte}</p><p class="text-lg leading-relaxed mb-6">${question.enunciado}</p><div class="space-y-3" id="answer-options">${alternativesHTML}</div></div>`;
+        const cardHTML = `
+            <div class="quiz-card card-enter">
+                <p class="text-sm text-gray-500 dark:text-gray-400 font-medium mb-4">${question.fonte}</p>
+                <p class="text-lg leading-relaxed mb-6">${question.enunciado}</p>
+                <div class="space-y-3 mb-8" id="answer-options">${alternativesHTML}</div>
+                <div class="border-t border-gray-200 dark:border-gray-700 pt-4 text-center">
+                    <button id="back-to-menu-btn-quiz" class="font-semibold text-sm text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-500 transition inline-flex items-center gap-2">
+                        <i data-lucide="x" class="w-4 h-4" aria-hidden="true"></i>
+                        <span>Sair do Simulado</span>
+                    </button>
+                </div>
+            </div>`;
         elements.cardStackContainer.innerHTML = cardHTML;
 
         // Animação de entrada
@@ -297,6 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 10);
 
         document.getElementById('answer-options').addEventListener('click', handleAnswerClick);
+        lucide.createIcons();
     }
 
     function handleAnswerClick(e) {
