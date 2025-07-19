@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.modeButtons.forEach(btn => btn.addEventListener('click', handleModeSelection));
         elements.backToThemeBtn.addEventListener('click', () => showView('selection-container'));
         elements.nextBtn.addEventListener('click', goToNextQuestion);
-        elements.cardStackContainer.addEventListener('click', (e) => { // Listener para o botão 'X'
+        elements.cardStackContainer.addEventListener('click', (e) => {
             if (e.target.closest('.quit-quiz-button')) {
                 quitQuiz();
             }
@@ -163,35 +163,63 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // --- Lógica das Sessões (Tema e Revisão) ---
-    function handleThemeSelection(e) { /* ... (sem alterações) ... */ }
-    function handleModeSelection(e) { /* ... (sem alterações) ... */ }
-    function startReviewSession() { /* ... (sem alterações) ... */ }
-    function startQuiz() { /* ... (sem alterações) ... */ }
-    function setupAndLaunchQuiz() { /* ... (sem alterações) ... */ }
-
-    // --- Renderização Dinâmica ---
-    function renderCurrentQuestion() {
-        elements.cardStackContainer.innerHTML = '';
-        const question = state.quizQuestions[state.currentQuestionIndex];
-        elements.questionCounter.textContent = `Questão ${state.currentQuestionIndex + 1} de ${state.quizQuestions.length}`;
-        const isCertoErrado = question.tipo === 'CERTO_ERRADO';
-        const alternativesHTML = isCertoErrado ? `<button class="answer-btn w-full text-left p-4 rounded-lg font-semibold" data-key="c">C) Certo</button><button class="answer-btn w-full text-left p-4 rounded-lg font-semibold" data-key="e">E) Errado</button>` : question.alternativas.map(alt => `<button class="answer-btn w-full text-left p-4 rounded-lg font-semibold" data-key="${alt.key}"><span class="font-bold mr-2">${alt.key.toUpperCase()})</span> ${alt.text}</button>`).join('');
-        
-        // Adicionado o botão "X" dinamicamente
-        const cardHTML = `
-            <div class="quiz-card fade-in">
-                <button class="quit-quiz-button"><i data-lucide="x" class="w-5 h-5"></i></button>
-                <p class="text-sm text-gray-500 dark:text-gray-400 font-medium mb-4">${question.fonte}</p>
-                <p class="text-lg leading-relaxed mb-6">${question.enunciado}</p>
-                <div class="space-y-3" id="answer-options">${alternativesHTML}</div>
-            </div>`;
-        
-        elements.cardStackContainer.innerHTML = cardHTML;
-        document.getElementById('answer-options').addEventListener('click', handleAnswerClick);
-        lucide.createIcons();
+    function handleThemeSelection(e) {
+        const card = e.target.closest('.theme-card');
+        if (!card) return;
+        const themeIndex = parseInt(card.dataset.themeIndex, 10);
+        state.currentTheme = state.allQuestionsData.bancoDeQuestoes[themeIndex];
+        elements.modeSelectionTitle.textContent = `${state.currentTheme.tema}`;
+        showView('mode-selection-container');
     }
 
-    // --- Lógica Principal do Quiz (Respostas, Feedback, Navegação) ---
+    function handleModeSelection(e) {
+        const button = e.target.closest('[data-mode]');
+        if (!button) return;
+        state.currentMode = button.dataset.mode;
+        startQuiz();
+    }
+    
+    function startReviewSession() {
+        state.currentMode = 'review';
+        state.currentTheme = { tema: "Revisão" };
+        state.quizQuestions = [...state.reviewDeck].sort(() => 0.5 - Math.random());
+        if (state.quizQuestions.length === 0) {
+            alert("Não há questões na sua lista de revisão.");
+            return;
+        }
+        setupAndLaunchQuiz();
+    }
+
+    function startQuiz() {
+        const allThemeQuestions = [...(state.currentTheme.questoesDiretoDoConcurso || []), ...(state.currentTheme.questoesDeConcurso || [])];
+        state.quizQuestions = allThemeQuestions.sort(() => 0.5 - Math.random()).slice(0, TOTAL_QUESTIONS);
+        if (state.quizQuestions.length < 1) {
+            alert(`O tema "${state.currentTheme.tema}" não possui questões.`);
+            return;
+        }
+        setupAndLaunchQuiz();
+    }
+    
+    function setupAndLaunchQuiz() {
+        state.currentQuestionIndex = 0;
+        state.score = 0;
+        state.userAnswers = [];
+        elements.quizTitle.textContent = state.currentTheme.tema;
+        let modeText = state.currentMode === 'review' ? 'Revisão (Modo Prática)' : `Modo: ${state.currentMode.charAt(0).toUpperCase() + state.currentMode.slice(1)}`;
+        elements.quizSubtitle.textContent = modeText;
+        elements.score.textContent = '0';
+        elements.feedbackFooter.classList.remove('visible');
+        showView('quiz-container');
+        renderCurrentQuestion();
+        if (state.currentMode === 'challenge') {
+            startTimer();
+            elements.timerContainer.classList.remove('hidden');
+        } else {
+            elements.timerContainer.classList.add('hidden');
+        }
+    }
+    
+    // --- Lógica Principal do Quiz (Renderização e Respostas) ---
     function handleAnswerClick(e) {
         const selectedButton = e.target.closest('.answer-btn');
         if (!selectedButton) return;
@@ -223,6 +251,18 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             setTimeout(goToNextQuestion, 1200);
         }
+    }
+    
+    function renderCurrentQuestion() {
+        elements.cardStackContainer.innerHTML = '';
+        const question = state.quizQuestions[state.currentQuestionIndex];
+        elements.questionCounter.textContent = `Questão ${state.currentQuestionIndex + 1} de ${state.quizQuestions.length}`;
+        const isCertoErrado = question.tipo === 'CERTO_ERRADO';
+        const alternativesHTML = isCertoErrado ? `<button class="answer-btn w-full text-left p-4 rounded-lg font-semibold" data-key="c">C) Certo</button><button class="answer-btn w-full text-left p-4 rounded-lg font-semibold" data-key="e">E) Errado</button>` : question.alternativas.map(alt => `<button class="answer-btn w-full text-left p-4 rounded-lg font-semibold" data-key="${alt.key}"><span class="font-bold mr-2">${alt.key.toUpperCase()})</span> ${alt.text}</button>`).join('');
+        const cardHTML = `<div class="quiz-card fade-in"><button class="quit-quiz-button"><i data-lucide="x" class="w-5 h-5"></i></button><p class="text-sm text-gray-500 dark:text-gray-400 font-medium mb-4">${question.fonte}</p><p class="text-lg leading-relaxed mb-6">${question.enunciado}</p><div class="space-y-3" id="answer-options">${alternativesHTML}</div></div>`;
+        elements.cardStackContainer.innerHTML = cardHTML;
+        document.getElementById('answer-options').addEventListener('click', handleAnswerClick);
+        lucide.createIcons();
     }
     
     function showFeedback(isCorrect, correctAnswer) {
@@ -259,9 +299,27 @@ document.addEventListener('DOMContentLoaded', () => {
         showView('selection-container');
     }
     
-    // --- Restante das Funções (sem alterações significativas) ---
-    // (showView, showResults, renderReview, applyTheme, toggleTheme, startTimer, updateTimerDisplay, triggerConfetti)
-    // O código completo já foi fornecido acima.
+    function showView(viewId) {
+        [elements.selectionContainer, elements.modeSelectionContainer, elements.quizContainer, elements.resultsContainer, elements.reviewContainer].forEach(view => view.classList.add('hidden'));
+        const activeView = document.getElementById(viewId);
+        if (activeView) {
+            activeView.classList.remove('hidden');
+            activeView.classList.add('fade-in');
+        }
+        window.scrollTo(0, 0);
+    }
+    
+    // --- Funções de Renderização de Telas ---
+    function renderThemeSelection() { /* ... (sem alterações) ... */ }
+    function showResults() { /* ... (sem alterações) ... */ }
+    function renderReview() { /* ... (sem alterações) ... */ }
+    
+    // --- Funções Utilitárias ---
+    function applyTheme(theme) { /* ... (sem alterações) ... */ }
+    function toggleTheme() { /* ... (sem alterações) ... */ }
+    function startTimer() { /* ... (sem alterações) ... */ }
+    function updateTimerDisplay() { /* ... (sem alterações) ... */ }
+    function triggerConfetti() { /* ... (sem alterações) ... */ }
 
-    init(); // Inicia a aplicação
+    init();
 });
