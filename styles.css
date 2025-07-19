@@ -1,0 +1,216 @@
+/* --- Estilos Gerais e Temas --- */
+body {
+    font-family: 'Inter', sans-serif;
+    /* Cor de fundo suave para o light mode */
+    background-color: #f8fafc; 
+    color: #1f2937;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dark body {
+    background-color: #111827;
+    color: #f3f4f6;
+}
+
+/* --- Cabeçalho --- */
+.app-header {
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.dark .app-header {
+    background-color: rgba(17, 24, 39, 0.8);
+    border-bottom-color: #374151;
+}
+
+#theme-toggle-btn {
+    color: #4b5563;
+    transition: background-color 0.2s;
+}
+#theme-toggle-btn:hover {
+    background-color: #e5e7eb;
+}
+.dark #theme-toggle-btn {
+    color: #d1d5db;
+}
+.dark #theme-toggle-btn:hover {
+    background-color: #374151;
+}
+
+/* --- Animações --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* --- Cards de Seleção --- */
+.selection-card {
+    background-color: white;
+    border-radius: 0.75rem;
+    border: 1px solid #e5e7eb;
+    /* Sombra sutil para o light mode */
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.selection-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border-color: #3b82f6;
+}
+.dark .selection-card {
+    background-color: #1f2937;
+    border-color: #374151;
+    box-shadow: none;
+}
+.dark .selection-card:hover {
+    border-color: #3b82f6;
+}
+.card-description {
+    color: #6b7280;
+}
+.dark .card-description {
+    color: #9ca3af;
+}
+
+/* --- Loader Spinner --- */
+.loader-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #e5e7eb;
+    border-top-color: #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+.dark .loader-spinner {
+    border-color: #374151;
+    border-top-color: #60a5fa;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* --- Cartas do Quiz --- */
+.quiz-card {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -2px rgba(0,0,0,0.05);
+    border: 1px solid #e5e7eb;
+    transform-origin: bottom center;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    max-height: 70vh; /* Aumentado para dar mais espaço */
+    overflow-y: auto;
+    position: relative; /* Necessário para o botão de sair */
+}
+
+.dark .quiz-card {
+    background-color: #1f2937;
+    border-color: #374151;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2), 0 4px 6px -2px rgba(0,0,0,0.1);
+}
+
+#card-stack-container {
+    position: relative;
+    min-height: 400px;
+}
+#card-stack-container .quiz-card {
+    position: absolute;
+    width: 100%;
+}
+
+.card-exit {
+    transform: translateY(-150%) rotate(15deg) scale(0.8);
+    opacity: 0;
+}
+
+/* *** NOVO: Estilo para o Botão "X" de Sair *** */
+.quit-quiz-button {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    color: #9ca3af;
+    border-radius: 9999px;
+    padding: 0.5rem;
+    transition: background-color 0.2s, color 0.2s;
+}
+.quit-quiz-button:hover {
+    background-color: #f3f4f6;
+    color: #1f2937;
+}
+.dark .quit-quiz-button {
+    color: #6b7280;
+}
+.dark .quit-quiz-button:hover {
+    background-color: #374151;
+    color: #f9fafb;
+}
+
+
+/* --- Botões de Resposta --- */
+.answer-btn {
+    background-color: #f9fafb;
+    border: 1px solid #d1d5db;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+.answer-btn:hover:not(:disabled) {
+    background-color: #eef2ff;
+    border-color: #818cf8;
+}
+.dark .answer-btn {
+    background-color: #374151;
+    border-color: #4b5563;
+}
+.dark .answer-btn:hover:not(:disabled) {
+    background-color: #1e3a8a;
+    border-color: #3b82f6;
+}
+.answer-btn.correct, .dark .answer-btn.correct {
+    background-color: #dcfce7 !important;
+    border-color: #4ade80 !important;
+    color: #166532 !important;
+}
+.answer-btn.incorrect, .dark .answer-btn.incorrect {
+    background-color: #fee2e2 !important;
+    border-color: #f87171 !important;
+    color: #991b1b !important;
+}
+
+/* --- Rodapé de Feedback --- */
+#feedback-footer {
+    transform: translateY(100%);
+    transition: transform 0.3s ease-out;
+}
+#feedback-footer.visible {
+    transform: translateY(0);
+}
+#feedback-area {
+    background-color: white;
+    box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
+}
+.dark #feedback-area {
+    background-color: #1f2937;
+    box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
+}
+.feedback-card.correct {
+    border-color: #22c55e;
+}
+.feedback-card.incorrect {
+    border-color: #ef4444;
+}
+
+/* --- Botão Próxima --- */
+#next-btn {
+    background-color: #2563eb;
+}
+#next-btn:hover {
+    background-color: #1d4ed8;
+}
