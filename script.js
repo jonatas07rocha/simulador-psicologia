@@ -1,614 +1,141 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // --- Mapeamento de Elementos do DOM ---
-    const elements = {
-        // Contêineres principais
-        selectionContainer: document.getElementById('selection-container'),
-        modeSelectionContainer: document.getElementById('mode-selection-container'),
-        quizContainer: document.getElementById('quiz-container'),
-        resultsContainer: document.getElementById('results-container'),
-        reviewContainer: document.getElementById('review-container'),
-        loader: document.getElementById('loader'),
-        
-        // Seleção de Tema
-        selectionGrid: document.getElementById('selection-grid'),
-        clearHistoryBtn: document.getElementById('clear-history-btn'),
-        
-        // Cabeçalho
-        themeToggleBtn: document.getElementById('theme-toggle-btn'),
-        streakCounter: document.getElementById('streak-counter'),
-        streakDays: document.getElementById('streak-days'),
+/**
+ * Carrega as questões de um arquivo JSON.
+ * @returns {Promise<Object>} Uma promessa que resolve com os dados do JSON.
+ */
+async function carregarQuestoes() {
+  try {
+    const resposta = await fetch('bancoDeQuestoes.json');
+    if (!resposta.ok) {
+      throw new Error(`Erro na rede: ${resposta.statusText}`);
+    }
+    const dados = await resposta.json();
+    return dados;
+  } catch (error) {
+    console.error("Não foi possível carregar o banco de questões:", error);
+    alert("Erro: Não foi possível carregar o arquivo 'bancoDeQuestoes.json'. Verifique se o arquivo está na mesma pasta e se o nome está correto.");
+  }
+}
 
-        // Seleção de Modo
-        modeSelectionTitle: document.getElementById('mode-selection-title'),
-        backToThemeSelectionBtn: document.getElementById('back-to-theme-selection-btn'),
+/**
+ * Inicia e executa o quiz.
+ */
+async function iniciarQuiz() {
+  const dados = await carregarQuestoes();
+  if (!dados) return; // Encerra se os dados não puderam ser carregados
 
-        // Simulado
-        quizHeader: document.getElementById('quiz-header'),
-        quizTitle: document.getElementById('quiz-title'),
-        quizSubtitle: document.getElementById('quiz-subtitle'),
-        questionCounter: document.getElementById('question-counter'),
-        scoreContainer: document.getElementById('score-container'),
-        score: document.getElementById('score'),
-        timerContainer: document.getElementById('timer-container'),
-        timer: document.getElementById('timer'),
-        cardStackContainer: document.getElementById('card-stack-container'),
-        
-        // Feedback
-        feedbackArea: document.getElementById('feedback-area'),
-        feedbackTitle: document.getElementById('feedback-title'),
-        feedbackIcon: document.getElementById('feedback-icon'),
-        explanationText: document.getElementById('explanation-text'),
-        
-        // Controles do Simulado
-        backToMenuBtnQuiz: document.getElementById('back-to-menu-btn-quiz'),
-        nextBtn: document.getElementById('next-btn'),
-        
-        // Resultados
-        resultsTitle: document.getElementById('results-title'),
-        finalScore: document.getElementById('final-score'),
-        finalMessage: document.getElementById('final-message'),
-        resultsCircle: document.getElementById('results-circle'),
-        restartBtn: document.getElementById('restart-btn'),
-        reviewAnswersBtn: document.getElementById('review-answers-btn'),
-        backToMenuBtnResults: document.getElementById('back-to-menu-btn-results'),
+  // 1. Solicita a escolha de um tema ao usuário
+  const temas = dados.bancoDeQuestoes.map(item => item.tema);
+  let temaEscolhido = null;
+  let bancoDoTema = null;
 
-        // Revisão
-        reviewContent: document.getElementById('review-content'),
-        backToResultsBtn: document.getElementById('back-to-results-btn'),
-
-        // Modal
-        notificationModal: document.getElementById('notification-modal'),
-        modalIcon: document.getElementById('modal-icon'),
-        modalTitle: document.getElementById('modal-title'),
-        modalMessage: document.getElementById('modal-message'),
-        modalActions: document.getElementById('modal-actions'),
-        modalCloseBtn: document.getElementById('modal-close-btn'),
-
-        // Confetes
-        confettiCanvas: document.getElementById('confetti-canvas'),
-    };
-
-    // --- Estado da Aplicação ---
-    let state = {
-        allQuizzes: null,
-        currentQuizKey: null,
-        currentQuizData: [], 
-        currentQuestionIndex: 0,
-        score: 0,
-        quizMode: 'practice',
-        userAnswers: [],
-        answeredQuestions: {},
-        incorrectAnswers: {},
-        streakData: { currentStreak: 0, lastVisit: null },
-        timerInterval: null,
-    };
+  // Loop para garantir que o usuário escolha um tema válido
+  while (!bancoDoTema) {
+    const listaDeTemas = temas.map((t, i) => `${i + 1}. ${t}`).join('\n');
+    const escolhaUsuario = prompt(`Escolha um tema pelo número:\n\n${listaDeTemas}`);
     
-    // --- Lógica de Confetes ---
-    const confettiCtx = elements.confettiCanvas.getContext('2d');
-    let confettiParticles = [];
-    const triggerConfetti = () => {
-        elements.confettiCanvas.width = window.innerWidth;
-        elements.confettiCanvas.height = window.innerHeight;
-        confettiParticles = [];
-        for (let i = 0; i < 100; i++) {
-            confettiParticles.push({
-                x: Math.random() * elements.confettiCanvas.width,
-                y: -20,
-                size: Math.random() * 8 + 4,
-                color: `hsl(${Math.random() * 360}, 90%, 65%)`,
-                speedX: Math.random() * 6 - 3,
-                speedY: Math.random() * 5 + 2,
-                angle: Math.random() * 360,
-                spin: Math.random() * 20 - 10,
-            });
-        }
-        animateConfetti();
-    };
-    const animateConfetti = () => {
-        confettiCtx.clearRect(0, 0, elements.confettiCanvas.width, elements.confettiCanvas.height);
-        let activeParticles = false;
-        confettiParticles.forEach(p => {
-            if (p.y < elements.confettiCanvas.height) {
-                activeParticles = true;
-                p.x += p.speedX; p.y += p.speedY; p.angle += p.spin; p.speedY += 0.08;
-                confettiCtx.save();
-                confettiCtx.translate(p.x, p.y);
-                confettiCtx.rotate(p.angle * Math.PI / 180);
-                confettiCtx.fillStyle = p.color;
-                confettiCtx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-                confettiCtx.restore();
-            }
-        });
-        if (activeParticles) requestAnimationFrame(animateConfetti);
-        else confettiCtx.clearRect(0, 0, elements.confettiCanvas.width, elements.confettiCanvas.height);
-    };
+    if (escolhaUsuario === null) {
+        alert("Quiz cancelado.");
+        return;
+    }
 
-    // --- Funções de Estado (Salvar/Carregar) ---
-    const saveData = () => {
-        localStorage.setItem('quizData', JSON.stringify({
-            answeredQuestions: state.answeredQuestions,
-            incorrectAnswers: state.incorrectAnswers,
-            streakData: state.streakData
-        }));
-    };
-    const loadData = () => {
-        const savedData = JSON.parse(localStorage.getItem('quizData'));
-        if (savedData) {
-            state.answeredQuestions = savedData.answeredQuestions || {};
-            state.incorrectAnswers = savedData.incorrectAnswers || {};
-            state.streakData = savedData.streakData || { currentStreak: 0, lastVisit: null };
-        }
-    };
+    const indiceTema = parseInt(escolhaUsuario, 10) - 1;
 
-    // --- Funções de Navegação e UI ---
-    const showScreen = (screenToShow) => {
-        [elements.selectionContainer, elements.modeSelectionContainer, elements.quizContainer, elements.resultsContainer, elements.reviewContainer].forEach(s => s.classList.add('hidden'));
-        if (screenToShow) {
-            screenToShow.classList.remove('hidden');
-            window.scrollTo(0, 0);
-        }
-    };
-    const showModal = (icon, title, message, buttons = []) => {
-        elements.modalIcon.innerHTML = icon;
-        elements.modalTitle.textContent = title;
-        elements.modalMessage.textContent = message;
-        elements.modalActions.innerHTML = '';
-        buttons.forEach(btn => elements.modalActions.appendChild(btn));
-        elements.modalActions.appendChild(elements.modalCloseBtn);
-        elements.notificationModal.classList.remove('hidden');
-        lucide.createIcons();
-    };
-    const hideModal = () => elements.notificationModal.classList.add('hidden');
-    const setTheme = (theme) => {
-        document.documentElement.classList.toggle('dark', theme === 'dark');
-        localStorage.setItem('quizAppTheme', theme);
-        lucide.createIcons();
-    };
-    const applyThemeColor = (color) => document.documentElement.style.setProperty('--theme-color-primary', color);
-    const showMenu = () => {
-        showScreen(elements.selectionContainer);
-        elements.selectionContainer.classList.add('fade-in');
-        updateSelectionScreen();
-        applyThemeColor('#0d9488'); // Cor padrão do menu
-    };
+    if (indiceTema >= 0 && indiceTema < temas.length) {
+      temaEscolhido = temas[indiceTema];
+      bancoDoTema = dados.bancoDeQuestoes[indiceTema];
+    } else {
+      alert("Escolha inválida. Por favor, digite o número correspondente ao tema.");
+    }
+  }
+  
+  // Combina as duas listas de questões em uma só
+  const todasAsQuestoes = [
+    ...bancoDoTema.questoesDiretoDoConcurso,
+    ...bancoDoTema.questoesDeConcurso
+  ];
+  
+  // Cria uma cópia para poder remover itens sem alterar o original
+  let questoesDisponiveis = [...todasAsQuestoes];
+  let pontuacao = 0;
+  const totalDePerguntas = 10;
+  
+  if (questoesDisponiveis.length < totalDePerguntas) {
+      alert(`O tema "${temaEscolhido}" possui apenas ${questoesDisponiveis.length} questões. O quiz será mais curto.`);
+  }
+
+  // 2. Loop principal do quiz (repete 10 vezes ou até acabarem as questões)
+  for (let i = 0; i < totalDePerguntas; i++) {
     
-    // --- Funções de Gamificação (Streak) ---
-    const updateStreak = (quizCompleted = false) => {
-        const today = new Date().toISOString().split('T')[0];
-        const lastVisitDate = state.streakData.lastVisit;
-        if (quizCompleted && lastVisitDate !== today) {
-            const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-            state.streakData.currentStreak = lastVisitDate === yesterday ? state.streakData.currentStreak + 1 : 1;
-            state.streakData.lastVisit = today;
-        }
-        if (state.streakData.currentStreak > 0) {
-            elements.streakDays.textContent = state.streakData.currentStreak;
-            elements.streakCounter.classList.remove('hidden');
-            elements.streakCounter.classList.add('inline-flex');
-        } else {
-            elements.streakCounter.classList.add('hidden');
-        }
-        saveData();
-    };
+    if (questoesDisponiveis.length === 0) {
+        alert("Não há mais questões disponíveis para este tema.");
+        break;
+    }
 
-    // --- Lógica de Geração de Cards ---
-    const createSelectionCards = () => {
-        elements.selectionGrid.innerHTML = '';
-        const incorrectCount = Object.values(state.incorrectAnswers).flat().length;
-        if (incorrectCount > 0) {
-            const errorCard = document.createElement('button');
-            errorCard.className = 'selection-card p-6 flex items-center gap-5 text-left md:col-span-2 border-red-500 hover:border-red-600';
-            errorCard.dataset.quiz = 'error_quiz';
-            errorCard.innerHTML = `<div class="card-icon flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center bg-red-100 dark:bg-red-900/50 text-red-500"><i data-lucide="target" class="w-8 h-8"></i></div><div><h2 class="card-title text-xl text-gray-800 dark:text-white">Simulado de Erros</h2><p class="card-description mt-1">Refaça as ${incorrectCount} questões que você errou para fortalecer seu conhecimento.</p></div>`;
-            elements.selectionGrid.appendChild(errorCard);
-        }
-        for (const key in state.allQuizzes) {
-            const quiz = state.allQuizzes[key];
-            const card = document.createElement('div');
-            card.className = 'selection-card p-6 flex flex-col justify-between';
-            card.innerHTML = `<button class="flex items-center gap-5 text-left w-full" data-quiz="${key}"><div class="checkmark-icon absolute top-3 right-3 text-green-500"><i data-lucide="check-circle-2" class="w-7 h-7"></i></div><div class="card-icon flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center" style="background-color: ${quiz.theme.color}20; color: ${quiz.theme.color};"><i data-lucide="${quiz.theme.icon}" class="w-8 h-8"></i></div><div><h2 class="card-title text-xl text-gray-800 dark:text-white">${quiz.title}</h2><p class="card-description mt-1">Questões sobre ${quiz.title.toLowerCase()}.</p></div></button><div class="flex justify-between items-center mt-4 pt-3 border-t border-gray-100 dark:border-gray-700/50"><p class="progress-text text-xs font-semibold text-gray-500 dark:text-gray-400"></p><button class="reset-progress-btn text-xs font-semibold text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition" data-quiz="${key}"><i data-lucide="rotate-ccw" class="w-4 h-4"></i></button></div>`;
-            elements.selectionGrid.appendChild(card);
-        }
-        lucide.createIcons();
-    };
-    const updateSelectionScreen = () => {
-        if (!state.allQuizzes) return;
-        createSelectionCards();
-        document.querySelectorAll('.selection-card').forEach(cardWrapper => {
-            const button = cardWrapper.querySelector('button[data-quiz]');
-            if (!button || button.dataset.quiz === 'error_quiz') return;
-            const quizKey = button.dataset.quiz;
-            const totalQuestions = state.allQuizzes[quizKey].data.length;
-            const answeredCount = (state.answeredQuestions[quizKey] || []).length;
-            cardWrapper.querySelector('.progress-text').textContent = `${answeredCount} / ${totalQuestions} respondidas`;
-            cardWrapper.querySelector('.reset-progress-btn').style.visibility = answeredCount > 0 ? 'visible' : 'hidden';
-            button.classList.toggle('completed', answeredCount === totalQuestions);
-        });
-        lucide.createIcons();
-    };
+    // 3. Sorteia uma questão sem reposição
+    const indiceAleatorio = Math.floor(Math.random() * questoesDisponiveis.length);
+    const questaoSorteada = questoesDisponiveis[indiceAleatorio];
+    // Remove a questão sorteada para não repeti-la
+    questoesDisponiveis.splice(indiceAleatorio, 1);
 
-    // --- Lógica do Simulado ---
-    const selectQuizTheme = (quizKey) => {
-        if (quizKey === 'error_quiz') {
-            startErrorQuiz();
-            return;
-        }
-        state.currentQuizKey = quizKey;
-        const quiz = state.allQuizzes[quizKey];
-        if (!quiz) return;
-        applyThemeColor(quiz.theme.color);
-        elements.modeSelectionTitle.textContent = `Tema: ${quiz.title}`;
-        showScreen(elements.modeSelectionContainer);
-        elements.modeSelectionContainer.classList.add('fade-in');
-    };
-    const startErrorQuiz = () => {
-        const errorQuestions = [];
-        for (const quizKey in state.incorrectAnswers) {
-            state.incorrectAnswers[quizKey].forEach(originalIndex => {
-                errorQuestions.push({
-                    questionData: state.allQuizzes[quizKey].data[originalIndex],
-                    originalIndex: originalIndex,
-                    originalQuizKey: quizKey
-                });
-            });
-        }
-        if (errorQuestions.length === 0) {
-            showModal('<i data-lucide="check-check" class="w-12 h-12 text-green-500"></i>', 'Tudo Certo!', 'Você não tem nenhuma questão errada para revisar. Parabéns!');
-            return;
-        }
-        state.currentQuizKey = 'error_quiz';
-        state.quizMode = 'practice';
-        state.currentQuizData = errorQuestions.sort(() => 0.5 - Math.random());
-        initializeQuiz('Simulado de Erros', 'Modo Prática', '#dc2626');
-    };
-    const startQuiz = (mode) => {
-        state.quizMode = mode;
-        const quiz = state.allQuizzes[state.currentQuizKey];
-        if (!quiz) return;
-        const fullBank = quiz.data;
-        const answeredIndexes = state.answeredQuestions[state.currentQuizKey] || [];
-        let availableQuestions = fullBank
-            .map((questionData, index) => ({ questionData, originalIndex: index }))
-            .filter(item => !answeredIndexes.includes(item.originalIndex));
-        if (availableQuestions.length === 0) {
-            const confirmBtn = document.createElement('button');
-            confirmBtn.textContent = 'Sim, recomeçar';
-            confirmBtn.className = 'action-btn bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg';
-            confirmBtn.onclick = () => { resetThemeProgress(state.currentQuizKey); hideModal(); startQuiz(mode); };
-            showModal('<i data-lucide="party-popper" class="w-12 h-12 text-green-500"></i>', 'Parabéns!', `Você concluiu todas as ${fullBank.length} questões do tema "${quiz.title}". Deseja reiniciar o progresso e jogar novamente?`, [confirmBtn]);
-            return;
-        }
-        availableQuestions.sort(() => 0.5 - Math.random());
-        state.currentQuizData = availableQuestions.slice(0, 10);
-        const modeText = { practice: 'Prática', exam: 'Prova', challenge: 'Desafio' };
-        initializeQuiz(quiz.title, `Modo ${modeText[mode]}`, quiz.theme.color);
-        if (mode === 'challenge') startTimer(state.currentQuizData.length * 10);
-    };
-    const initializeQuiz = (title, subtitle, color) => {
-        state.currentQuestionIndex = 0;
-        state.score = 0;
-        state.userAnswers = [];
-        applyThemeColor(color);
-        elements.quizTitle.textContent = title;
-        elements.quizSubtitle.textContent = subtitle;
-        elements.score.textContent = state.score;
-        elements.quizHeader.classList.remove('hidden');
-        elements.feedbackArea.classList.add('hidden');
-        elements.timerContainer.classList.add('hidden');
-        if (state.timerInterval) clearInterval(state.timerInterval);
-        showScreen(elements.quizContainer);
-        populateCardStack();
-    };
+    // 4. Exibe o enunciado e as alternativas
+    let textoPrompt = `--- TEMA: ${temaEscolhido} ---\n`;
+    textoPrompt += `Questão ${i + 1} de ${totalDePerguntas}\n\n`;
+    textoPrompt += `Fonte: ${questaoSorteada.fonte}\n\n`;
+    textoPrompt += `${questaoSorteada.enunciado}\n\n`;
 
-    // --- Lógica do Baralho ---
-    const populateCardStack = () => {
-        elements.cardStackContainer.innerHTML = '';
-        const questionsToRender = state.currentQuizData.slice(0, 3).reverse();
-        questionsToRender.forEach((item, index) => {
-            const card = createQuestionCard(item.questionData);
-            if (index === questionsToRender.length - 1) {
-                card.dataset.active = "true";
-            }
-            elements.cardStackContainer.appendChild(card);
-        });
-        updateQuestionCounter();
-    };
-    const createQuestionCard = (questionData) => {
-        const card = document.createElement('div');
-        card.className = 'question-card';
-        const sourceMatch = questionData.question.match(/^\(.+?\)/);
-        const source = sourceMatch ? sourceMatch[0].replace(/[()]/g, '') : '';
-        const questionText = source ? questionData.question.substring(source.length).trim() : questionData.question;
-        const optionsHtml = (questionData.options || [])
-            .map(option => `<button class="option-btn p-4 rounded-lg text-left dark:bg-gray-700 bg-gray-50"><span>${option}</span></button>`)
-            .join('');
-        card.innerHTML = `<div class="card-content"><p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">${source}</p><h2 class="card-question-text text-gray-800 dark:text-gray-50 mb-6">${questionText}</h2><div class="grid grid-cols-1 gap-4">${optionsHtml}</div></div>`;
-        card.querySelectorAll('.option-btn').forEach(btn => {
-            btn.addEventListener('click', () => selectAnswer(btn, btn.textContent));
-        });
-        return card;
-    };
-    const updateQuestionCounter = () => {
-        elements.questionCounter.textContent = `${Math.min(state.currentQuestionIndex + 1, state.currentQuizData.length)} / ${state.currentQuizData.length}`;
-    };
+    // Adapta o prompt para o tipo de questão
+    if (questaoSorteada.tipo === 'CERTO_ERRADO') {
+      textoPrompt += "Responda com 'C' para Certo ou 'E' para Errado.";
+    } else {
+      questaoSorteada.alternativas.forEach(alt => {
+        textoPrompt += `${alt.key}) ${alt.text}\n`;
+      });
+      textoPrompt += "\nDigite a letra da alternativa correta.";
+    }
+
+    // 5. Pede ao usuário para escolher uma alternativa
+    const respostaUsuario = prompt(textoPrompt);
+
+    // Se o usuário cancelar, encerra o quiz
+    if (respostaUsuario === null) {
+      alert("Quiz interrompido.");
+      break;
+    }
     
-    const selectAnswer = (selectedBtn, selectedOptionText) => {
-        const activeCard = document.querySelector('.question-card[data-active="true"]');
-        if (!activeCard || activeCard.dataset.answered) return;
-        activeCard.dataset.answered = 'true';
+    // 6. Compara a resposta com o gabarito
+    const gabarito = questaoSorteada.gabarito.toLowerCase();
+    let respostaCorreta;
+    let isCorrecto = false;
 
-        const currentQuestionItem = state.currentQuizData[state.currentQuestionIndex];
-        const questionData = currentQuestionItem.questionData;
-        const selectedAnswer = selectedOptionText.trim();
-        const correctAnswer = questionData.answer;
-
-        const isCorrect = selectedAnswer === correctAnswer;
-        state.userAnswers[state.currentQuestionIndex] = selectedAnswer;
-
-        // Feedback visual nos botões
-        activeCard.querySelectorAll('.option-btn').forEach(button => {
-            button.disabled = true;
-            if (button.textContent.trim() === correctAnswer) {
-                button.classList.add('correct');
-            }
-        });
-        if (!isCorrect) {
-            selectedBtn.classList.add('incorrect');
+    // Lógica para os diferentes tipos de gabarito
+    if (questaoSorteada.tipo === 'CERTO_ERRADO') {
+        respostaCorreta = gabarito.charAt(0); // Extrai 'c' ou 'e'
+        if(respostaUsuario.toLowerCase() === respostaCorreta) {
+            isCorrecto = true;
         }
-
-        // Atualizar pontuação e registrar erros
-        if (isCorrect) {
-            if (state.quizMode !== 'exam') state.score++;
-            if (state.quizMode === 'practice') triggerConfetti();
-            
-            if (state.currentQuizKey === 'error_quiz') {
-                const { originalQuizKey, originalIndex } = currentQuestionItem;
-                if (state.incorrectAnswers[originalQuizKey]) {
-                    state.incorrectAnswers[originalQuizKey] = state.incorrectAnswers[originalQuizKey].filter(idx => idx !== originalIndex);
-                    if (state.incorrectAnswers[originalQuizKey].length === 0) delete state.incorrectAnswers[originalQuizKey];
-                }
-            }
-        } else {
-            if (state.currentQuizKey !== 'error_quiz') {
-                const { originalIndex } = currentQuestionItem;
-                if (!state.incorrectAnswers[state.currentQuizKey]) state.incorrectAnswers[state.currentQuizKey] = [];
-                if (!state.incorrectAnswers[state.currentQuizKey].includes(originalIndex)) {
-                    state.incorrectAnswers[state.currentQuizKey].push(originalIndex);
-                }
-            }
+    } else {
+        respostaCorreta = gabarito; // A letra da alternativa
+        if(respostaUsuario.toLowerCase() === respostaCorreta) {
+            isCorrecto = true;
         }
-        
-        if(state.quizMode !== 'exam') elements.score.textContent = state.score;
+    }
 
-        // Controlar o fluxo do quiz
-        if (state.quizMode === 'practice') {
-            showFeedback(isCorrect, questionData.explanation);
-        } else {
-            activeCard.dataset.swipeDirection = isCorrect ? 'swipe-correct' : 'swipe-incorrect';
-            setTimeout(() => advanceQuestion(activeCard), 800);
-        }
-    };
+    // 7. Exibe o resultado da jogada
+    if (isCorrecto) {
+      pontuacao++;
+      alert("Certo! 👍");
+    } else {
+      let mensagemErro = `Errado! 👎\n\nA resposta correta é: ${respostaCorreta.toUpperCase()}`;
+      if (questaoSorteada.tipo === 'CERTO_ERRADO') {
+         mensagemErro = `Errado! 👎\n\nA resposta correta é: ${questaoSorteada.gabarito}`;
+      }
+      alert(mensagemErro);
+    }
+  }
 
-    const showFeedback = (isCorrect, explanation) => {
-        elements.feedbackArea.classList.remove('hidden');
-        elements.feedbackTitle.textContent = isCorrect ? "Resposta Correta!" : "Resposta Incorreta!";
-        elements.feedbackTitle.className = `text-lg font-bold ${isCorrect ? 'text-green-700 dark:text-green-400' : 'text-red-700 dark:text-red-400'}`;
-        elements.feedbackArea.className = `feedback-card mt-6 p-4 border-l-4 fade-in ${isCorrect ? 'border-green-500' : 'border-red-500'}`;
-        elements.feedbackIcon.innerHTML = `<i data-lucide="${isCorrect ? 'check-circle' : 'x-circle'}" class="${isCorrect ? 'text-green-600' : 'text-red-600'}"></i>`;
-        elements.explanationText.innerHTML = `<strong>Justificativa:</strong> ${explanation || 'Justificativa não disponível.'}`;
-        lucide.createIcons();
-    };
-    
-    const advanceQuestion = (cardToRemove) => {
-        cardToRemove.classList.add(cardToRemove.dataset.swipeDirection || 'swipe-incorrect');
-        cardToRemove.addEventListener('animationend', () => {
-            cardToRemove.remove();
-            state.currentQuestionIndex++;
+  // 8. Exibe o resultado final
+  alert(`Fim do quiz!\n\nSua pontuação final foi: ${pontuacao} de ${totalDePerguntas} acertos.`);
+}
 
-            if (state.currentQuestionIndex >= state.currentQuizData.length) {
-                showResults();
-            } else {
-                const nextCard = elements.cardStackContainer.querySelector('.question-card:last-child');
-                if(nextCard) nextCard.dataset.active = "true";
-
-                const nextQuestionToAddIndex = state.currentQuestionIndex + 2;
-                if (nextQuestionToAddIndex < state.currentQuizData.length) {
-                    const nextQuestionItem = state.currentQuizData[nextQuestionToAddIndex];
-                    const newCard = createQuestionCard(nextQuestionItem.questionData);
-                    elements.cardStackContainer.prepend(newCard);
-                }
-                updateQuestionCounter();
-            }
-        }, { once: true });
-    };
-
-    // --- Lógica de Resultados e Revisão ---
-    const showResults = (reason = 'completed') => {
-        if (state.timerInterval) clearInterval(state.timerInterval);
-        
-        if (state.quizMode === 'exam') {
-            state.score = 0;
-            state.userAnswers.forEach((answer, index) => {
-                if (answer === state.currentQuizData[index].questionData.answer) {
-                    state.score++;
-                }
-            });
-        }
-
-        if (state.currentQuizKey !== 'error_quiz') {
-            const answeredInThisQuiz = state.currentQuizData.map(item => item.originalIndex);
-            const currentAnswered = state.answeredQuestions[state.currentQuizKey] || [];
-            state.answeredQuestions[state.currentQuizKey] = Array.from(new Set([...currentAnswered, ...answeredInThisQuiz]));
-        }
-        updateStreak(true); saveData();
-        showScreen(elements.resultsContainer);
-        elements.resultsTitle.textContent = reason === 'time_out' ? "Tempo Esgotado!" : "Simulado Finalizado!";
-        const scorePercent = state.currentQuizData.length > 0 ? Math.round((state.score / state.currentQuizData.length) * 100) : 0;
-        elements.finalScore.textContent = `${scorePercent}%`;
-        elements.resultsCircle.style.strokeDasharray = `${scorePercent}, 100`;
-        let message = "";
-        if (scorePercent >= 90) message = "Excelente! Desempenho de alto nível.";
-        else if (scorePercent >= 70) message = "Muito bem! Um ótimo resultado.";
-        else if (scorePercent >= 50) message = "Bom trabalho. Continue estudando as justificativas.";
-        else message = "Não desanime. Use a revisão como guia para seus estudos.";
-        elements.finalMessage.textContent = message;
-    };
-    const showReview = () => {
-        elements.reviewContent.innerHTML = '';
-        state.currentQuizData.forEach((item, index) => {
-            const question = item.questionData;
-            const userAnswer = state.userAnswers[index];
-            const isCorrect = userAnswer && userAnswer.trim() === question.answer;
-            const questionElement = document.createElement('div');
-            questionElement.className = `review-question-item p-4 rounded-lg ${isCorrect ? 'correct' : 'incorrect'}`;
-            let optionsHtml = (question.options || []).map(option => {
-                let classes = 'review-option p-3 mt-2 rounded-md';
-                if (option.trim() === question.answer) classes += ' correct-answer';
-                if (userAnswer && option.trim() === userAnswer.trim() && !isCorrect) classes += ' user-selected';
-                return `<div class="${classes}">${option}</div>`;
-            }).join('');
-            const sourceMatch = question.question.match(/^\(.+?\)/);
-            const sourceText = sourceMatch ? sourceMatch[0].replace(/[()]/g, '') : '';
-            const questionText = sourceMatch ? question.question.substring(sourceMatch[0].length).trim() : question.question;
-            questionElement.innerHTML = `<p class="text-sm font-medium text-gray-500 dark:text-gray-400">${sourceText}</p><h3 class="font-bold text-lg mt-1">${index + 1}. ${questionText}</h3><div class="mt-3 space-y-2">${optionsHtml}</div><div class="mt-4 p-3 bg-gray-100 dark:bg-gray-800 rounded-md"><strong>Justificativa:</strong> ${question.explanation || 'Justificativa não disponível.'}</div>`;
-            elements.reviewContent.appendChild(questionElement);
-        });
-        showScreen(elements.reviewContainer);
-    };
-    const resetThemeProgress = (quizKey) => {
-        delete state.answeredQuestions[quizKey];
-        delete state.incorrectAnswers[quizKey];
-        saveData();
-        updateSelectionScreen();
-    };
-
-    // --- Carregamento e Validação de Dados ---
-    const validateJsonData = (data) => {
-        if (!data || !Array.isArray(data.bancoDeQuestoes)) {
-            throw new Error("Estrutura principal do JSON inválida. A chave 'bancoDeQuestoes' (array) é esperada.");
-        }
-        data.bancoDeQuestoes.forEach((theme, themeIndex) => {
-            if (typeof theme.tema !== 'string') {
-                throw new Error(`Tema no índice ${themeIndex} não possui uma chave 'tema' (string).`);
-            }
-            const allQuestions = [...(theme.questoesDiretoDoConcurso || []), ...(theme.questoesDeConcurso || [])];
-            if (allQuestions.length === 0) {
-                throw new Error(`Tema "${theme.tema}" não possui questões.`);
-            }
-            allQuestions.forEach((q, qIndex) => {
-                const errorPrefix = `Erro no tema "${theme.tema}", questão #${q.numero || qIndex + 1}:`;
-                if (typeof q.enunciado !== 'string' || !q.enunciado) throw new Error(`${errorPrefix} chave 'enunciado' está faltando ou vazia.`);
-                if (typeof q.gabarito !== 'string' || !q.gabarito) throw new Error(`${errorPrefix} chave 'gabarito' está faltando ou vazia.`);
-
-                if (q.tipo === 'CERTO_ERRADO') {
-                    if (!/^[CE]/i.test(q.gabarito)) throw new Error(`${errorPrefix} gabarito para 'CERTO_ERRADO' deve ser 'C' ou 'E'.`);
-                } else {
-                    if (!Array.isArray(q.alternativas) || q.alternativas.length === 0) throw new Error(`${errorPrefix} chave 'alternativas' (array) está faltando ou vazia.`);
-                    const keys = q.alternativas.map(alt => alt.key);
-                    if (!keys.includes(q.gabarito)) throw new Error(`${errorPrefix} o 'gabarito' ("${q.gabarito}") não corresponde a nenhuma 'key' nas alternativas.`);
-                }
-            });
-        });
-        return true;
-    };
-
-    const transformJsonToQuizzes = (jsonData) => {
-        const themeMapping = {
-            'Código de Ética Profissional': { key: 'etica', icon: 'shield-check', color: '#2563eb' },
-            'Psicologia Educacional': { key: 'educacional', icon: 'graduation-cap', color: '#16a34a' },
-            'Psicopatologia - Parte I': { key: 'psicopatologia1', icon: 'brain-circuit', color: '#9333ea' },
-            'Psicopatologia - Parte II': { key: 'psicopatologia2', icon: 'heart-pulse', color: '#e11d48' }
-        };
-        const quizzes = {};
-        jsonData.bancoDeQuestoes.forEach(themeData => {
-            const themeInfo = themeMapping[themeData.tema];
-            if (!themeInfo) return;
-            const allQuestionsRaw = [...(themeData.questoesDiretoDoConcurso || []), ...(themeData.questoesDeConcurso || [])];
-            const formattedQuestions = allQuestionsRaw.map(q => {
-                let options = [], answer = '', source = q.fonte || 'Fonte desconhecida', enunciado = `(${source}) ${q.enunciado}`, explanation = `Gabarito: ${q.gabarito}.`;
-                if (q.tipo === 'CERTO_ERRADO') {
-                    options = ['Certo', 'Errado'];
-                    answer = q.gabarito.toUpperCase().startsWith('C') ? 'Certo' : 'Errado';
-                    explanation = `A resposta correta é "${answer}".`;
-                } else if (q.alternativas) {
-                    options = q.alternativas.map(alt => alt.text.trim().replace(/\.$/, ''));
-                    const correctAlternative = q.alternativas.find(alt => alt.key === q.gabarito);
-                    answer = correctAlternative ? correctAlternative.text.trim().replace(/\.$/, '') : '';
-                    explanation = `A alternativa correta é a letra ${q.gabarito.toUpperCase()}.`;
-                }
-                return { question: enunciado, options, answer, explanation };
-            });
-            quizzes[themeInfo.key] = { title: themeData.tema, theme: { color: themeInfo.color, icon: themeInfo.icon }, data: formattedQuestions };
-        });
-        return quizzes;
-    };
-    const loadQuestions = async () => {
-        try {
-            const response = await fetch('bancoDeQuestoes.json');
-            if (!response.ok) throw new Error(`Erro de rede! Status: ${response.status}`);
-            const jsonData = await response.json();
-            validateJsonData(jsonData); // Validação da estrutura
-            state.allQuizzes = transformJsonToQuizzes(jsonData);
-        } catch (error) {
-            console.error("Falha ao carregar ou validar o arquivo de questões:", error);
-            elements.loader.innerHTML = `<div class="text-center p-4"><p class="text-red-500 font-semibold">Erro Crítico ao Carregar Questões</p><p class="text-sm text-gray-600 dark:text-gray-400 mt-2">${error.message}. Verifique o console para mais detalhes.</p></div>`;
-        }
-    };
-
-    // --- Inicialização e Event Listeners ---
-    const addEventListeners = () => {
-        elements.themeToggleBtn.addEventListener('click', () => setTheme(document.documentElement.classList.contains('dark') ? 'light' : 'dark'));
-        elements.clearHistoryBtn.addEventListener('click', () => {
-            const confirmBtn = document.createElement('button');
-            confirmBtn.textContent = 'Sim, limpar tudo';
-            confirmBtn.className = 'action-btn bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-lg';
-            confirmBtn.onclick = () => {
-                state.answeredQuestions = {}; state.incorrectAnswers = {}; state.streakData = { currentStreak: 0, lastVisit: null };
-                saveData(); updateStreak(); updateSelectionScreen(); hideModal();
-            };
-            showModal('<i data-lucide="alert-triangle" class="w-12 h-12 text-yellow-500"></i>', 'Confirmar Ação', 'Tem certeza de que deseja limpar TODO o seu histórico (respostas, erros e sequência)? Esta ação não pode ser desfeita.', [confirmBtn]);
-        });
-        elements.selectionGrid.addEventListener('click', (e) => {
-            const themeButton = e.target.closest('button[data-quiz]');
-            if (themeButton) selectQuizTheme(themeButton.dataset.quiz);
-            const resetButton = e.target.closest('.reset-progress-btn');
-            if (resetButton) resetThemeProgress(resetButton.dataset.quiz);
-        });
-        elements.modeSelectionContainer.addEventListener('click', (e) => {
-            const card = e.target.closest('.selection-card[data-mode]');
-            if (card) startQuiz(card.dataset.mode);
-        });
-        elements.modalCloseBtn.addEventListener('click', hideModal);
-        elements.backToThemeSelectionBtn.addEventListener('click', showMenu);
-        elements.backToMenuBtnQuiz.addEventListener('click', showMenu);
-        elements.backToMenuBtnResults.addEventListener('click', showMenu);
-        elements.backToResultsBtn.addEventListener('click', () => showScreen(elements.resultsContainer));
-        elements.nextBtn.addEventListener('click', () => {
-            const activeCard = document.querySelector('.question-card[data-active="true"]');
-            if (activeCard) {
-                elements.feedbackArea.classList.add('hidden');
-                const isCorrect = !activeCard.querySelector('.option-btn.incorrect');
-                activeCard.dataset.swipeDirection = isCorrect ? 'swipe-correct' : 'swipe-incorrect';
-                advanceQuestion(activeCard);
-            }
-        });
-        elements.restartBtn.addEventListener('click', () => {
-            if (state.currentQuizKey === 'error_quiz') startErrorQuiz();
-            else startQuiz(state.quizMode);
-        });
-        elements.reviewAnswersBtn.addEventListener('click', showReview);
-    };
-    const initializeApp = async () => {
-        elements.loader.classList.remove('hidden');
-        setTheme(localStorage.getItem('quizAppTheme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
-        loadData(); updateStreak();
-        await loadQuestions();
-        elements.loader.classList.add('hidden');
-        if (state.allQuizzes) {
-            addEventListeners();
-            showMenu();
-        }
-    };
-
-    initializeApp();
-});
+// Inicia o quiz quando o script é carregado
+iniciarQuiz();
