@@ -97,7 +97,7 @@
             <div class="text-center mt-10">
                 <button id="clear-history-btn" class="text-sm font-semibold text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-500 transition inline-flex items-center gap-2">
                     <i data-lucide="trash-2" class="w-4 h-4" aria-hidden="true"></i>
-                    Limpar todo o histórico
+                    Limpar todo o histórico de revisão
                 </button>
             </div>
         </section>
@@ -107,7 +107,14 @@
              <header class="text-center mb-10">
                 <h1 id="mode-selection-title" class="text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white mb-3"></h1>
                 <p class="text-lg text-gray-600 dark:text-gray-300">Como você prefere estudar hoje?</p>
-            </header>
+             </header>
+
+            <!-- NOVO: Container de Progresso do Tema -->
+            <div id="theme-progress-container" class="text-center mb-8 hidden">
+                <p id="theme-progress-text" class="font-semibold text-gray-600 dark:text-gray-300"></p>
+                <button id="reset-theme-progress-btn" class="text-sm text-blue-600 dark:text-blue-400 hover:underline mt-1 font-medium">Resetar progresso do tema</button>
+            </div>
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <button data-mode="practice" class="selection-card p-6 text-center">
                     <i data-lucide="swords" class="w-10 h-10 mx-auto mb-4 text-cyan-500" aria-hidden="true"></i>
@@ -157,7 +164,6 @@
              <div id="card-stack-container">
                 <!-- Card da questão será inserido aqui -->
              </div>
-             <!-- O botão de sair foi movido para dentro do card da questão -->
         </section>
 
         <!-- Tela de Resultados -->
