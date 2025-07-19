@@ -122,7 +122,7 @@ body {
     border: 1px solid #e5e7eb;
     transform-origin: bottom center;
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s;
-    max-height: 60vh;
+    max-height: 80vh;
     overflow-y: auto;
 }
 
