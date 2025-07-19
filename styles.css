@@ -1,59 +1,68 @@
 /* --- Estilos Gerais e Temas --- */
 body {
     font-family: 'Inter', sans-serif;
-    /* Cor de fundo suave para o light mode */
-    background-color: #f8fafc; 
-    color: #1f2937;
+    background-color: #f8fafc; /* cinza-50 */
+    color: #1f2937; /* cinza-800 */
     transition: background-color 0.3s, color 0.3s;
 }
 
 .dark body {
-    background-color: #111827;
-    color: #f3f4f6;
+    background-color: #111827; /* cinza-900 */
+    color: #f3f4f6; /* cinza-100 */
 }
 
-/* --- Cabeçalho --- */
+/* --- Cabeçalho e Botão de Tema --- */
 .app-header {
     background-color: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(8px);
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb; /* cinza-200 */
 }
 
 .dark .app-header {
-    background-color: rgba(17, 24, 39, 0.8);
-    border-bottom-color: #374151;
+    background-color: rgba(17, 24, 39, 0.8); /* cinza-900 com transparência */
+    border-bottom-color: #374151; /* cinza-700 */
 }
 
 #theme-toggle-btn {
-    color: #4b5563;
+    color: #4b5563; /* cinza-600 */
     transition: background-color 0.2s;
 }
 #theme-toggle-btn:hover {
-    background-color: #e5e7eb;
+    background-color: #e5e7eb; /* cinza-200 */
 }
 .dark #theme-toggle-btn {
-    color: #d1d5db;
+    color: #d1d5db; /* cinza-300 */
 }
 .dark #theme-toggle-btn:hover {
-    background-color: #374151;
+    background-color: #374151; /* cinza-700 */
 }
+
 
 /* --- Animações --- */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
 .fade-in {
     animation: fadeIn 0.5s ease-out forwards;
 }
+
+@keyframes fadeInModal {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.fade-in-modal {
+    animation: fadeInModal 0.3s ease-out forwards;
+}
+
 
 /* --- Cards de Seleção --- */
 .selection-card {
     background-color: white;
     border-radius: 0.75rem;
-    border: 1px solid #e5e7eb;
-    /* Sombra sutil para o light mode */
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e7eb; /* cinza-200 */
     transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s;
     display: flex;
     flex-direction: column;
@@ -62,60 +71,58 @@ body {
 }
 .selection-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    border-color: #3b82f6;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border-color: #3b82f6; /* azul-500 */
 }
 .dark .selection-card {
-    background-color: #1f2937;
-    border-color: #374151;
-    box-shadow: none;
+    background-color: #1f2937; /* cinza-800 */
+    border-color: #374151; /* cinza-700 */
 }
 .dark .selection-card:hover {
-    border-color: #3b82f6;
+    border-color: #3b82f6; /* azul-500 */
 }
 .card-description {
-    color: #6b7280;
+    color: #6b7280; /* cinza-500 */
 }
 .dark .card-description {
-    color: #9ca3af;
+    color: #9ca3af; /* cinza-400 */
 }
 
 /* --- Loader Spinner --- */
 .loader-spinner {
     width: 50px;
     height: 50px;
-    border: 5px solid #e5e7eb;
-    border-top-color: #3b82f6;
+    border: 5px solid #e5e7eb; /* cinza-200 */
+    border-top-color: #3b82f6; /* azul-500 */
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
 .dark .loader-spinner {
-    border-color: #374151;
-    border-top-color: #60a5fa;
+    border-color: #374151; /* cinza-700 */
+    border-top-color: #60a5fa; /* azul-400 */
 }
 
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
 
+
 /* --- Cartas do Quiz --- */
 .quiz-card {
     background-color: white;
     border-radius: 1rem;
     padding: 1.5rem 2rem;
-    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -2px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
     border: 1px solid #e5e7eb;
     transform-origin: bottom center;
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    max-height: 70vh; /* Aumentado para dar mais espaço */
+    max-height: 60vh;
     overflow-y: auto;
-    position: relative; /* Necessário para o botão de sair */
 }
 
 .dark .quiz-card {
     background-color: #1f2937;
     border-color: #374151;
-    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2), 0 4px 6px -2px rgba(0,0,0,0.1);
 }
 
 #card-stack-container {
@@ -132,59 +139,55 @@ body {
     opacity: 0;
 }
 
-/* *** NOVO: Estilo para o Botão "X" de Sair *** */
-.quit-quiz-button {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    color: #9ca3af;
-    border-radius: 9999px;
-    padding: 0.5rem;
-    transition: background-color 0.2s, color 0.2s;
-}
-.quit-quiz-button:hover {
-    background-color: #f3f4f6;
-    color: #1f2937;
-}
-.dark .quit-quiz-button {
-    color: #6b7280;
-}
-.dark .quit-quiz-button:hover {
-    background-color: #374151;
-    color: #f9fafb;
-}
-
-
-/* --- Botões de Resposta --- */
 .answer-btn {
-    background-color: #f9fafb;
+    background-color: #f3f4f6;
     border: 1px solid #d1d5db;
     transition: background-color 0.2s, border-color 0.2s, color 0.2s;
 }
+
 .answer-btn:hover:not(:disabled) {
-    background-color: #eef2ff;
-    border-color: #818cf8;
+    background-color: #dbeafe;
+    border-color: #93c5fd;
 }
+
 .dark .answer-btn {
     background-color: #374151;
     border-color: #4b5563;
 }
+
 .dark .answer-btn:hover:not(:disabled) {
-    background-color: #1e3a8a;
-    border-color: #3b82f6;
-}
-.answer-btn.correct, .dark .answer-btn.correct {
-    background-color: #dcfce7 !important;
-    border-color: #4ade80 !important;
-    color: #166532 !important;
-}
-.answer-btn.incorrect, .dark .answer-btn.incorrect {
-    background-color: #fee2e2 !important;
-    border-color: #f87171 !important;
-    color: #991b1b !important;
+    background-color: #1e40af;
+    border-color: #2563eb;
 }
 
-/* --- Rodapé de Feedback --- */
+.answer-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.answer-btn.correct {
+    background-color: #dcfce7 !important;
+    border-color: #4ade80 !important;
+    color: #15803d !important;
+}
+.dark .answer-btn.correct {
+    background-color: #14532d !important;
+    border-color: #22c55e !important;
+    color: #bbf7d0 !important;
+}
+
+.answer-btn.incorrect {
+    background-color: #fee2e2 !important;
+    border-color: #f87171 !important;
+    color: #b91c1c !important;
+}
+.dark .answer-btn.incorrect {
+    background-color: #7f1d1d !important;
+    border-color: #ef4444 !important;
+    color: #fecaca !important;
+}
+
+/* --- Feedback e Ações --- */
 #feedback-footer {
     transform: translateY(100%);
     transition: transform 0.3s ease-out;
@@ -200,6 +203,7 @@ body {
     background-color: #1f2937;
     box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
 }
+
 .feedback-card.correct {
     border-color: #22c55e;
 }
@@ -207,10 +211,52 @@ body {
     border-color: #ef4444;
 }
 
-/* --- Botão Próxima --- */
+.action-btn {
+    transition: filter 0.2s, transform 0.2s;
+}
+.action-btn:hover {
+    filter: brightness(1.1);
+}
+.action-btn:active {
+    transform: scale(0.98);
+}
+
 #next-btn {
     background-color: #2563eb;
 }
 #next-btn:hover {
     background-color: #1d4ed8;
+}
+
+/* --- Gráfico de Resultados --- */
+#results-circle {
+    stroke: #3b82f6;
+    transition: stroke-dashoffset 1s ease-out;
+}
+.dark #results-circle {
+    stroke: #60a5fa;
+}
+
+
+/* --- Canvas de Confetes --- */
+#confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+/* --- Card de Revisão --- */
+.main-card {
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    border: 1px solid #e5e7eb;
+}
+.dark .main-card {
+    background-color: #1f2937;
+    border-color: #374151;
 }
