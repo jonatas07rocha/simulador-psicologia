@@ -137,7 +137,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderThemeSelection() {
         const themes = state.allQuestions.bancoDeQuestoes;
         elements.selectionGrid.innerHTML = themes.map((themeData, index) => {
-            const totalQuestions = themeData.questoesDiretoDoConcurso.length + themeData.questoesDeConcurso.length;
+            // LINHA CORRIGIDA: Adicionado 'optional chaining' (?.) e '|| 0' para segurança
+            const totalQuestions = (themeData.questoesDiretoDoConcurso?.length || 0) + (themeData.questoesDeConcurso?.length || 0);
+            
             return `
                 <div class="selection-card p-6 cursor-pointer" data-theme-index="${index}">
                     <h2 class="text-xl font-bold mb-2 text-gray-800 dark:text-white">${themeData.tema}</h2>
@@ -174,8 +176,8 @@ document.addEventListener('DOMContentLoaded', () => {
         state.userAnswers = [];
         
         const allThemeQuestions = [
-            ...state.currentTheme.questoesDiretoDoConcurso,
-            ...state.currentTheme.questoesDeConcurso
+            ...(state.currentTheme.questoesDiretoDoConcurso || []),
+            ...(state.currentTheme.questoesDeConcurso || [])
         ];
 
         // Embaralhar e selecionar questões
