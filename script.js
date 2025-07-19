@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const elements = {
         loader: document.getElementById('loader'),
         appContainer: document.getElementById('app-container'),
+        homeLink: document.getElementById('home-link'),
         
         // Telas
         selectionContainer: document.getElementById('selection-container'),
@@ -68,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     const TOTAL_QUESTIONS = 10;
-    const CHALLENGE_TIME_PER_QUESTION = 20; // 20 segundos por questão
+    const CHALLENGE_TIME_PER_QUESTION = 20;
 
     // --- Funções de Inicialização e Carregamento ---
 
@@ -81,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) throw new Error('Network response was not ok');
             state.allQuestions = await response.json();
             
-            if (state.allQuestions.bancoDeQuestoes.length > 0) {
+            if (state.allQuestions.bancoDeQuestoes?.length > 0) {
                  renderThemeSelection();
                  showView('selection-container');
             } else {
@@ -97,19 +98,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function setupEventListeners() {
+        elements.homeLink.addEventListener('click', quitQuiz);
         elements.themeToggleBtn.addEventListener('click', toggleTheme);
         elements.selectionGrid.addEventListener('click', handleThemeSelection);
         elements.modeButtons.forEach(btn => btn.addEventListener('click', handleModeSelection));
         elements.backToThemeBtn.addEventListener('click', () => showView('selection-container'));
         elements.nextBtn.addEventListener('click', goToNextQuestion);
-        elements.quitQuizBtn.addEventListener('click', () => showView('selection-container'));
+        elements.quitQuizBtn.addEventListener('click', quitQuiz); // Usando a nova função
         elements.restartBtn.addEventListener('click', startQuiz);
         elements.backToMenuResultsBtn.addEventListener('click', () => showView('selection-container'));
         elements.reviewAnswersBtn.addEventListener('click', renderReview);
         elements.backToResultsBtn.addEventListener('click', () => showView('results-container'));
     }
-
-    // --- Gerenciamento de Visualização (Telas) ---
+    
+    // --- Funções de Navegação e Estado ---
 
     function showView(viewId) {
         const views = [
@@ -126,10 +128,20 @@ document.addEventListener('DOMContentLoaded', () => {
             activeView.classList.remove('hidden');
             activeView.classList.add('fade-in');
         }
+        window.scrollTo(0, 0); // Rola a página para o topo ao mudar de tela
+    }
+    
+    function quitQuiz() {
+        if (state.timerId) {
+            clearInterval(state.timerId);
+            state.timerId = null;
+        }
+        state.currentTheme = null;
+        showView('selection-container');
     }
 
     function showError(message) {
-        elements.loader.innerHTML = `<p class="text-red-500">${message}</p>`;
+        elements.loader.innerHTML = `<p class="text-red-500 font-semibold">${message}</p>`;
     }
 
     // --- Lógica de Seleção de Tema e Modo ---
@@ -138,14 +150,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const themes = state.allQuestions.bancoDeQuestoes;
         elements.selectionGrid.innerHTML = themes.map((themeData, index) => {
             const totalQuestions = (themeData.questoesDiretoDoConcurso?.length || 0) + (themeData.questoesDeConcurso?.length || 0);
+            const iconName = themeData.icon || 'book-open'; // Ícone padrão
             
             return `
-                <div class="selection-card p-6 cursor-pointer" data-theme-index="${index}">
-                    <h2 class="text-xl font-bold mb-2 text-gray-800 dark:text-white">${themeData.tema}</h2>
-                    <p class="card-description">${totalQuestions} questões disponíveis</p>
+                <div class="selection-card p-6" data-theme-index="${index}">
+                    <i data-lucide="${iconName}" class="w-10 h-10 mb-4 text-blue-500"></i>
+                    <h2 class="text-xl font-bold mb-2 text-center text-gray-800 dark:text-white">${themeData.tema}</h2>
+                    <p class="card-description text-sm">${totalQuestions} questões disponíveis</p>
                 </div>
             `;
         }).join('');
+        lucide.createIcons(); // Renderiza os ícones
     }
 
     function handleThemeSelection(e) {
@@ -155,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const themeIndex = parseInt(card.dataset.themeIndex, 10);
         state.currentTheme = state.allQuestions.bancoDeQuestoes[themeIndex];
         
-        elements.modeSelectionTitle.textContent = `Tema: ${state.currentTheme.tema}`;
+        elements.modeSelectionTitle.textContent = `${state.currentTheme.tema}`;
         showView('mode-selection-container');
     }
 
@@ -179,7 +194,6 @@ document.addEventListener('DOMContentLoaded', () => {
             ...(state.currentTheme.questoesDeConcurso || [])
         ];
 
-        // Embaralhar e selecionar questões
         state.quizQuestions = allThemeQuestions.sort(() => 0.5 - Math.random()).slice(0, TOTAL_QUESTIONS);
         
         if (state.quizQuestions.length < 1) {
@@ -189,7 +203,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         elements.quizTitle.textContent = state.currentTheme.tema;
-        elements.quizSubtitle.textContent = `Modo: ${state.currentMode.charAt(0).toUpperCase() + state.currentMode.slice(1)}`;
+        let modeText = state.currentMode.charAt(0).toUpperCase() + state.currentMode.slice(1);
+        elements.quizSubtitle.textContent = `Modo: ${modeText}`;
         elements.score.textContent = '0';
         elements.feedbackArea.classList.add('hidden');
         
@@ -206,7 +221,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderCurrentQuestion() {
         elements.cardStackContainer.innerHTML = '';
-        elements.feedbackArea.classList.add('hidden');
         
         const question = state.quizQuestions[state.currentQuestionIndex];
         elements.questionCounter.textContent = `Questão ${state.currentQuestionIndex + 1} de ${state.quizQuestions.length}`;
@@ -248,9 +262,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const question = state.quizQuestions[state.currentQuestionIndex];
         const userAnswerKey = selectedButton.dataset.key;
         
-        const correctAnswerKey = question.gabarito.toLowerCase().startsWith('c') ? 'c' : 
-                                 question.gabarito.toLowerCase().startsWith('e') ? 'e' : 
-                                 question.gabarito.toLowerCase();
+        const gabaritoFormatado = question.gabarito.toLowerCase().trim();
+        const correctAnswerKey = gabaritoFormatado.startsWith('certo') ? 'c' : 
+                                 gabaritoFormatado.startsWith('errado') ? 'e' : 
+                                 gabaritoFormatado;
 
         const isCorrect = userAnswerKey === correctAnswerKey;
         
@@ -260,6 +275,9 @@ document.addEventListener('DOMContentLoaded', () => {
             state.score++;
             elements.score.textContent = state.score;
             selectedButton.classList.add('correct');
+            if (state.currentMode === 'practice') {
+                triggerConfetti();
+            }
         } else {
             selectedButton.classList.add('incorrect');
             const correctButton = answerContainer.querySelector(`[data-key="${correctAnswerKey}"]`);
@@ -288,9 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function goToNextQuestion() {
-        // *** LINHA ADICIONADA PARA A CORREÇÃO ***
         elements.feedbackArea.classList.add('hidden');
-
         const card = document.querySelector('.quiz-card');
         if (card) {
             card.classList.add('card-exit');
@@ -310,14 +326,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showResults() {
         clearInterval(state.timerId);
+        state.timerId = null;
         
-        const scorePercentage = (state.score / state.quizQuestions.length) * 100;
+        const scorePercentage = state.quizQuestions.length > 0 ? (state.score / state.quizQuestions.length) * 100 : 0;
         const radius = 15.9155;
         const circumference = 2 * Math.PI * radius;
         const offset = circumference - (scorePercentage / 100) * circumference;
         
         elements.resultsCircle.style.strokeDasharray = circumference;
-        elements.resultsCircle.style.strokeDashoffset = offset;
+        setTimeout(() => {
+            elements.resultsCircle.style.strokeDashoffset = offset;
+        }, 100);
         
         elements.finalScore.textContent = `${Math.round(scorePercentage)}%`;
         
@@ -338,23 +357,24 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderReview() {
         elements.reviewContent.innerHTML = state.userAnswers.map((answer, index) => {
             const { question, userAnswerKey, isCorrect } = answer;
-            const correctAnswerKey = question.gabarito.toLowerCase().startsWith('c') ? 'c' : 
-                                     question.gabarito.toLowerCase().startsWith('e') ? 'e' : 
-                                     question.gabarito.toLowerCase();
+            const gabaritoFormatado = question.gabarito.toLowerCase().trim();
+            const correctAnswerKey = gabaritoFormatado.startsWith('certo') ? 'c' : 
+                                     gabaritoFormatado.startsWith('errado') ? 'e' : 
+                                     gabaritoFormatado;
 
             let alternativesHTML;
             if (question.tipo === 'CERTO_ERRADO') {
                 alternativesHTML = `
-                    <p class="p-3 rounded-lg ${'c' === correctAnswerKey ? 'bg-green-100 dark:bg-green-900/50' : ''} ${'c' === userAnswerKey && !isCorrect ? 'bg-red-100 dark:bg-red-900/50' : ''}">C) Certo</p>
-                    <p class="p-3 rounded-lg ${'e' === correctAnswerKey ? 'bg-green-100 dark:bg-green-900/50' : ''} ${'e' === userAnswerKey && !isCorrect ? 'bg-red-100 dark:bg-red-900/50' : ''}">E) Errado</p>
+                    <p class="p-3 rounded-lg ${'c' === correctAnswerKey ? 'bg-green-100 dark:bg-green-900/50 font-bold' : ''} ${'c' === userAnswerKey && !isCorrect ? 'bg-red-100 dark:bg-red-900/50 line-through' : ''}">C) Certo</p>
+                    <p class="p-3 rounded-lg ${'e' === correctAnswerKey ? 'bg-green-100 dark:bg-green-900/50 font-bold' : ''} ${'e' === userAnswerKey && !isCorrect ? 'bg-red-100 dark:bg-red-900/50 line-through' : ''}">E) Errado</p>
                 `;
             } else {
                 alternativesHTML = question.alternativas.map(alt => {
                     const isUserAnswer = alt.key === userAnswerKey;
                     const isCorrectAnswer = alt.key === correctAnswerKey;
                     let classes = "p-3 rounded-lg";
-                    if (isCorrectAnswer) classes += " bg-green-100 dark:bg-green-900/50";
-                    if (isUserAnswer && !isCorrect) classes += " bg-red-100 dark:bg-red-900/50";
+                    if (isCorrectAnswer) classes += " bg-green-100 dark:bg-green-900/50 font-bold";
+                    if (isUserAnswer && !isCorrect) classes += " bg-red-100 dark:bg-red-900/50 line-through";
                     return `<p class="${classes}">${alt.key.toUpperCase()}) ${alt.text}</p>`;
                 }).join('');
             }
@@ -370,7 +390,6 @@ document.addEventListener('DOMContentLoaded', () => {
         showView('review-container');
     }
 
-
     // --- Funções Utilitárias (Tema, Timer, Confetes) ---
 
     function applyTheme(theme) {
@@ -380,7 +399,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.documentElement.classList.remove('dark');
         }
         localStorage.setItem('theme', theme);
-        lucide.createIcons(); // Recria os ícones para alternar sol/lua
+        lucide.createIcons();
     }
 
     function toggleTheme() {
@@ -391,27 +410,26 @@ document.addEventListener('DOMContentLoaded', () => {
     function startTimer() {
         clearInterval(state.timerId);
         state.timeLeft = state.quizQuestions.length * CHALLENGE_TIME_PER_QUESTION;
+        updateTimerDisplay();
         
         state.timerId = setInterval(() => {
             state.timeLeft--;
-            const minutes = Math.floor(state.timeLeft / 60).toString().padStart(2, '0');
-            const seconds = (state.timeLeft % 60).toString().padStart(2, '0');
-            elements.timer.textContent = `${minutes}:${seconds}`;
-
+            updateTimerDisplay();
             if (state.timeLeft <= 0) {
-                clearInterval(state.timerId);
                 showResults();
             }
         }, 1000);
     }
     
+    function updateTimerDisplay() {
+        const minutes = Math.floor(state.timeLeft / 60).toString().padStart(2, '0');
+        const seconds = (state.timeLeft % 60).toString().padStart(2, '0');
+        elements.timer.textContent = `${minutes}:${seconds}`;
+    }
+    
     function triggerConfetti() {
         if (window.confetti) {
-            confetti({
-                particleCount: 150,
-                spread: 90,
-                origin: { y: 0.6 }
-            });
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
         }
     }
 
