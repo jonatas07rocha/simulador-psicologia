@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Constantes e Seletores de Elementos --- //
-    const THEME_ICONS = ['scale', 'brain-circuit', 'brain-cog', 'graduation-cap', 'book-check', 'history'];
-    const THEME_COLORS = ['text-cyan-500', 'text-amber-500', 'text-violet-500', 'text-emerald-500', 'text-pink-500', 'text-sky-500'];
+    const THEME_ICONS = ['scale', 'brain-circuit', 'brain-cog', 'graduation-cap', 'users', 'shield-alert', 'siren', 'baby', 'heart-crack', 'user-x', 'microscope', 'recycle', 'syringe', 'sofa', 'message-square', 'clipboard-list'];
+    const THEME_COLORS = ['text-cyan-500', 'text-amber-500', 'text-violet-500', 'text-emerald-500', 'text-pink-500', 'text-sky-500', 'text-red-500', 'text-lime-500', 'text-fuchsia-500', 'text-rose-500', 'text-indigo-500', 'text-teal-500', 'text-orange-500', 'text-blue-500', 'text-green-500', 'text-purple-500'];
     const MAX_QUESTIONS_PER_QUIZ = 10;
     const CHALLENGE_TIME_PER_QUESTION = 20; // segundos
 
@@ -312,14 +312,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const question = state.quizQuestions[state.currentQuestionIndex];
         elements.questionCounter.textContent = `Questão ${state.currentQuestionIndex + 1} de ${state.quizQuestions.length}`;
         const isCertoErrado = question.tipo === 'CERTO_ERRADO';
-        const alternativesHTML = isCertoErrado 
-            ? `<button class="answer-btn w-full text-left p-4 rounded-lg font-semibold" data-key="c">C) Certo</button><button class="answer-btn w-full text-left p-4 rounded-lg font-semibold" data-key="e">E) Errado</button>` 
-            : question.alternativas.map(alt => `<button class="answer-btn w-full text-left p-4 rounded-lg font-semibold" data-key="${alt.key}"><span class="font-bold mr-2">${alt.key.toUpperCase()})</span> ${alt.text}</button>`).join('');
+        
+        let alternativesHTML = '';
+        if (isCertoErrado) {
+            alternativesHTML = `
+                <button class="answer-btn w-full text-left p-4 rounded-lg font-semibold" data-key="c">C) Certo</button>
+                <button class="answer-btn w-full text-left p-4 rounded-lg font-semibold" data-key="e">E) Errado</button>
+            `;
+        } else if (question.alternativas && question.alternativas.length > 0) {
+            alternativesHTML = question.alternativas.map(alt => 
+                `<button class="answer-btn w-full text-left p-4 rounded-lg font-semibold" data-key="${alt.key}"><span class="font-bold mr-2">${alt.key.toUpperCase()})</span> ${alt.text}</button>`
+            ).join('');
+        }
         
         const cardHTML = `
             <div class="quiz-card card-enter">
                 <p class="text-sm text-gray-500 dark:text-gray-400 font-medium mb-4">${question.fonte}</p>
-                <p class="text-lg leading-relaxed mb-6">${question.enunciado}</p>
+                <p class="text-lg leading-relaxed mb-6">${question.enunciado.replace(/\n/g, '<br>')}</p>
                 <div class="space-y-3 mb-8" id="answer-options">${alternativesHTML}</div>
                 <div class="border-t border-gray-200 dark:border-gray-700 pt-4 text-center">
                     <button id="back-to-menu-btn-quiz" class="font-semibold text-sm text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-500 transition inline-flex items-center gap-2">
@@ -412,7 +421,6 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(state.timerId);
         state.timerId = null;
 
-        // Salva o progresso das questões respondidas (exceto no modo de revisão)
         if (state.currentMode !== 'review') {
             const themeName = state.currentTheme.tema;
             if (!state.answeredQuestions[themeName]) {
@@ -449,16 +457,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderReview() {
         elements.reviewContent.innerHTML = state.userAnswers.map((answer, index) => {
             const { question, userAnswerKey, isCorrect } = answer;
-            
             const correctAnswerKey = question.gabarito.toLowerCase().trim().charAt(0);
             
-            let alternativesHTML;
+            let alternativesHTML = '';
             if (question.tipo === 'CERTO_ERRADO') {
                 alternativesHTML = `
                     <p class="p-3 rounded-lg ${'c' === correctAnswerKey ? 'bg-green-100 dark:bg-green-900/50 font-bold' : ''} ${'c' === userAnswerKey && !isCorrect ? 'bg-red-100 dark:bg-red-900/50 line-through' : ''}">C) Certo</p>
                     <p class="p-3 rounded-lg ${'e' === correctAnswerKey ? 'bg-green-100 dark:bg-green-900/50 font-bold' : ''} ${'e' === userAnswerKey && !isCorrect ? 'bg-red-100 dark:bg-red-900/50 line-through' : ''}">E) Errado</p>`;
-            } else {
-                alternativesHTML = question.alternativas.map(alt => {
+            } else if (question.alternativas && question.alternativas.length > 0) {
+                 alternativesHTML = question.alternativas.map(alt => {
                     const isUserAnswer = alt.key === userAnswerKey;
                     const isCorrectAnswer = alt.key === correctAnswerKey;
                     let classes = "p-3 rounded-lg";
@@ -467,7 +474,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     return `<p class="${classes}">${alt.key.toUpperCase()}) ${alt.text}</p>`;
                 }).join('');
             }
-            return `<div class="border-b border-gray-200 dark:border-gray-700 pb-6"><p class="font-bold mb-2">Questão ${index + 1}: ${isCorrect ? '<span class="text-green-500">Correta</span>' : '<span class="text-red-500">Incorreta</span>'}</p><p class="text-gray-600 dark:text-gray-300 mb-4">${question.enunciado}</p><div class="space-y-2 text-sm">${alternativesHTML}</div><p class="mt-4 text-sm font-semibold text-gray-800 dark:text-gray-200">Gabarito: ${question.gabarito.toUpperCase()}</p></div>`;
+
+            return `<div class="border-b border-gray-200 dark:border-gray-700 pb-6">
+                        <p class="font-bold mb-2">Questão ${index + 1}: ${isCorrect ? '<span class="text-green-500">Correta</span>' : '<span class="text-red-500">Incorreta</span>'}</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">${question.enunciado.replace(/\n/g, '<br>')}</p>
+                        <div class="space-y-2 text-sm">${alternativesHTML}</div>
+                        <p class="mt-4 text-sm font-semibold text-gray-800 dark:text-gray-200">Gabarito: ${question.gabarito.toUpperCase()}</p>
+                    </div>`;
         }).join('');
         showView('review-container');
     }
