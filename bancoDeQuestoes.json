@@ -2273,6 +2273,1364 @@
           "gabarito": "a"
         }
       ]
+    },
+    {
+      "tema": "Teorias de Gênero",
+      "questoesDeConcurso": [
+        {
+          "numero": "001",
+          "fonte": "2024/INSTITUTO ACCESS/PREFEITURA DE VOLTA GRANDE/MG/PSICÓLOGO UBS",
+          "enunciado": "A Psicologia das Relações de Gênero e Sexualidade Humana é uma área de estudo que explora as complexidades das identidades de gênero e das expressões da sexualidade, buscando entender como esses aspectos influenciam o comportamento, as relações interpessoais e o bem-estar emocional das pessoas. Sobre o assunto, julgue as seguintes afirmações como verdadeiras (V) ou falsas (F):\n( ) A identidade de gênero refere-se ao sexo biológico atribuído ao nascimento, que pode ou não estar alinhado ao entendimento pessoal de cada indivíduo sobre seu próprio gênero.\n( ) Essa área de estudo abrange a interação entre fatores biológicos, psicológicos, sociais e culturais que moldam as experiências individuais e coletivas em relação ao gênero e à sexualidade.\n( ) A psicologia das relações de gênero analisa como os papéis de gênero são socialmente construídos e como influenciam as oportunidades, as escolhas e a identidade das pessoas.\nAssinale a alternativa cuja respectiva ordem de julgamento está correta:",
+          "alternativas": [
+            { "key": "a", "text": "F-V-V." },
+            { "key": "b", "text": "F-F-V." },
+            { "key": "c", "text": "V-F-F." },
+            { "key": "d", "text": "F-F-F." }
+          ],
+          "gabarito": "a"
+        },
+        {
+          "numero": "002",
+          "fonte": "2022/IBFC/DPE MT/ANALISTA/PSICÓLOGO",
+          "enunciado": "De acordo com Strey (2013): \"Dentro da psicologia social científica, os temas gênero tinham pouca expressão e, no máximo, apareciam como sexo, indicando as diferenças encontradas entre homens e mulheres em experimentos de laboratório ou de campo\" (STREY, 2013, p. 181). A partir da obra da autora, assinale a alternativa incorreta.",
+          "alternativas": [
+            { "key": "a", "text": "O sexo biológico de uma pessoa vem determinado, em geral, pela dotação cromossômica, pelas estruturas gonadais e pela dotação hormonal." },
+            { "key": "b", "text": "O sexo biológico com o qual se nasce determina o desenvolvimento posterior em relação a comportamentos, interesses e estilos de vida, por exemplo." },
+            { "key": "c", "text": "Enquanto as diferenças sexuais são físicas, as diferenças de gênero são socialmente construídas." },
+            { "key": "d", "text": "Gênero está relacionado às diferenças sexuais, mas não necessariamente às diferenças fisiológicas." }
+          ],
+          "gabarito": "b"
+        },
+        {
+          "numero": "003",
+          "fonte": "2024/FGV/PC SC/PSICÓLOGO",
+          "enunciado": "Na perspectiva pós-estruturalista, gênero é entendido como:",
+          "alternativas": [
+            { "key": "a", "text": "a forma que define a identidade biológica dos corpos humanos masculinos e femininos." },
+            { "key": "b", "text": "um dispositivo de poder que constitui algumas identidades, entre elas, as de mulher e de homem." },
+            { "key": "c", "text": "o elemento que descreve a personalidade e o comportamento do homem e da mulher." },
+            { "key": "d", "text": "uma parte do sistema binário sexo/gênero, que diferencia o que é biologicamente definido do que é socialmente construído." },
+            { "key": "e", "text": "estrutura biológica que diferencia os corpos femininos e os masculinos." }
+          ],
+          "gabarito": "b"
+        },
+        {
+          "numero": "004",
+          "fonte": "2024/FGV/TJ RR/ANALISTA/ÁREA PSICOLOGIA",
+          "enunciado": "A desigualdade e a hierarquização entre gêneros podem se manifestar sob diversas formas, sobretudo, através de violência. A pessoa cuja identidade de gênero não corresponde a uma matriz heteronormativa está sujeita a sofrer todo tipo de exclusão, podendo culminar em seu extermínio. Para pensar as questões de gênero, vale citar as contribuições de Judith Butler que, em seu conhecido livro Problemas de Gênero, apresenta a ideia central de que:",
+          "alternativas": [
+            { "key": "a", "text": "a aparência de que o sexo tem caráter natural provém do caráter performativo de gênero." },
+            { "key": "b", "text": "o sexo é reprimido pelo poder e deve ser vivido em sua essência e potencialidade." },
+            { "key": "c", "text": "a interdição do incesto é condição para realizar a passagem do estado de natureza para a cultura." },
+            { "key": "d", "text": "o amor materno foi um mito historicamente criado na antiguidade para controlar o sexo feminino." },
+            { "key": "e", "text": "a dicotomia entre sexo e gênero é algo intransponível, de modo que cabe à teoria social abordar somente a segunda." }
+          ],
+          "gabarito": "a"
+        },
+        {
+          "numero": "005",
+          "fonte": "2024/ITAME/PREFEITURA DE MONTE ALEGRE DE GOIÁS/GO/PSICÓLOGO",
+          "enunciado": "Sobre a posição das/os profissionais da Psicologia com relação às experiências trans (transexualidades e as travestilidades) é correto afirmar:",
+          "alternativas": [
+            { "key": "a", "text": "que devem considerá-la transtornos ou psicopatologias." },
+            { "key": "b", "text": "que devem considerá-las manifestações legítimas dos modos pelos quais as pessoas podem se identificar e se constituir em termos de gênero." },
+            { "key": "c", "text": "que devem tratá-las como caminhos para a efetivação da cultura patrical e dominação de gênero." },
+            { "key": "d", "text": "que compreendem que podem ser revertidas a partir de um metódico trabalho terapêutico, que assegure a remissão dessas experiências." }
+          ],
+          "gabarito": "b"
+        },
+        {
+          "numero": "006",
+          "fonte": "2024/IBADE/PREFEITURA DE SÃO FELIPE D'OESTE/RO/PSICÓLOGO",
+          "enunciado": "Sobre o conceito de gênero é correto afirmar que:",
+          "alternativas": [
+            { "key": "a", "text": "gênero é um atributo físico, determinado biologicamente no nascimento;" },
+            { "key": "b", "text": "gênero é um atributo genético, definido durante a concepção do bebê;" },
+            { "key": "c", "text": "gênero é um atributo biológico, definido ao longo do processo de estruturação celular, durante a gestação;" },
+            { "key": "d", "text": "gênero é uma escolha, portanto culturalmente circunstanciado;" },
+            { "key": "e", "text": "gênero é uma construção social, portanto culturalmente circunstanciado." }
+          ],
+          "gabarito": "e"
+        },
+        {
+          "numero": "007",
+          "fonte": "VUNESP/PSICÓLOGO JUDICIÁRIO/TJSP/2025",
+          "enunciado": "Butler (2003, mencionada em Uziel, Nunes & Brandão, 2023) postula que gênero deve ser pensado dentro do que ela chama de \"matriz de inteligibilidade\". Tal matriz é constituída pelos termos:",
+          "alternativas": [
+            { "key": "a", "text": "carga genética, desenvolvimento psíquico, adequação social." },
+            { "key": "b", "text": "nível biológico, nível psicológico, nível social." },
+            { "key": "c", "text": "gênero, sexo e desejo sexual/práticas sexuais." },
+            { "key": "d", "text": "emocionalidade, racionalidade, normatividade." },
+            { "key": "e", "text": "corpo, identidade de gênero, performatividade." }
+          ],
+          "gabarito": "c"
+        },
+        {
+          "numero": "008",
+          "fonte": "VUNESP/PSICÓLOGO JUDICIÁRIO/TJSP/2022",
+          "enunciado": "Aplicando-se a perspectiva de análise foucaultiana das formas de legitimação e das formas de dominação às questões de gênero, pode-se afirmar que as relações de gênero:",
+          "alternativas": [
+            { "key": "a", "text": "são constituídas nos jogos de saber/poder em que os indivíduos estão imersos, que produzem os corpos e as formas assumidas pelas relações." },
+            { "key": "b", "text": "estão inscritas em uma matriz biológica que define a priori sua formatação, mas que é passível de modificação pela cultura." },
+            { "key": "c", "text": "estão relacionadas a formas cristalizadas de dominação praticamente inalteráveis, tomadas como verdade naturalmente legitimada no nível inconsciente." },
+            { "key": "d", "text": "sempre estarão sujeitas aos jogos de saber/poder, dado que as formas de resistência não têm vigor suficiente para suplantar as formas de dominação." },
+            { "key": "e", "text": "se dão no âmbito individual e privado, e é nesse contexto que deverão ser problematizadas, compreendidas e resolvidas." }
+          ],
+          "gabarito": "a"
+        },
+        {
+          "numero": "009",
+          "fonte": "CESPE/CEBRASPE/ANALISTA JUDICIÁRIO - APOIO ESPECIALIZADO - ESPECIALIDADE PSICOLOGIA/STJ/2024",
+          "tipo": "CERTO_ERRADO",
+          "enunciado": "Os desafios contemporâneos relacionados à psicologia envolvem questões como os direitos humanos, as teorias de gênero, a violência contra a mulher e as diferentes formas de assédio e discriminação. A esse respeito, julgue o item subsequente.\nDe acordo com Judith Butler, uma das principais teóricas dos estudos de gênero, as violências contra as pessoas LGBTQIA+ não decorrem da heterossexualidade compulsória ou do binarismo de gênero, mas de problemas sociais e culturais mais complexos.",
+          "gabarito": "Errado"
+        },
+        {
+          "numero": "010",
+          "fonte": "FGV/PSICÓLOGO/PREFEITURA DE ABREU E LIMA - PE/2024",
+          "enunciado": "Alessandra é o nome social de uma mulher trans que sofre preconceito desde a infância, o que impacta sua saúde mental. Ela vem fazendo o processo transexualizador há alguns anos e pretende realizar a cirurgia de modificação corporal, de tal modo que foi solicitada à psicóloga do serviço que fizesse uma avaliação do caso. Nesse contexto, são importantes as contribuições da teoria queer, sobretudo, da filósofa Judith Butler, conhecida pela perspectiva crítica das categorias de identidade de gênero. Uma das ideias centrais dessa teoria é:",
+          "alternativas": [
+            { "key": "a", "text": "a identidade de gênero é performaticamente constituída." },
+            { "key": "b", "text": "o sexo possui uma essência que deve ser vivida sem repressão." },
+            { "key": "c", "text": "o interdito entre a mulher e o bebê é condição universal para qualquer sociedade humana." },
+            { "key": "d", "text": "o amor materno é um mito atribuído às mulheres por serem as cuidadoras primárias dos filhos." },
+            { "key": "e", "text": "o sexo possui uma natureza a priori, mas o gênero se desenvolve de acordo com cada indivíduo." }
+          ],
+          "gabarito": "a"
+        },
+        {
+          "numero": "011",
+          "fonte": "FGV/PSICÓLOGO/TJAP/2024",
+          "enunciado": "Judith Butler, que se destaca como uma das principais autoras alinhadas às teorias pós-modernas de gênero, afirma que:",
+          "alternativas": [
+            { "key": "a", "text": "gênero é o conjunto dos sentidos dinâmicos construídos nas relações de poder que sustentam as interações entre homens e mulheres e que se assenta sobre a diferença sexual natural;" },
+            { "key": "b", "text": "gênero é o resultado das pressões ambientais e socializatórias normais heterossexuais decorrente da prevalência do significante falo;" },
+            { "key": "c", "text": "a sexualidade seria uma extensão da natureza biológica (anatômica) que garante (pela complementaridade) a perpetuação da espécie;" },
+            { "key": "d", "text": "gênero se define como ato performativo de nomeação que faz existir a diferença anatômica/sexual e as possibilidades de relações entre os seres humanos;" },
+            { "key": "e", "text": "os gêneros (masculino/feminino) e seus papéis decorrem da existência de sexos biológicos (macho/fêmea) que se complementam para perpetuação da espécie humana." }
+          ],
+          "gabarito": "d"
+        },
+        {
+          "numero": "012",
+          "fonte": "FGV/ANALISTA/ÁREA DE APOIO ESPECIALIZADO-PSICOLOGIA/DPE-RS/2023",
+          "enunciado": "As chamadas \"minorias\" sexuais são hoje em dia muito mais visíveis do que outrora, de modo que o embate entre elas e os grupos conservadores torna-se ainda mais acirrado. Nesse contexto histórico e político de movimentos sociais, algumas teorias de gênero ganharam destaque, entre as quais a teoria queer, marcadamente pós-identitária e inspirada pelo pós-estruturalismo francês. Para uma das figuras teóricas de maior importância, Judith Butler, a linguagem que se refere ao sexo tem caráter performativo, pois produz os corpos e os sujeitos no instante mesmo da nomeação. O alvo central da teoria queer é:",
+          "alternativas": [
+            { "key": "a", "text": "a aceitação e a integração de homossexuais no sistema social;" },
+            { "key": "b", "text": "a consideração da sexualidade humana como algo originariamente natural;" },
+            { "key": "c", "text": "o reconhecimento de gays e lésbicas como pessoas normais com suas sexualidades singulares;" },
+            { "key": "d", "text": "a crítica do binarismo hétero/homossexual como categoria de organização das práticas sociais e do conhecimento;" },
+            { "key": "e", "text": "a confirmação da descoberta de Freud sobre a perversão polimorfa que caracteriza a sexualidade humana." }
+          ],
+          "gabarito": "d"
+        }
+      ]
+    },
+    {
+      "tema": "Psicoterapia Breve",
+      "questoesDeConcurso": [
+        {
+          "numero": "001",
+          "fonte": "COPEVE-UFAL/UFAL/PSICÓLOGO CLÍNICO/2023",
+          "enunciado": "As psicoterapias breves são tratamentos de natureza psicológica, caracterizadas basicamente pela redução do período de intervenção, se comparadas às psicoterapias clássicas. Além disso, trabalham também com objetivos definidos, precisos e focais. Acerca das psicoterapias breves, assinale a alternativa correta.",
+          "alternativas": [
+            { "key": "a", "text": "É particularmente efetiva, quando há o início recente dos sintomas." },
+            { "key": "b", "text": "É particularmente indicada em casos de psicoses, doenças psicomáticas e drogadição." },
+            { "key": "c", "text": "A psicoterapia breve de apoio não é indicada para tratamento em ambiente hospitalar." },
+            { "key": "d", "text": "A psicoterapia breve mobilizadora diz respeito a uma forma de atuação que permite ao indivíduo mudar uma conduta." },
+            { "key": "e", "text": "É particularmente efetiva para pacientes resistentes à psicoterapia, que ainda defendem a doença em detrimento da mudança." }
+          ],
+          "gabarito": "a"
+        },
+        {
+          "numero": "002",
+          "fonte": "FCC/MPE-PB/ANALISTA MINISTERIAL/PSICOLOGIA/2023",
+          "enunciado": "A psicoterapia breve é indicada nos casos em que há:",
+          "alternativas": [
+            { "key": "a", "text": "crise recente, incapacidade de insight para resolução dos problemas e pouca motivação para o tratamento." },
+            { "key": "b", "text": "transtornos recentes, agudos e de caráter leve, motivação para o tratamento, força e plasticidade do ego, capacidade de insight, determinação e boa delimitação desde o início." },
+            { "key": "c", "text": "transtorno psicopatológico de grau moderado a grave, com sintomas agudos." },
+            { "key": "d", "text": "baixa tolerância à frustração, ansiedade, sintomas de caráter moderado e grave." },
+            { "key": "e", "text": "necessidade de substituir o processo de análise diante da resistência do sujeito, transtornos crônicos de origem do passado do sujeito, sintomas de caráter leve, moderado ou grave." }
+          ],
+          "gabarito": "b"
+        },
+        {
+          "numero": "003",
+          "fonte": "IESES/SAP-SC/PSICÓLOGO/2022",
+          "enunciado": "Em relação à psicoterapia breve, assinale a alternativa INCORRETA:",
+          "alternativas": [
+            { "key": "a", "text": "As psicoterapias breves procuram obter em curto prazo uma melhora na qualidade de vida, elegendo uma queixa principal e focando o empenho na sua resolução." },
+            { "key": "b", "text": "São indicados para terapêutica breve: quadros agudos, em particular situações de crises ou descompensações." },
+            { "key": "c", "text": "Entre os pacientes que obtêm menor benefício da psicoterapia breve estão os transtornos psiquiátricos crônicos, fora de fases agudas." },
+            { "key": "d", "text": "Em situações de mudanças, por exemplo, em transição de etapas evolutivas (adolescência, casamento, conclusão de curso superior, menopausa, aposentadoria) é indicada a psicoterapia breve." },
+            { "key": "e", "text": "Pacientes que obtêm maior benefício da psicoterapia breve, em geral, apresentam transtornos psiquiátricos crônicos, fora de fases agudas." }
+          ],
+          "gabarito": "e"
+        },
+        {
+          "numero": "004",
+          "fonte": "FEPESE/PREFEITURA DE BALNEÁRIO CAMBORIÚ - SC/PSICÓLOGO/1S4/223",
+          "enunciado": "Segundo a literatura, a psicoterapia breve se fundamenta em um tripé constituído por:",
+          "alternativas": [
+            { "key": "a", "text": "Diálogo, atividade e processo." },
+            { "key": "b", "text": "Foco, empatia e planejamento." },
+            { "key": "c", "text": "Foco, atividade e planejamento." },
+            { "key": "d", "text": "Atividade, empatia e resolutividade." },
+            { "key": "e", "text": "Atividade, transferência e resolutividade." }
+          ],
+          "gabarito": "c"
+        },
+        {
+          "numero": "005",
+          "fonte": "CESPE/CEBRASPE/PREFEITURA DE SÃO CRISTÓVÃO - SE/PSICÓLOGO/2023",
+          "enunciado": "No que se refere à psicoterapia breve e intervenções em crise, assinale a opção correta.",
+          "alternativas": [
+            { "key": "a", "text": "As terapias breves, pela sua própria fundamentação teórica, desconsideram conceitos como transferência e associação livre." },
+            { "key": "b", "text": "De modo geral, pessoas com poucos recursos psicológicos não se beneficiam de intervenção em crise." },
+            { "key": "c", "text": "Na psicoterapia breve, os objetivos terapêuticos são circunscritos, com formulação inicial de hipótese, associado ao conflito central e o estabelecimento de critérios de melhora e evolução." },
+            { "key": "d", "text": "Psicoterapias em crise são restritas a situações de desastre e emergência." }
+          ],
+          "gabarito": "c"
+        },
+        {
+          "numero": "006",
+          "fonte": "FEPESE/PREFEITURA DE BIGUAÇU - SC/PSICÓLOGO/2022",
+          "enunciado": "Analise as afirmativas abaixo sobre Psicoterapia Breve.\n1. Trata-se de uma abordagem que implica maior presença do psicoterapeuta, o qual atua como um agente ativo de escuta, entendimento, diagnóstico e orientação durante o processo psicoterápico.\n2. Sándor Ferenczi contribuiu significativamente para o desenvolvimento da Psicoterapia Breve ao introduzir modificações metodológicas e técnicas destinadas a acelerar o tratamento psicanalítico, resultando no denominado método ativo, que visava, por exemplo, estimular o paciente a enfrentar seus medos e a renunciar a algumas satisfações neuróticas.\n3. Processos psicoterapêuticos na modalidade Breve são comuns em hospitais, onde o atendimento necessita ser assertivo e em um tempo reduzido, por vezes de apenas. No entanto, tais processos são contraindicados em consultórios particulares, haja vista a complexidade das demandas apresentadas pelos pacientes.\n4. A indicação para um processo psicoterapeuta Breve pode possuir algumas restrições, tendo em vista que o paciente, nesta modalidade, deve ser capaz de focalizar, de reconhecer os limites de tempo e de poder aproveitar a psicoterapia em um menor espaço temporal.\n5. O denominado \"tripé\" no qual se fundamenta a Psicoterapia de modalidade Breve clássica abrange foco, transferência e planejamento, com tempo de duração curto (limitado a seis meses no máximo) e adoção do modelo de atendimento Cognitivo Comportamental.\nAssinale a alternativa que indica todas as afirmativas corretas.",
+          "alternativas": [
+            { "key": "a", "text": "São corretas apenas as afirmativas 1 e 4." },
+            { "key": "b", "text": "São corretas apenas as afirmativas 2 e 3." },
+            { "key": "c", "text": "São corretas apenas as afirmativas 1, 2 e 4." },
+            { "key": "d", "text": "São corretas apenas as afirmativas 2, 3 e 5." },
+            { "key": "e", "text": "São corretas apenas as afirmativas 1, 3, 4 e 5." }
+          ],
+          "gabarito": "c"
+        },
+        {
+          "numero": "007",
+          "fonte": "FURB/PREFEITURA DE GASPAR - SC/PSICÓLOGO/2022",
+          "enunciado": "As psicoterapias breves são terapias de objetivos limitados, cuja meta fundamental é tornar consciente o inconsciente. O foco aparece, então, como orientador de toda teoria e condição essencial de eficácia em psicoterapia breve. Sobre a Psicoterapia Breve, julgue as afirmativas a seguir:\nI- Na Psicoterapia Breve, procura-se resolver a queixa do paciente ou um conflito predominante.\nII- Dentro da modalidade de Psicoterapia Breve, existem várias técnicas, diferentes entre si pelas intervenções psicoterapêuticas e pela natureza das mudanças que almejam.\nIII- A Psicoterapia Breve lida com o aqui e o agora, ajudando o paciente a entender e a lidar com a realidade que se apresenta.\nQual(is) afirmativa(s) está(ão) CORRETA(S)?",
+          "alternativas": [
+            { "key": "a", "text": "Apenas, I e III." },
+            { "key": "b", "text": "Afirmativas, I, II, III." },
+            { "key": "c", "text": "Apenas, III." },
+            { "key": "d", "text": "Apenas, I." },
+            { "key": "e", "text": "Apenas, II." }
+          ],
+          "gabarito": "e"
+        },
+        {
+          "numero": "008",
+          "fonte": "FAU/PREFEITURA DE IGUATU - CE/PSICÓLOGO/2022",
+          "enunciado": "Em relação a experiência emocional corretiva (EEC), foco e atividade e planejamento em Psicoterapia Breve, analise as sentenças abaixo e assinale a única alternativa que corresponde CORRETAMENTE à veracidade das afirmações:\nI- Para a ocorrência de experiências corretivas na relação terapêutica, é preciso que essa experiência esteja apoiada em uma aliança terapêutica bem estabelecida.\nII- Como a Psicototerapia Breve não é indicada para todo tipo de paciente, torna-se fundamental uma boa avaliação inicial, sendo que a indicação terapêutica necessita essencialmente estar fundamentada no diagnóstico nosológico do caso e na avaliação da estrutura de personalidade do paciente.\nIII- O terapeuta toma deliberadamente uma postura semelhante da atitude da pessoa significativa no passado do paciente, permitindo-lhe ressignificar internamente seus conflitos ao reestruturar sua experiência de ansiedade perante situações emocionais antes intoleráveis.\nIV- Mesmo que o foco seja circunscrito e o objetivo do tratamento contenha a eliminação de sintomas, este não se atém somente à cura sintomática, pois uma determinada área pode acarretar em modificações em outras áreas do comportamento do paciente.\nV- As táticas terapêuticas da Psicoterapia Breve que compõem seu tripé básico são foco, efeito carambola e regra de abstinência.",
+          "alternativas": [
+            { "key": "a", "text": "Apenas as afirmações I, II e IV são verdadeiras." },
+            { "key": "b", "text": "Apenas as afirmações I, III e V são verdadeiras." },
+            { "key": "c", "text": "As afirmações I, II e V são verdadeiras." },
+            { "key": "d", "text": "As afirmações II, III e V são falsas." },
+            { "key": "e", "text": "As afirmações IV e V são falsas." }
+          ],
+          "gabarito": "a"
+        },
+        {
+          "numero": "009",
+          "fonte": "FGV/AL-MA/TÉCNICO DE GESTÃO ADMINISTRATIVA/PSICÓLOGO/2023",
+          "enunciado": "A Terapia Cognitivo Comportamental é uma abordagem que preconiza a participação ativa do paciente; ela tem por objetivo principal:",
+          "alternativas": [
+            { "key": "a", "text": "desenvolver a espontaneidade, a responsabilidade por si e pelos outros e sua capacidade de se pôr no lugar do outro." },
+            { "key": "b", "text": "ajudar o paciente a compreender a origem de seus comportamentos disfuncionais, traumas e pensamentos equivocados." },
+            { "key": "c", "text": "auxiliar o indivíduo a resgatar aquilo que é a sua essência, ou seja, viver de acordo com aquilo que ele realmente é através da individuação." },
+            { "key": "d", "text": "a reestruturação cognitiva do cliente, envolvendo seus esquemas, crenças e atitudes." },
+            { "key": "e", "text": "transformar os sujeitos, de seres passivos em protagonistas da ação dramática, preparando o futuro de forma livre." }
+          ],
+          "gabarito": "d"
+        },
+        {
+          "numero": "010",
+          "fonte": "FCM/PREFEITURA DE BELA VISTA DE MINAS - MG/PSICÓLOGO/2021",
+          "enunciado": "Sabe-se que a Terapia-Cognitivo Comportamental possui 10 princípios básicos que orientam o tratamento terapêutico. Avalie o que se afirma serem itens correspondentes aos princípios dessa abordagem utilizada pelos profissionais de saúde.\nI- Conceitualização cognitiva e aliança terapêutica sólida.\nII- Colaboração e participação ativa de ambos.\nIII- Foco nos problemas e nos objetivos.\nIV- Ênfase no presente e na psicoeducação.\nV- Tempo ilimitado e sessões estruturadas.\nEstá correto apenas o que se afirma em:",
+          "alternativas": [
+            { "key": "a", "text": "I e II." },
+            { "key": "b", "text": "I, II e III." },
+            { "key": "c", "text": "I e III." },
+            { "key": "d", "text": "I, II, III e IV." }
+          ],
+          "gabarito": "d"
+        }
+      ]
+    },
+    {
+      "tema": "Intervenção em Situação de Crise",
+      "questoesDeConcurso": [
+        {
+          "numero": "001",
+          "fonte": "VUNESP/PREFEITURA DE CAMPINAS/PSICÓLOGO/2025",
+          "enunciado": "Uma mulher de 32 anos procura a Unidade Básica de Saúde (UBS) relatando sintomas de ansiedade e insônia nas últimas semanas. Durante a consulta, ela menciona que está passando por dificuldades financeiras e familiares e que não consegue agendar consulta com um especialista em saúde mental. Segundo os princípios da atenção primária à saúde (APS), a conduta mais adequada da equipe de saúde consiste em:",
+          "alternativas": [
+            { "key": "a", "text": "Encaminhar imediatamente a paciente para atendimento psiquiátrico na rede hospitalar, pois a UBS não é responsável por atender problemas de saúde mental." },
+            { "key": "b", "text": "Informar à paciente que o melhor atendimento para o seu caso será oferecido por um Centro de Atenção Psicossocial (CAPS)." },
+            { "key": "c", "text": "Reforçar que a atenção primária à saúde tem como objetivo tratar problemas emocionais crônicos ou de maior gravidade, que não correspondem aos apresentados pela paciente." },
+            { "key": "d", "text": "Prescrever um medicamento ansiolítico de uso contínuo, dado que o foco da APS deve ser a intervenção pontual diante das dificuldades apresentadas." },
+            { "key": "e", "text": "Realizar acolhimento, avaliar a gravidade do quadro e oferecer acompanhamento contínuo na UBS, podendo incluir atividades de apoio em grupo e estratégias de promoção da saúde mental." }
+          ],
+          "gabarito": "e"
+        },
+        {
+          "numero": "002",
+          "fonte": "FGV/PREFEITURA DE CANAÃ DOS CARAJÁS/PSICÓLOGO/2025",
+          "enunciado": "Regina está preocupada com seu filho Rodrigo, 18 anos, que, desde o final de um namoro há 3 meses, largou os estudos e passa o dia em casa, trancado no quarto, sem querer comer e tomar banho. Considerando a Rede de Atenção Psicossocial (RAPS), assinale a opção que indica a porta de entrada para um atendimento em saúde mental para Rodrigo.",
+          "alternativas": [
+            { "key": "a", "text": "O CAPSI." },
+            { "key": "b", "text": "O Serviço Residencial Terapêutico." },
+            { "key": "c", "text": "A unidade básica de saúde de seu bairro." },
+            { "key": "d", "text": "Um leito de psiquiatria no hospital municipal." },
+            { "key": "e", "text": "O Serviço de Atendimento Móvel de Urgência (SAMU)." }
+          ],
+          "gabarito": "c"
+        },
+        {
+          "numero": "003",
+          "fonte": "Aula 4.4.pdf - Exercícios de Fixação",
+          "tipo": "CERTO_ERRADO",
+          "enunciado": "O modelo RAPID inclui intervenção e encaminhamento como etapas.",
+          "gabarito": "Certo"
+        },
+        {
+          "numero": "004",
+          "fonte": "Aula 4.4.pdf - Exercícios de Fixação",
+          "tipo": "CERTO_ERRADO",
+          "enunciado": "O debriefing é sempre recomendado para todas as pessoas após o trauma.",
+          "gabarito": "Errado"
+        },
+        {
+          "numero": "005",
+          "fonte": "Aula 4.4.pdf - Exercícios de Fixação",
+          "tipo": "CERTO_ERRADO",
+          "enunciado": "Primeiros Socorros Psicológicos (PSP) deve ser aplicado apenas por psicólogos.",
+          "gabarito": "Errado"
+        },
+        {
+          "numero": "006",
+          "fonte": "Aula 4.4.pdf - Exercícios de Fixação",
+          "tipo": "CERTO_ERRADO",
+          "enunciado": "Caplan defende a crise como oportunidade de crescimento.",
+          "gabarito": "Certo"
+        }
+      ]
+    },
+    {
+      "tema": "Teóricos do Desenvolvimento",
+      "questoesDeConcurso": [
+        {
+          "numero": "001",
+          "fonte": "Aula 5.1.pdf - Exercícios de Fixação",
+          "enunciado": "De acordo com Piaget, no estágio operatório formal, o sujeito:",
+          "alternativas": [
+            { "key": "a", "text": "passa a sentir necessidade de comparar empiricamente as elaborações mentais" },
+            { "key": "b", "text": "desenvolve um pensamento reversível" },
+            { "key": "c", "text": "tem dificuldade em elaborar hipóteses e de testá-las" },
+            { "key": "d", "text": "tem o pensamento ativado por meio da análise combinatório, da correlação, da inversão e da reciprocidade" },
+            { "key": "e", "text": "precisa da realidade concreta para pensar e, para tal, utiliza o raciocínio hipotético indutivo" }
+          ],
+          "gabarito": "d"
+        },
+        {
+          "numero": "002",
+          "fonte": "VUNESP/2017/TJ/SP/PSICÓLOGO JUDICIÁRIO",
+          "enunciado": "É consenso, entre os autores de orientação psicanalítica, a importância das relações mãe-bebê no desenvolvimento da criança. Para René Spitz (2013), no primeiro ano de vida,",
+          "alternativas": [
+            { "key": "a", "text": "bebê e mãe criam uma relação simétrica da qual a criança emergirá como sujeito após o estabelecimento do terceiro organizador, a palavra \"não\"." },
+            { "key": "b", "text": "estabelece-se o conflito edípico, o qual a criança poderá superar com o advento do segundo organizador, a angústia do oitavo mês." },
+            { "key": "c", "text": "a criança e seu meio ambiente formam um \"sistema fechado\" que consiste de apenas dois componentes conhecidos: a mãe e o filho." },
+            { "key": "d", "text": "cabe à mãe oferecer um ambiente que impeça a vivência de experiências de desprazer pelo bebê" },
+            { "key": "e", "text": "a díade mãe-filho é determinada pelos aspectos estruturais próprios do elemento mais forte de sua composição, a mãe." }
+          ],
+          "gabarito": "c"
+        },
+        {
+          "numero": "003",
+          "fonte": "VUNESP/2017/TJ/SP/PSICÓLOGO JUDICIÁRIO",
+          "enunciado": "Para René Spitz (2013), as relações objetais se estabelecem:",
+          "alternativas": [
+            { "key": "a", "text": "por ocasião do nascimento da criança, uma vez que o bebê nasce programado para estabelecê-las ao primeiro contato físico com a mãe." },
+            { "key": "b", "text": "por volta do 6º mês, quando a mãe é percebida como um objeto inteiro, independentemente das necessidades insatisfeitas do bebê." },
+            { "key": "c", "text": "por ocasião da resposta-sorriso, indicativa de que o bebê reconhece o rosto da mãe e reage a ele sorrindo." },
+            { "key": "d", "text": "com a primeira mamada, na medida em que o seio materno passa a satisfazer os desejos e as necessidades do bebê." },
+            { "key": "e", "text": "durante a gestação, quando a mãe se conscientiza da presença do bebê em seu corpo e reage afetivamente a essa experiência." }
+          ],
+          "gabarito": "b"
+        },
+        {
+          "numero": "004",
+          "fonte": "VUNESP/2017/TJ/SP/PSICÓLOGO JUDICIÁRIO",
+          "enunciado": "A mãe de uma criança de 70 dias esteve internada em um hospital por quatro meses. Segundo René Spitz (2013), o efeito de tal privação sobre a criança:",
+          "alternativas": [
+            { "key": "a", "text": "poderá ser revertido com o retorno da mãe, mas não é possível assegurar que não deixe sequelas." },
+            { "key": "b", "text": "apresentará um curso previsível, do gemido de tristeza a crises convulsivas que equivalem a expressões de total desamparo." },
+            { "key": "c", "text": "levará a um quadro depressivo persistente, equivalente à depressão anaclítica observada nos adultos." },
+            { "key": "d", "text": "será catastrófico, independentemente da presença de um substituto adequado no período de separação." },
+            { "key": "e", "text": "afetará apenas o desenvolvimento psicológico da criança, mas não o desenvolvimento motor." }
+          ],
+          "gabarito": "a"
+        },
+        {
+          "numero": "005",
+          "fonte": "Aula 5.6.pdf - Exercícios de Fixação",
+          "enunciado": "A teoria Jerome Bruner traz contribuições significativas ao processo ensino-aprendizagem. O autor é considerado como o principal defensor do método de:",
+          "alternativas": [
+            { "key": "a", "text": "Desenvolvimento sócio-historico." },
+            { "key": "b", "text": "Aprendizagem por descoberta." },
+            { "key": "c", "text": "Pedagogia semidirigida" },
+            { "key": "d", "text": "Ensino interdisciplinar." }
+          ],
+          "gabarito": "b"
+        },
+        {
+          "numero": "006",
+          "fonte": "2013/FUNCAB/IF-RR/PROFESSOR/PEDAGOGIA",
+          "enunciado": "A teoria de aprendizagem de Jerome Bruner, tanto quanto a de Piaget e Vygotsky, é reconhecida como cognitivista. Bruner salienta que a mais adequada organização curricular seria a de \"currículo em espiral\". Isso significa um currículo que:",
+          "alternativas": [
+            { "key": "a", "text": "inicia coma aprendizagem mais complexa que vai se desdobrando até amais simples." },
+            { "key": "b", "text": "utiliza repetição contínua do mesmo conteúdo em situações diversas para fixação." },
+            { "key": "c", "text": "o conteúdo é visto em diferentes níveis de profundidade e representações." },
+            { "key": "d", "text": "respeita o planejamento sequencial das atividades sem necessidade de repetição." },
+            { "key": "e", "text": "obedece a uma estrutura não linear tratando os conteúdos de forma aleatória." }
+          ],
+          "gabarito": "c"
+        },
+        {
+          "numero": "007",
+          "fonte": "2022/FEPESE/ANALISTA/NÍVEL SUPERIOR/PEDAGOGIA",
+          "enunciado": "Qual dos teóricos abaixo defende o pressuposto de que o aprendizado é um processo ativo, baseado nos conhecimentos prévios dos sujeitos e nos conhecimentos que estão sendo estudados? Qual deles destaca que o aprendiz filtra e transforma a nova informação, infere hipóteses, toma decisões, é participante ativo no processo de aquisição do conhecimento que a instrução é sempre relacionada a contextos e experiencias pessoais?",
+          "alternativas": [
+            { "key": "a", "text": "Jerome Bruner" },
+            { "key": "b", "text": "Sigmund Freud" },
+            { "key": "c", "text": "Burrhus Skinner" },
+            { "key": "d", "text": "Émile Durkheim" },
+            { "key": "e", "text": "René Descartes" }
+          ],
+          "gabarito": "a"
+        }
+      ]
+    },
+    {
+      "tema": "Transtornos Depressivos",
+      "questoesDeConcurso": [
+        {
+          "numero": "001",
+          "fonte": "Q3314444/AMEOSC/PREFEITURA/PSICÓLOGO/2024",
+          "enunciado": "Assinale a alternativa CORRETA quanto ao transtorno depressivo persistente (distimia) em comparação a demais transtornos.",
+          "alternativas": [
+            { "key": "a", "text": "Os sintomas depressivos são uma característica comum associada aos transtornos psicóticos crônicos, no entanto, ainda que os sintomas ocorram apenas durante o curso do transtorno psicótico, é feito um diagnóstico separado de transtorno depressivo persistente." },
+            { "key": "b", "text": "Se o clínico julgar que os sintomas depressivos são consequência dos efeitos fisiológicos de outra condição médica, não deve ser registrado o transtorno depressivo persistente, preservando apenas a condição médica." },
+            { "key": "c", "text": "Em contraste com o transtorno depressivo maior, o diagnóstico depende da duração de um ano, o que o distingue dos episódios de depressão, que não duram esse período." },
+            { "key": "d", "text": "Quando a apresentação de um indivíduo satisfaz os critérios para transtorno depressivo persistente e um transtorno de personalidade, ambos os diagnósticos são dados." }
+          ],
+          "gabarito": "d"
+        },
+        {
+          "numero": "002",
+          "fonte": "Q3164082/FUNDATEC/PREFEITURA DE IBIRAPUITA/PSICÓLOGO/2024",
+          "enunciado": "Em relação aos transtornos depressivos descritos no DSM-5, analise as assertivas abaixo, assinalando V, se verdadeiras, ou F, se falsas.\n( ) O transtorno depressivo maior é caracterizado por episódios distintos de pelo menos duas semanas de duração (embora a maioria dos episódios dure um tempo consideravelmente maior) envolvendo alterações nítidas no afeto, na cognição e em funções neurovegetativas, e remissões Inter episódicas. O diagnóstico baseado em um único episódio é possível, embora o transtorno seja recorrente na maioria dos casos.\n( ) Atenção especial é dada à diferenciação da tristeza e do luto normais em relação a um episódio depressivo maior. O luto pode induzir grande sofrimento, mas não costuma provocar um episódio de transtorno depressivo maior.\n( ) Quando ocorrem em conjunto, os sintomas depressivos e o prejuízo funcional tendem a ser mais graves, e o prognóstico é pior comparado com o luto que não é acompanhado de transtorno depressivo maior.\n( ) A depressão relacionada ao luto tende a ocorrer em pessoas com outras vulnerabilidades a transtornos depressivos, e a recuperação pode ser facilitada pelo tratamento com antidepressivos.\nA ordem correta de preenchimento dos parênteses, de cima para baixo, é:",
+          "alternativas": [
+            { "key": "a", "text": "V-F-F-V." },
+            { "key": "b", "text": "V-V-F-F." },
+            { "key": "c", "text": "V-V-V-V." },
+            { "key": "d", "text": "F-V-F-V." },
+            { "key": "e", "text": "F-F-V-F." }
+          ],
+          "gabarito": "c"
+        },
+        {
+          "numero": "003",
+          "fonte": "Q3375732/FUNDATEC/PREFEITURA DE CARLOS BARBOSA/PSICÓLOGO/2024",
+          "enunciado": "Leia o trecho abaixo, retirado do CID-10:\n\"Uma depressão crônica de humor, a qual não preenche atualmente os critérios para transtorno depressivo recorrente, gravidade leve ou moderada (F33.0 ou F33.1), em termos tanto de gravidade quanto de duração dos episódios individuais, embora os critérios para episódio depressivo leve possam ter sido preenchidos no passado, particularmente no início do transtorno\" (OMS, 1993, p.127).\nO trecho acima refere-se ao(à):",
+          "alternativas": [
+            { "key": "a", "text": "Distimia." },
+            { "key": "b", "text": "Ciclotimia." },
+            { "key": "c", "text": "Episódio depressivo leve." },
+            { "key": "d", "text": "Transtorno Afetivo Bipolar, episódio atual hipomaníaco." },
+            { "key": "e", "text": "Episódio afetivo misto." }
+          ],
+          "gabarito": "a"
+        },
+        {
+          "numero": "004",
+          "fonte": "Q3161848/FUNDATEC/PREFEITURA DE IRAÍ/PSICÓLOGO/2024",
+          "enunciado": "Sobre as características diagnósticas do transtorno depressivo maior, analise as assertivas abaixo, assinalando V, se verdadeiras, ou F, se falsas.\n( ) Insônia ou fadiga são as queixas principais menos frequentes.\n( ) Os sintomas dos critérios para transtorno depressivo maior devem estar presentes quase todos os dias para serem considerados presentes, com exceção de alteração de peso e ideação suicida.\n( ) Humor deprimido deve estar presente na maior parte do dia, além de quase todos os dias.\nA ordem correta de preenchimento dos parênteses, de cima para baixo, é:",
+          "alternativas": [
+            { "key": "a", "text": "V-V-V." },
+            { "key": "b", "text": "F-F-F." },
+            { "key": "c", "text": "F-V-V." },
+            { "key": "d", "text": "V-F-F." },
+            { "key": "e", "text": "F-V-F." }
+          ],
+          "gabarito": "c"
+        },
+        {
+          "numero": "005",
+          "fonte": "Q3305549/FUNDATEC/PREFEITURA DE LONDRINA/PROMOTOR DE SAÚDE PÚBLICA/PSICOLOGIA/2024",
+          "enunciado": "Conforme o DSM-5, os transtornos depressivos têm como característica comum a presença de humor triste, vazio ou irritável, acompanhado por alterações relacionadas que afetam significativamente a capacidade funcional do indivíduo. Analise as assertivas abaixo sobre o transtorno depressivo maior, de acordo com o DSM-5, e assinale V, se verdadeiras, ou F, se falsas.\n( ) Os sintomas dos critérios para transtorno depressivo maior devem estar presentes quase todos os dias para serem considerados presentes, com exceção de alteração do peso e ideação suicida.\n( ) A tristeza pode ser negada inicialmente, mas pode ser revelada por meio de entrevista ou inferida pela expressão facial e por atitudes.\n( ) A característica essencial de um episódio depressivo maior é um período de pelo menos três semanas durante as quais há um humor depressivo ou perda de interesse ou prazer em quase todas as atividades.\n( ) Em crianças e adolescentes, o humor sempre será irritável em vez de triste.\n( ) A autorrecriminação por estar doente e por não conseguir cumprir com as responsabilidades profissionais ou interpessoais em consequência da depressão é muito comum e, a menos que seja delirante, não é considerada suficiente para satisfazer esse critério.\nA ordem correta de preenchimentos dos parênteses, de cima para baixo, é:",
+          "alternativas": [
+            { "key": "a", "text": "V-F-V-V-F." },
+            { "key": "b", "text": "F-V-V-F-V." },
+            { "key": "c", "text": "V-F-F-V-V." },
+            { "key": "d", "text": "V-V-V-F-V." },
+            { "key": "e", "text": "V-V-F-F-V." }
+          ],
+          "gabarito": "e"
+        },
+        {
+          "numero": "006",
+          "fonte": "Q3249139/FGV/ALE-TO/ANALISTA LEGISLATIVO/ÁREA PSICOLOGIA/2024",
+          "enunciado": "Tereza é uma professora universitária aposentada de 63 anos, viúva, filhos adultos e independentes, que mora sozinha. Há um mês, Tereza sente que vem perdendo o interesse em sair com os amigos, não tem mais vontade de se arrumar, se sente vazia e sem propósitos na vida e chega a pensar que seria bom se fosse dormir e não acordasse mais. De acordo com o DSM-5, é possível identificar em Tereza um quadro de:",
+          "alternativas": [
+            { "key": "a", "text": "luto patológico." },
+            { "key": "b", "text": "transtorno bipolar misto." },
+            { "key": "c", "text": "demência senil." },
+            { "key": "d", "text": "fobia social." },
+            { "key": "e", "text": "transtorno depressivo maior." }
+          ],
+          "gabarito": "e"
+        },
+        {
+          "numero": "007",
+          "fonte": "Q2857537/FCC/MPE-PB/ANALISTA MINISTERIAL/ÁREA PSICOLOGIA/2023",
+          "enunciado": "Joana, 38 anos, não tem filhos, está passando por uma crise conjugal. Há seis meses apresenta crises de choro, sente-se frequentemente triste e sem energia, com baixa libido e sem interesse em suas atividades diárias, e com dificuldade em dormir. Não tem se alimentado bem, já teve vontade de desistir de tudo e acredita que nunca mais será a mesma. De acordo com DSM-V, Joana pode ser diagnosticada com o Transtorno:",
+          "alternativas": [
+            { "key": "a", "text": "Depressivo Maior." },
+            { "key": "b", "text": "Bipolar." },
+            { "key": "c", "text": "Disfórico Pré-menstrual." },
+            { "key": "d", "text": "Depressivo induzido por substância." },
+            { "key": "e", "text": "Depressivo Persistente." }
+          ],
+          "gabarito": "a"
+        },
+        {
+          "numero": "008",
+          "fonte": "Q2831666/VUNESP/PREFEITURA DE PIRACICABA/CUIDADOR/2023",
+          "enunciado": "Sintomas como perda de interesse nas coisas do dia a dia e o desânimo, cansaço, perda de energia podem estar associados a:",
+          "alternativas": [
+            { "key": "a", "text": "Transtorno maníaco-depressivo." },
+            { "key": "b", "text": "Distúrbio de aforia de gênero." },
+            { "key": "c", "text": "Transtorno da melancolia." },
+            { "key": "d", "text": "Síndrome da prostração." },
+            { "key": "e", "text": "Transtornos depressivos." }
+          ],
+          "gabarito": "e"
+        },
+        {
+          "numero": "009",
+          "fonte": "Q3049273/FGV/FHEMIG/ANALISTA/PSICÓLOGO CLÍNICO/2023",
+          "enunciado": "De acordo com o Manual de Diagnóstico e Estatísticas das Perturbações Mentais (DSM), o Transtorno Depressivo Maior (TDM) é a representação clássica dos grupos de transtornos depressivos. Sobre os sintomas do TDM, analise os itens a seguir.\nI-Irritabilidade, ansiedade e angústia.\nII - Diminuição ou incapacidade de sentir alegria e prazer.\nIII - Perda ou aumento do apetite e do peso.\nEstá correto o que se afirma em:",
+          "alternativas": [
+            { "key": "a", "text": "I, apenas." },
+            { "key": "b", "text": "I e II, apenas." },
+            { "key": "c", "text": "I e III, apenas." },
+            { "key": "d", "text": "II e III, apenas." },
+            { "key": "e", "text": "I, II e III." }
+          ],
+          "gabarito": "e"
+        },
+        {
+          "numero": "010",
+          "fonte": "Q2484154/CESPE/CEBRASPE/DPE-RO/ANALISTA DA DEFENSORIA PÚBLICA/ANALISTA EM PSICOLOGIA/2022",
+          "enunciado": "Lúcio, de 40 anos de idade, relata, em avaliação psiquiátrica, características condizentes com quadro de concentração prejudicada, anedonia, retardo psicomotor e ideação suicida há mais de três semanas. Comenta perda de energia, além de alteração no sono. Nega delírios e alucinações. Levando-se em consideração as contribuições da psicopatologia, é correto afirmar que Lúcio apresenta características do transtorno:",
+          "alternativas": [
+            { "key": "a", "text": "de personalidade" },
+            { "key": "b", "text": "esquizoafetivo." },
+            { "key": "c", "text": "depressivo persistente." },
+            { "key": "d", "text": "de ansiedade." },
+            { "key": "e", "text": "depressivo maior." }
+          ],
+          "gabarito": "e"
+        }
+      ]
+    },
+    {
+      "tema": "Transtornos da Personalidade",
+      "questoesDeConcurso": [
+        {
+          "numero": "001",
+          "fonte": "FGV/SES/PSICÓLOGO/2024",
+          "enunciado": "Os transtornos de personalidade antissocial, boderline, histriônica e narcisista são categorizados como transtornos do Cluster:",
+          "alternativas": [
+            { "key": "a", "text": "A." },
+            { "key": "b", "text": "B." },
+            { "key": "c", "text": "C." },
+            { "key": "d", "text": "ABC." }
+          ],
+          "gabarito": "b"
+        },
+        {
+          "numero": "002",
+          "fonte": "FGV/TJ MS/TÉCNICO DE NÍVEL SUPERIOR/ÁREA PSICOLOGIA/2024",
+          "enunciado": "O DSM V considera que transtornos de personalidade são comportamentos egosintônicos que começam na infância/adolescência e são classificados em 3 clusters: A, B e C. O cluster C abrange:",
+          "alternativas": [
+            { "key": "a", "text": "apenas o transtorno da personalidade dependente." },
+            { "key": "b", "text": "apenas o transtorno de personalidade esquiva ou evitante." },
+            { "key": "c", "text": "apenas o transtorno de personalidade obsessivo-compulsivo." },
+            { "key": "d", "text": "apenas o transtorno de personalidade dependente e o transtorno de personalidade obsessivo-compulsivo." },
+            { "key": "e", "text": "o transtorno de personalidade dependente, o transtorno de personalidade esquiva ou evitante e o transtorno de personalidade obsessivo-compulsivo." }
+          ],
+          "gabarito": "e"
+        },
+        {
+          "numero": "003",
+          "fonte": "VUNESP/PREFEITURA DE SOROCABA/PSICÓLOGO/2022",
+          "enunciado": "No DSM-5 (Manual diagnóstico e estatístico dos transtornos mentais-5), os transtornos da personalidade estão reunidos em três grupos, de acordo com as semelhanças descritivas. Especificamente no Grupo B, que se refere aos indivíduos dramáticos, emotivos ou erráticos, estão incluídos os transtornos de personalidade:",
+          "alternativas": [
+            { "key": "a", "text": "paranoide e esquizoide." },
+            { "key": "b", "text": "dependente e esquizotípica." },
+            { "key": "c", "text": "evitativa e obsessivo-compulsiva." },
+            { "key": "d", "text": "borderline e depressiva." },
+            { "key": "e", "text": "antissocial e narcisista." }
+          ],
+          "gabarito": "e"
+        },
+        {
+          "numero": "004",
+          "fonte": "FGV/SES/PSICÓLOGO/2024",
+          "enunciado": "Os colegas de trabalho de Bia começaram a estranhar quando seu comportamento mudou. Bia ficou muito falante, desinibida, inquieta, com a autoestima elevada, o pensamento acelerado, cheia de ideias e projetos grandiosos. De acordo com o DSM 5, essa mudança de comportamento de Bia sugere o diagnóstico de:",
+          "alternativas": [
+            { "key": "a", "text": "Transtorno de déficit de atenção e hiperatividade." },
+            { "key": "b", "text": "Psicose maníaco-depressiva." },
+            { "key": "c", "text": "Episódio hipomaníaco." },
+            { "key": "d", "text": "Transtorno de personalidade narcisista." }
+          ],
+          "gabarito": "c"
+        },
+        {
+          "numero": "005",
+          "fonte": "Q1783778/CESPE/CEBRASPE/DEPEN/ESPECIALISTA FEDERAL EM ASSISTÊNCIA À EXECUÇÃO PENAL/ÁREA: PSICOLOGIA/2021",
+          "tipo": "CERTO_ERRADO",
+          "enunciado": "A respeito dos mais variados transtornos psicopatológicos, julgue os itens a seguir.\nComportamentos de automutilação, gastos constantes e excessivos, mudanças fortes na autoimagem, alimentação compulsiva e uso de substâncias ilícitas são comportamentos compatíveis com transtorno de personalidade esquizoide.",
+          "gabarito": "Errado"
+        },
+        {
+          "numero": "006",
+          "fonte": "Q3131743/CESPE/CEBRASPE/PREFEITURA DE CAMAÇARI/PSICÓLOGO/2024",
+          "enunciado": "Josias, com trinta anos de idade, está em acompanhamento psicológico e psiquiátrico desde criança. Desde pequeno, ele apresenta dificuldades em ajustar-se às normas sociais, em acatar regras e limites. Impulsivo, irritável e agressivo, ele apresentou irresponsabilidade reiterada em dois ou mais contextos. Josias parece nunca se importar com nada. Ele é indiferente a situações que costumam impactar a grande maioria das pessoas. A família se diz \"cansada de lutar com ele\". \"Todo dia é uma confusão. E isso não é de agora. Já perdi as contas de quantas vezes foi pego pela polícia\" (sic). Nesse caso clínico hipotético, Josias apresenta critérios diagnósticos para transtorno de:",
+          "alternativas": [
+            { "key": "a", "text": "personalidade histriônica." },
+            { "key": "b", "text": "personalidade evitativa." },
+            { "key": "c", "text": "personalidade esquizotípica." },
+            { "key": "d", "text": "personalidade narcisista." },
+            { "key": "e", "text": "personalidade antissocial." }
+          ],
+          "gabarito": "e"
+        },
+        {
+          "numero": "007",
+          "fonte": "Q3177467/CESPE/CEBRASPE/INPI/ANALISTA DE PLANEJAMENTO/ÁREA: GESTÃO E SUPORTE/PSICOLOGIA LÍNGUA INGLESA/2024",
+          "tipo": "CERTO_ERRADO",
+          "enunciado": "Em relação a técnicas e procedimentos utilizados para a avaliação psicológica, julgue os itens a seguir.\nÉ correto proceder à avaliação de transtornos da personalidade a partir de variáveis comportamentais e sem o uso de testes psicológicos.",
+          "gabarito": "Certo"
+        },
+        {
+          "numero": "008",
+          "fonte": "Q3417490/CESPE/CEBRASPE/CAGEPA/PSICÓLOGO/2024",
+          "enunciado": "Considerando o que se sabe a respeito dos transtornos de personalidade e tendo como referência a quinta edição do Manual Diagnóstico e Estatístico de Transtornos Mentais (DSM-V), assinale a opção correta.",
+          "alternativas": [
+            { "key": "a", "text": "Transtornos da personalidade envolvem um padrão persistente de experiência interna e comportamento que se desviam acentuadamente das expectativas da cultura do indivíduo e que se manifestam em duas ou mais das seguintes áreas: cognição, afetividade, percepção e identidade." },
+            { "key": "b", "text": "Os transtornos da personalidade paranoide, antissocial, dependente, esquizoide, esquizoafetiva, borderline e bipolar são alguns exemplos dos transtornos da personalidade descritos no DSM-V." },
+            { "key": "c", "text": "No DSM-V, os transtornos da personalidade são divididos em apenas duas categorias: o grupo A, que inclui os transtornos nos quais as pessoas costumam ser vistas pelos outros como dramáticas ou emotivas, e o grupo B, que inclui os transtornos nos quais as pessoas costumam ser vistas pelos outros como esquisitas ou excêntricas." },
+            { "key": "d", "text": "As fronteiras diagnósticas entre os diferentes transtornos da personalidade são claramente discerníveis, dado que eles não se sobrepõem em suas sintomatologias e também não compartilham das mesmas etiologias ou comorbidades, facilitando o uso de uma classificação categórica deles." },
+            { "key": "e", "text": "Transtornos da personalidade costumam se manifestar inicialmente na adolescência e no início da fase adulta, apresentando-se de maneira estável ao longo da vida, em diversas situações da vida da pessoa, e gerando diferentes tipos de prejuízos para ela." }
+          ],
+          "gabarito": "e"
+        },
+        {
+          "numero": "009",
+          "fonte": "Q1783793/CESPE/CEBRASPE/DEPEN/ESPECIALISTA FEDERAL EM ASSISTÊNCIA À EXECUÇÃO PENAL/ÁREA: PSICOLOGIA/2021",
+          "tipo": "CERTO_ERRADO",
+          "enunciado": "Uma pessoa com transtorno de personalidade antissocial apresenta comportamentos sintomáticos que são geralmente reconhecidos em suas relações sociais. A esse respeito, julgue os itens a seguir.\nPessoas com personalidade antissocial em geral são inteligentes, bem-articuladas, convincentes e atraem muitas pessoas a seu redor.",
+          "gabarito": "Certo"
+        },
+        {
+          "numero": "010",
+          "fonte": "Q1783789/CESPE/CEBRASPE/DEPEN/ESPECIALISTA FEDERAL EM ASSISTÊNCIA À EXECUÇÃO PENAL/ÁREA: PSICOLOGIA/2021",
+          "tipo": "CERTO_ERRADO",
+          "enunciado": "Uma pessoa com transtorno de personalidade antissocial apresenta comportamentos sintomáticos que são geralmente reconhecidos em suas relações sociais. A esse respeito, julgue os itens a seguir.\nO transtorno de personalidade antissocial, principalmente em relação aos comportamentos criminosos, pode apresentar remissão à medida que a pessoa envelhece.",
+          "gabarito": "Certo"
+        },
+        {
+          "numero": "011",
+          "fonte": "Q3154228/VUNESP/CÂMARA DE SÃO JOSÉ DOS CAMPOS/ANALISTA LEGISLATIVO/ÁREA PSICOLOGIA/2023",
+          "enunciado": "Um profissional psicólogo foi convocado por um juiz para avaliar o caso de um rapaz, de 20 anos, que exibe uma baixa tolerância à frustração, além de comportamentos agressivos e impulsivos. Ele demonstra total desprezo pelas consequências de seus atos, para si e para os outros, mesmo quando é punido ou advertido. Seus comportamentos já provocaram diversos conflitos com a lei, que o jovem justifica por meio de explicações plausíveis ou culpabilizando os outros. Um dado fundamental para reforçar a hipótese de um transtorno de personalidade antissocial é a:",
+          "alternativas": [
+            { "key": "a", "text": "constatação de que esses desvios de conduta têm como objetivo a busca de atenção e cuidados." },
+            { "key": "b", "text": "comprovação de que os desvios de conduta são decorrentes do consumo abusivo de substâncias." },
+            { "key": "c", "text": "exacerbação dos sentimentos de angústia após a concretização de atos de violência dirigidos ao outro." },
+            { "key": "d", "text": "ocorrência de episódios de regressão a estágios primitivos do comportamento, alternados com períodos de elação." },
+            { "key": "e", "text": "presença de evidências de que esses desvios já ocorriam antes dos quinze anos de idade." }
+          ],
+          "gabarito": "e"
+        },
+        {
+          "numero": "012",
+          "fonte": "Q2400298/VUNESP/PREFEITURA DE PRESIDENTE PRUDENTE/PSICÓLOGO/2022",
+          "enunciado": "Os pacientes com transtorno de personalidade borderline:",
+          "alternativas": [
+            { "key": "a", "text": "pioram com o tempo, o que faz com que o quadro geral evolua para uma forma franca de esquizofrenia." },
+            { "key": "b", "text": "apresentam um embotamento afetivo e uma estabilidade em seus comportamentos e atitudes durante todo o curso da doença." },
+            { "key": "c", "text": "concentram toda a sua energia em evitar os relacionamentos íntimos e exclusivos, como forma de se proteger do abandono." },
+            { "key": "d", "text": "estão imunes às distorções da realidade, em função de sua necessidade de controlar o ambiente externo." },
+            { "key": "e", "text": "têm como manifestações comuns a ausência de identidade consistente do self, e déficits nas relações interpessoais." }
+          ],
+          "gabarito": "e"
+        },
+        {
+          "numero": "013",
+          "fonte": "Q2572625/FCC/TRT 23/ANALISTA JUDICIÁRIO/ÁREA APOIO ESPECIALIZADO/ESPECIALIDADE: PSICOLOGIA/2022",
+          "enunciado": "O transtorno de personalidade que corresponde a um padrão de instabilidade nas relações interpessoais, na autoimagem e nos afetos, com impulsividade acentuada, é identificado por transtorno da personalidade:",
+          "alternativas": [
+            { "key": "a", "text": "disruptiva." },
+            { "key": "b", "text": "histriônica." },
+            { "key": "c", "text": "antissocial." },
+            { "key": "d", "text": "borderline." },
+            { "key": "e", "text": "maníaca." }
+          ],
+          "gabarito": "d"
+        },
+        {
+          "numero": "014",
+          "fonte": "Q2995887/VUNESP/DPE SP/AGENTE DE DEFENSORIA/ÁREA PSICÓLOGO/2023",
+          "enunciado": "João, 35 anos, tem grande dificuldade de enfrentar situações ou interações sociais que envolvam risco de rejeição, crítica ou humilhação. Essas características são compatíveis com o diagnóstico de transtorno de personalidade:",
+          "alternativas": [
+            { "key": "a", "text": "borderline." },
+            { "key": "b", "text": "esquizotípico." },
+            { "key": "c", "text": "fóbico." },
+            { "key": "d", "text": "antissocial." },
+            { "key": "e", "text": "esquiva." }
+          ],
+          "gabarito": "e"
+        }
+      ]
+    },
+    {
+      "tema": "Espectro da Esquizofrenia e outros Transtornos Psicóticos",
+      "questoesDeConcurso": [
+        {
+          "numero": "001",
+          "fonte": "Q2779407/CESPE/CEBRASPE/TJ ES/ANALISTA JUDICIÁRIO/ APOIO ESPECIALIZADO/ESPECIALIDADE PSICOLOGIA/2023",
+          "tipo": "CERTO_ERRADO",
+          "enunciado": "Com relação à psicopatologia, julgue os itens subsequentes. Neotimia pode estar presente em estados esquizofrênicos e estados psicóticos.",
+          "gabarito": "Certo"
+        },
+        {
+          "numero": "002",
+          "fonte": "Q3289710/INSTITUTO VERBENA/MPE GO/RESIDÊNCIA/PSICOLOGIA/2024",
+          "enunciado": "De acordo com a CID-11, o transtorno caracterizado por alterações em múltiplas dimensões mentais e comportamentais, inclusive no pensamento (como delírio e/ou desorganização da forma do pensamento), na percepção (como alucinações), e no afeto (como embotamento afetivo), presente por pelo menos um mês é o(a):",
+          "alternativas": [
+            { "key": "a", "text": "Esquizofrenia." },
+            { "key": "b", "text": "Transtorno Delirante." },
+            { "key": "c", "text": "Paranoia." },
+            { "key": "d", "text": "Transtorno Esquizoafetivo." },
+            { "key": "e", "text": "Psicose Breve." }
+          ],
+          "gabarito": "a"
+        },
+        {
+          "numero": "003",
+          "fonte": "Q3373572/FUNDATEC/PREFEITURA DE PASSO FUNDO/PSICÓLOGO/2024",
+          "enunciado": "De acordo com o DSM-5 (2014), os transtornos psicóticos são definidos por anormalidades em um ou mais dos seguintes domínios: delírios, alucinações, pensamento desorganizado, comportamento motor grosseiramente desorganizado ou anormal e sintomas negativos. Sobre as características essenciais que definem os transtornos psicóticos, é correto afirmar que:",
+          "alternativas": [
+            { "key": "a", "text": "As alucinações são crenças fixas, não passíveis de mudança à luz de evidências conflitantes. São consideradas bizarras se claramente implausíveis e incompreensíveis por outros indivíduos da mesma cultura, não se originando de experiências comuns da vida." },
+            { "key": "b", "text": "Os delírios são experiências semelhantes à percepção que ocorrem sem um estímulo externo. São vívidos e claros, com toda a força e o impacto das percepções normais, não estando sob controle voluntário." },
+            { "key": "c", "text": "Os pensamentos desorganizados podem ser observados em qualquer forma de comportamento dirigido a um objetivo, levando a dificuldades na realização das atividades cotidianas." },
+            { "key": "d", "text": "As alucinações são consideradas bizarras se claramente implausíveis e incompreensíveis por outros indivíduos da mesma cultura, não se originando de experiências comuns da vida." },
+            { "key": "e", "text": "Sintomas negativos respondem por uma porção substancial da morbidade associada à esquizofrenia, embora sejam menos proeminentes em outros transtornos psicóticos." }
+          ],
+          "gabarito": "e"
+        },
+        {
+          "numero": "004",
+          "fonte": "Q3212963/INSTITUTO ACCESS/INSTITUTO DE ACESSO À EDUCAÇÃO, CAPACITAÇÃO PROFISSIONAL E DESENVOLVIMENTO HUMANO/PREFEITURA DE DOMINGOS MARTINS/PSICÓLOGO/2024",
+          "enunciado": "Com base no estudo dos transtornos psiquiátricos e seus sintomas, assinale a alternativa correta.",
+          "alternativas": [
+            { "key": "a", "text": "Os delírios são crenças fixas, não passíveis de mudança à luz de evidências conflitantes. Seu conteúdo pode incluir uma variedade de temas. Existem exclusivamente três tipos de delírio: delírios persecutórios, crença de que o indivíduo irá ser prejudicado, assediado, por outra pessoa, organização ou grupo; delírios de referência, crença de que alguns gestos, comentários, estímulos ambientais, e assim por diante, são direcionados à própria pessoa; delírios de grandeza, quando uma pessoa crê que tem habilidades excepcionais, riqueza ou fama." },
+            { "key": "b", "text": "A desorganização do pensamento (transtorno do pensamento formal) só pode ser inferida a partir do discurso do indivíduo. Este pode mudar de um tópico a outro (descarrilamento ou afrouxamento das associações). As respostas a perguntas podem ter uma relação direta com o pensamento confuso do indivíduo. O discurso sempre estará tão gravemente desorganizado que é quase incompreensível, cabendo apenas ao profissional de Saúde treinado entender tal discurso." },
+            { "key": "c", "text": "O espectro da esquizofrenia e outros transtornos psicóticos são definidos por anormalidades em um ou mais dos cinco domínios a seguir: delírios, alucinações, pensamento (discurso) desorganizado, comportamento motor grosseiramente desorganizado ou anormal (incluindo catatonia) e sintomas negativos." },
+            { "key": "d", "text": "Os delírios são considerados sintomas comuns e não bizarros, mesmo se são claramente implausíveis, incompreensíveis e não originados de experiências comuns da vida, como a crença de um indivíduo de que um estranho retirou seus órgãos internos, substituindo-os pelos de outro sem deixar feridas ou cicatrizes. Distinguir um delírio de uma ideia firmemente defendida é algumas vezes difícil e depende, em parte, do grau de convicção com que a crença é defendida, apesar de evidências contraditórias claras ou razoáveis acerca de sua veracidade." }
+          ],
+          "gabarito": "c"
+        },
+        {
+          "numero": "005",
+          "fonte": "Q2940120/NOSSO RUMO/PREFEITURA DE RIO CLARO/PSICÓLOGO/2023",
+          "enunciado": "Assinale a alternativa que NÃO corresponde a um tipo de neurose.",
+          "alternativas": [
+            { "key": "a", "text": "Fobia social." },
+            { "key": "b", "text": "Esquizofrenia." },
+            { "key": "c", "text": "Transtorno obsessivo-compulsivo." },
+            { "key": "d", "text": "Transtorno de ansiedade generalizada." },
+            { "key": "e", "text": "Transtorno depressivo." }
+          ],
+          "gabarito": "b"
+        },
+        {
+          "numero": "006",
+          "fonte": "Q2811219/FUNDATEC/PREFEITURA DE PALMEIRA DAS MISSÕES/PSICÓLOGO/2023",
+          "enunciado": "Qual alternativa NÃO faz parte das Consequências Funcionais do Transtorno Delirante, segundo o DSM-5?",
+          "alternativas": [
+            { "key": "a", "text": "O prejuízo funcional costuma ser mais circunscrito que o encontrado em outros transtornos psicóticos." },
+            { "key": "b", "text": "Quando está presente funcionamento psicossocial insatisfatório, as próprias crenças delirantes costumam ter papel importante." },
+            { "key": "c", "text": "Os delírios favorecem a extroversão, desinibição social e maior necessidade de comunicação." },
+            { "key": "d", "text": "Uma característica comum dos indivíduos com transtorno delirante é a aparente normalidade de sua aparência." },
+            { "key": "e", "text": "Uma característica comum dos indivíduos com transtorno delirante é a aparente normalidade de seu comportamento quando não estão sendo discutidas ou acionadas suas ideias delirantes." }
+          ],
+          "gabarito": "c"
+        },
+        {
+          "numero": "007",
+          "fonte": "Q2739522/FUNDATEC/PREFEITURA DE ANDRÉ DA ROCHA/PSICÓLOGO/2023",
+          "enunciado": "Segundo o DSM-5, o espectro da esquizofrenia e outros transtornos psicóticos inclui esquizofrenia, outros transtornos psicóticos e transtorno (da personalidade) ______________. Esses transtornos são definidos por anormalidades em um ou mais dos cinco domínios a seguir: delírios, alucinações, pensamento (discurso) desorganizado, comportamento motor grosseiramente desorganizado ou anormal (incluindo catatonia) e ______________.",
+          "alternativas": [
+            { "key": "a", "text": "antissocial - agressividade física" },
+            { "key": "b", "text": "paranoide - fuga dissociativa" },
+            { "key": "c", "text": "esquizotípica - sintomas negativos" },
+            { "key": "d", "text": "borderline automutilação" },
+            { "key": "e", "text": "histriônica - surto sexual" }
+          ],
+          "gabarito": "c"
+        },
+        {
+          "numero": "008",
+          "fonte": "Q3210402/FUNDATEC/PREFEITURA DE IOMERÊ/PSICÓLOGO/2023",
+          "enunciado": "Segundo o DSM-5, sobre o diagnóstico diferencial, o transtorno delirante difere da esquizofrenia:",
+          "alternativas": [
+            { "key": "a", "text": "Pela ausência dos demais sintomas característicos de esquizofrenia (por exemplo, delírios, alucinações auditivas ou visuais proeminentes, discurso desorganizado, comportamento grosseiramente desorganizado ou catatônico e sintomas negativos)." },
+            { "key": "b", "text": "Por sintomas sublimiares associados a características persistentes de personalidade." },
+            { "key": "c", "text": "Por exigir que um episódio depressivo maior ou maníaco ocorra ao mesmo tempo em que ocorrem os sintomas da fase ativa e pelos sintomas de humor estarem presentes na maior parte do tempo da duração total dos períodos ativos." },
+            { "key": "d", "text": "Por poder incluir flashbacks com uma qualidade alucinatória e pela hipervigilância atingir proporções paranoides." },
+            { "key": "e", "text": "Pela necessidade de um evento traumático e de aspectos sintomáticos característicos relativos a revivências ou reações ao evento." }
+          ],
+          "gabarito": "a"
+        },
+        {
+          "numero": "009",
+          "fonte": "Q2903890/FUNDATEC/PREFEITURA DE NOVO CABRAIS/PSICÓLOGO/2023",
+          "enunciado": "Segundo o DSM-5, as alucinações são experiências semelhantes à percepção que ocorrem sem um estímulo externo. São vívidas e claras, com toda a força e o impacto das percepções normais, não estando sob controle voluntário. Podem ocorrer em qualquer modalidade sensorial, embora as alucinações auditivas sejam as mais comuns na esquizofrenia e em transtornos relacionados. As alucinações devem ocorrer no contexto de um sensório sem alterações; as que ocorrem ao adormecer (______________) ou ao acordar (______________) são consideradas como pertencentes ao âmbito das experiências normais.",
+          "alternativas": [
+            { "key": "a", "text": "hipnopômpicas - hipnagógicas" },
+            { "key": "b", "text": "hipnagógicas - hipnopômpicas" },
+            { "key": "c", "text": "sonolentas - despertas" },
+            { "key": "d", "text": "mentais - visuais" },
+            { "key": "e", "text": "visuais - mentais" }
+          ],
+          "gabarito": "b"
+        },
+        {
+          "numero": "010",
+          "fonte": "Q2795471/UFU/UFU/PSICÓLOGO/2023",
+          "enunciado": "Na avaliação da função do Pensamento, o Juízo da Realidade pode ser definido como a capacidade que o indivíduo possui de avaliar de modo adequado e correto eventos que vivencia. Marque a alternativa correta quanto à avaliação do pensamento ou à alteração desta função.",
+          "alternativas": [
+            { "key": "a", "text": "A estrutura propriamente dita do pensamento é denominada de conteúdo do pensamento." },
+            { "key": "b", "text": "O curso do pensamento identifica a velocidade com que o pensamento ocorre (ex: taquipsiquia, bradipsiquia)." },
+            { "key": "c", "text": "A fuga de ideias, que pode acontecer em surtos esquizofrénicos, é uma característica de alterações no conteúdo do pensamento." },
+            { "key": "d", "text": "Alterações no conteúdo do pensamento são indicativos de comprometimento leve do juízo da realidade." }
+          ],
+          "gabarito": "b"
+        }
+      ]
+    },
+    {
+      "tema": "Transtorno Bipolar e Transtornos Relacionados",
+      "questoesDeConcurso": [
+        {
+          "numero": "001",
+          "fonte": "CESPE/CEBRASPE/DPE-RO/ANALISTA DA DEFENSORIA PÚBLICA/ÁREA: ANALISTA EM PSICOLOGIA/2022",
+          "enunciado": "Levando em consideração o DSM-5, no que se refere ao transtorno bipolar e a transtornos relacionados, julgue os itens a seguir.\nI- Para fins diagnósticos de transtorno bipolar tipo I, é necessário ao menos um episódio maníaco ao longo da vida do indivíduo.\nII - O episódio hipomaníaco pode apresentar características psicóticas e ser grave a ponto de causar prejuízo no funcionamento social.\nIII - Ao menos um episódio hipomaníaco é necessário para fins diagnósticos de transtorno bipolar tipo I.\nIV - Fuga de ideias é um sintoma possível do episódio maníaco.\nEstão certos apenas os itens:",
+          "alternativas": [
+            { "key": "a", "text": "I e II." },
+            { "key": "b", "text": "I e III." },
+            { "key": "c", "text": "I e IV." },
+            { "key": "d", "text": "II e III." },
+            { "key": "e", "text": "II e IV." }
+          ],
+          "gabarito": "c"
+        },
+        {
+          "numero": "002",
+          "fonte": "CESPE/CEBRASPE/PBC/PSICÓLOGO/2020",
+          "enunciado": "Julgue os itens a seguir, acerca do diagnóstico, curso e prognóstico do transtorno bipolar.\nI-O transtorno bipolar tem como principal característica a desregulação extrema do afeto.\nII - O diagnóstico de um episódio maníaco deve ser ancorado em evidências de prejuízos no funcionamento psicossocial da pessoa.\nIII- Os sintomas hipomaníacos implicam prejuízos graves ao funcionamento social, de modo que as alterações comportamentais são observadas e percebidas por outras pessoas.\nIV- O luto é um fator estressor significativo, mas, devido ao seu caráter situacional, é considerado critério de exclusão do transtorno bipolar.\nV- Episódios de recaída são frequentes no tratamento do transtorno bipolar, sendo a não adesão à medicação uma das principais justificativas disso.\nEstão certos apenas os itens:",
+          "alternativas": [
+            { "key": "a", "text": "II e III." },
+            { "key": "b", "text": "IV e V." },
+            { "key": "c", "text": "I, II e V." },
+            { "key": "d", "text": "I, II, III e IV." },
+            { "key": "e", "text": "I, III, IV e V." }
+          ],
+          "gabarito": "c"
+        },
+        {
+          "numero": "003",
+          "fonte": "VUNESP/PB SAÚDE/PSICÓLOGO/ÁREA NEUROPSICOLOGIA/2021",
+          "enunciado": "Pedro, um adolescente de 15 anos, foi encaminhado para avaliação neuropsicológica devido a comportamentos auto e heteroagressivos, agitação psicomotora, dificuldade de concentração, impulsividade, agressividade física e verbal com os colegas e familiares, períodos distintos de humor anormal, redução da necessidade de sono. Os resultados indicaram prejuízo em memória, em flexibilidade cognitiva, funções executivas e velocidade de processamento, estando as demais funções cognitivas preservadas. Durante o exame neuropsicológico, foi observada uma postura pouco colaborativa por parte do paciente. Quais as hipóteses diagnósticas mais condizentes com o breve relato apresentado?",
+          "alternativas": [
+            { "key": "a", "text": "Transtorno de Déficit de Atenção e Hiperatividade e Transtorno de Ansiedade Generalizada." },
+            { "key": "b", "text": "Transtorno de Conduta e Transtorno de Personalidade Antissocial." },
+            { "key": "c", "text": "Transtorno de Conduta e Transtorno Bipolar." },
+            { "key": "d", "text": "Transtorno de Déficit de Atenção e Hiperatividade e Transtorno Bipolar." },
+            { "key": "e", "text": "Transtorno Depressivo Maior e Transtorno Opositor Desafiador." }
+          ],
+          "gabarito": "c"
+        },
+        {
+          "numero": "004",
+          "fonte": "IADESFEPECS/RESIDÊNCIA EM SAÚDE MENTAL DO ADULTO/ÁREA: PSICOLOGIA/2023",
+          "enunciado": "Considere um paciente que deu entrada em um hospital da rede pública com queixa de fadiga, insônia recorrente, humor deprimido há mais de 5 dias, falta de apetite e com idealização suicida. Informa que foi diagnosticada na adolescência com transtorno afetivo bipolar, mas nunca realizou o tratamento de forma contínua, abandonando o tratamento oferecido no CAPS e se ausentando de consultas psiquiátricas. Atualmente, o paciente faz uso de Diazepam para momentos de crise. O psicólogo responsável pelo setor que o paciente se encontra recebe parecer solicitado pela equipe de enfermagem e deverá proceder com conduta. Sobre o caso clínico descrito, assinale a alternativa correta.",
+          "alternativas": [
+            { "key": "a", "text": "Pode-se dizer que o paciente se encontra em episódio maníaco do transtorno afetivo bipolar." },
+            { "key": "b", "text": "Além dos atendimentos psicológicos que devem ser realizados pelo psicólogo responsável, é necessário que o médico prescreva estabilizador de humor e medicamentos psicotrópicos que colaborem para sanar os sintomas relatados pelo paciente." },
+            { "key": "c", "text": "Após a alta do paciente da internação atual, sugere-se que o paciente continue seu tratamento na Unidade de Pronto Atendimento (UPA) de sua região." },
+            { "key": "d", "text": "Perda ou ganho de peso não podem ser considerados sintomas de Transtorno afetivo bipolar, sendo esses sintomas apenas de transtornos alimentares." }
+          ],
+          "gabarito": "b"
+        },
+        {
+          "numero": "005",
+          "fonte": "UNIVALI/SECRETARIA DE SAÚDE DE ITAJAÍ/PSICÓLOGO/2024",
+          "enunciado": "O transtorno ciclotímico tem como característica essencial a cronicidade e a oscilação do humor, envolvendo vários períodos de sintomas hipomaníacos e períodos de sintomas depressivos distintos entre si. Sobre esse transtorno do humor, assinale a alternativa CORRETA.",
+          "alternativas": [
+            { "key": "a", "text": "Embora alguns indivíduos possam funcionar particularmente bem durante certos períodos de hipomania, ao longo do curso prolongado do transtorno deve ocorrer sofrimento ou prejuízo clinicamente significativo no funcionamento social, profissional ou em outras áreas importantes da vida do indivíduo." },
+            { "key": "b", "text": "Se um indivíduo com transtorno ciclotímico subsequente apresenta um episódio depressivo maior, o diagnóstico de transtorno depressivo maior é agregado ao transtorno ciclotímico." },
+            { "key": "c", "text": "Os sintomas hipomaníacos têm número, gravidade, abrangência ou duração suficientes para preencher todos os critérios de um episódio hipomaníaco." },
+            { "key": "d", "text": "Durante o período inicial de dois anos, os sintomas precisam ser persistentes, e qualquer intervalo sem sintomas não pode durar mais do que um mês." }
+          ],
+          "gabarito": "a"
+        },
+        {
+          "numero": "006",
+          "fonte": "FACET/PREFEITURA DE PEDRO VELHO/PSICÓLOGO/2025",
+          "enunciado": "O transtorno bipolar é caracterizado por episódios alternados de mania, hipomania e/ou depressão maior. Considere o seguinte caso: Uma mulher de 35 anos apresenta episódios de euforia extrema, durante os quais dorme apenas 2 horas por noite, gasta compulsivamente em compras desnecessárias e acredita ter habilidades extraordinárias. Após algumas semanas, entra em um estado de tristeza profunda, com perda de interesse por atividades, isolamento social e pensamentos de inutilidade. Com base no DSM-5, qual diagnóstico é mais apropriado, e quais critérios diferenciam este transtorno de outros transtornos de humor?",
+          "alternativas": [
+            { "key": "a", "text": "Transtorno bipolar I, caracterizado pela ocorrência de pelo menos um episódio maníaco, independentemente da presença de episódios depressivos." },
+            { "key": "b", "text": "Transtorno bipolar II, caracterizado por episódios de hipomania alternados com episódios de depressão maior." },
+            { "key": "c", "text": "Transtorno depressivo maior, com características psicóticas congruentes com o humor durante episódios de euforia." },
+            { "key": "d", "text": "Transtorno ciclotímico, com alternância de sintomas depressivos leves e episódios hipomaníacos persistentes." },
+            { "key": "e", "text": "Transtorno de personalidade borderline, devido à instabilidade emocional e impulsividade durante os episódios." }
+          ],
+          "gabarito": "a"
+        }
+      ]
+    },
+    {
+      "tema": "Tratamento e Prevenção da Dependência Química",
+      "questoesDeConcurso": [
+        {
+          "numero": "001",
+          "fonte": "FGV/2023/MPE-SP/ANALISTA DE PROMOTORIA/PSICÓLOGO",
+          "enunciado": "Entre as razões para parar de fumar apresentadas pela OMS, o Programa Nacional de Controle do Tabagismo (PNCT) destaca que:",
+          "alternativas": [
+            { "key": "a", "text": "os não fumantes expostos ao fumo passivo vão desenvolver câncer de pulmão." },
+            { "key": "b", "text": "os cigarros eletrônicos não expõem os não fumantes à nicotina e outros produtos químicos prejudiciais à saúde." },
+            { "key": "c", "text": "crianças com menos de 2 anos de idade expostas ao fumo passivo em casa podem contrair infecções auditivas que podem levar a comprometimentos na audição e até à surdez." },
+            { "key": "d", "text": "fumar vai causar disfunção erétil em algum momento da vida de homens que fumam, pois restringe o fluxo sanguíneo para o pênis, impedindo a ereção." },
+            { "key": "e", "text": "o tabaco mata mais da metade de seus consumidores." }
+          ],
+          "gabarito": "c"
+        },
+        {
+          "numero": "002",
+          "fonte": "FGV/2023/MPE-SP/ANALISTA DE PROMOTORIA/PSICÓLOGO",
+          "enunciado": "O Programa Nacional de Controle do Tabagismo oferece estratégias para abordagem e tratamento visando à cessação do vício. No protocolo clínico do programa, o tratamento não medicamentoso, baseado na terapia cognitivo-comportamental, tem o formato de aconselhamento estruturado com abordagem intensiva. De acordo com esse programa, nas sessões de aconselhamento programadas, cabe ao profissional abordar as seguintes discussões, à exceção de uma. Assinale-a.",
+          "alternativas": [
+            { "key": "a", "text": "A ambivalência quanto a parar de fumar." },
+            { "key": "b", "text": "A prioridade da adesão ao tratamento medicamentoso." },
+            { "key": "c", "text": "As estratégias para superar a crise de abstinência." },
+            { "key": "d", "text": "O estímulo à prática de exercícios de relaxamento." },
+            { "key": "e", "text": "A identificação das armadilhas que levam às recaídas." }
+          ],
+          "gabarito": "b"
+        },
+        {
+          "numero": "003",
+          "fonte": "FGV/2022/TCE-TO/ANALISTA TÉCNICO/PSICOLOGIA",
+          "enunciado": "A psicóloga Beatriz trabalha em uma unidade básica de saúde onde coordena um grupo de apoio para tabagistas, visando a cessação do hábito de fumar. É (São) estratégia(s) da prevenção secundária ao tabagismo:",
+          "alternativas": [
+            { "key": "a", "text": "promover nos fumantes mudanças de crenças e de comportamentos e introduzir hábitos saudáveis de vida;" },
+            { "key": "b", "text": "proibir a venda de cigarros e de alimentos que imitem produtos de tabaco a menores de idade;" },
+            { "key": "c", "text": "preparar fumantes com câncer e doença pulmonar obstrutiva crônica para o pré- e pós-intervenções cirúrgicas;" },
+            { "key": "d", "text": "minimizar os sintomas de abstinência pela substituição do cigarro convencional por cigarros eletrônicos ou narguilé;" },
+            { "key": "e", "text": "evitar por meio de mudanças ambientais que fumantes passivos ou secundários iniciem a dependência química ao tabaco." }
+          ],
+          "gabarito": "b"
+        },
+        {
+          "numero": "004",
+          "fonte": "IBFC/2023/PREFEITURA DE CUIABÁ - MT/PSICÓLOGO",
+          "enunciado": "O tratamento da dependência química deve sempre estar associado a uma equipe multiprofissional, já que as questões que o envolvem são complexas. Assinale a alternativa incorreta em relação ao tratamento da dependência química baseado na redução de danos.",
+          "alternativas": [
+            { "key": "a", "text": "No tratamento que tem por base essa proposta, cabe ao profissional lidar com as diferentes possibilidades e escolhas que são feitas pelo paciente." },
+            { "key": "b", "text": "No atendimento proposto, cabe à equipe de saúde acolher sem julgamento o que em cada situação, com cada usuário é possível, e o que é necessário, sempre estimulando a sua participação e o seu engajamento." },
+            { "key": "c", "text": "Nesta proposta de tratamento, a abstinência é o único objetivo a ser alcançado através do estabelecimento de vínculo com os profissionais." },
+            { "key": "d", "text": "A redução de danos oferece-se como um método vinculado à direção do tratamento, sendo que dentro dessa lógica, tratar significa aumentar o grau de liberdade e de corresponsabilidade daquele que está se tratando." }
+          ],
+          "gabarito": "c"
+        },
+        {
+          "numero": "005",
+          "fonte": "FCC/2022/TRT - 5ª REGIÃO (BA)/ANALISTA JUDICIÁRIO/PSICOLOGIA",
+          "enunciado": "Se um paciente é indicado a um tratamento com internação, residencial ou ambulatorial intensivo, uma mescla de modalidades terapêuticas é incluída no tratamento. Seis principais modalidades terapêuticas estão disponíveis para o tratamento do alcoolismo: grupos de autoajuda, terapia individual, terapia de grupo, terapia de família e programas de tratamento:",
+          "alternativas": [
+            { "key": "a", "text": "recreacional." },
+            { "key": "b", "text": "referencial." },
+            { "key": "c", "text": "inclusivo." },
+            { "key": "d", "text": "intensivo." },
+            { "key": "e", "text": "experimental." }
+          ],
+          "gabarito": "d"
+        },
+        {
+          "numero": "006",
+          "fonte": "FGV/2022/SEAD-AP/PERITO CRIMINAL/PSICOLOGIA",
+          "enunciado": "A psicóloga Luciana coordena um grupo de atendimento e orientação a pais e responsáveis de adolescentes. A avaliação psicológica de adolescentes usuários de álcool revela que a família pode ser um fator de risco ou de proteção para o uso. Em relação ao tema, é correto afirmar que:",
+          "alternativas": [
+            { "key": "a", "text": "o apoio da família na aquisição da autonomia é fator de risco." },
+            { "key": "b", "text": "a atitude permissiva no ambiente familiar constitui fator de risco." },
+            { "key": "c", "text": "a leniência familiar e a curiosidade constituem fatores de proteção." },
+            { "key": "d", "text": "a percepção de vínculos de cuidado e monitoramento é fator de risco." },
+            { "key": "e", "text": "a exposição ao consumo de álcool feito pelos pais é fator de proteção." }
+          ],
+          "gabarito": "b"
+        },
+        {
+          "numero": "007",
+          "fonte": "CESPE/CEBRASPE/TJ-ES/ANALISTA JUDICIÁRIO/ESPECIALIDADE: PSICOLOGIA/2023",
+          "tipo": "CERTO_ERRADO",
+          "enunciado": "A respeito da situação hipotética precedente, julgue o item a seguir, com base nas contribuições da psicopatologia e da psicologia da saúde, no DSM-5 e nas ações básicas de saúde. O quadro de Thomas está necessariamente relacionado à dependência química paterna, por isso uma política de redução de danos seria benéfica para toda a família, uma vez que proporcionaria melhora na condição de vida de Thomas e de seus genitores e minimização dos efeitos globais do uso da droga.",
+          "gabarito": "Errado"
+        },
+        {
+          "numero": "008",
+          "fonte": "CESPE/CEBRASPE/TJ-ES/ANALISTA JUDICIÁRIO/ESPECIALIDADE: PSICOLOGIA/2023",
+          "tipo": "CERTO_ERRADO",
+          "enunciado": "De acordo com a descrição feita pela genitora, o pai de Thomas apresenta rebaixamento do nível de consciência, desorientação temporoespacial e zoopsia, que são características condizentes com a dependência crônica de álcool.",
+          "gabarito": "Errado"
+        },
+        {
+          "numero": "009",
+          "fonte": "FGV/MPE-SP/ANALISTA DE PROMOTORIA/PSICÓLOGO/2023",
+          "enunciado": "O Al-Anon é uma organização sem fins lucrativos que oferece suporte para familiares e amigos de pessoas com dependência de álcool. O funcionamento do Al-Anon se baseia em reuniões semanais nas quais os participantes compartilham suas experiências e se apoiam mutuamente. Ao frequentar essas reuniões, Andrea se apercebeu de seu comportamento codependente em relação ao marido Oscar, dependente de álcool há anos. Sobre essa situação, assinale a afirmativa correta.",
+          "alternativas": [
+            { "key": "a", "text": "O termo codependência alcoólica se refere ao uso compartilhado do álcool pelo casal e/ ou outros membros da família." },
+            { "key": "b", "text": "O alcoolismo de Oscar tem causa emocional decorrente das cobranças domésticas e da relação conjugal conflituosa com Andrea." },
+            { "key": "c", "text": "O objetivo do grupo é ajudar os familiares a lidarem com suas próprias emoções e comportamentos na relação com o usuário de álcool." },
+            { "key": "d", "text": "O codependente precisa assumir seu papel de cuidador para proteger o dependente das consequências danosas de seu vício." },
+            { "key": "e", "text": "A dependência de álcool é uma escolha pessoal do alcoolista crônico, portanto, a família deve se abster de apoiar o dependente no tratamento." }
+          ],
+          "gabarito": "c"
+        },
+        {
+          "numero": "010",
+          "fonte": "FGV/MPE-SP/ANALISTA DE PROMOTORIA/PSICÓLOGO/2023",
+          "enunciado": "A Nota Técnica 11/2019 do Ministério da Saúde, publicada em 04/02, trouxe mudanças na Política de Álcool e outras Drogas e passou a incluir as comunidades terapêuticas e os hospitais psiquiátricos na Rede de Atenção Psicossocial do SUS. Essas mudanças foram consideradas por muitos especialistas como um retrocesso em relação à política de saúde mental até então vigente em função:",
+          "alternativas": [
+            { "key": "a", "text": "do foco no cuidado em rede, com base territorial e respeito à liberdade e singularidade dos usuários." },
+            { "key": "b", "text": "das práticas de atenção desenvolvidas nos hospitais psiquiátricos, orientadas pela lógica da redução de danos e centralidade nos usuários." },
+            { "key": "c", "text": "do retorno à lógica manicomial, com a prática de internação prolongada, isolamento e o forte componente religioso que orienta as ações das comunidades terapêuticas." },
+            { "key": "d", "text": "da elaboração do projeto terapêutico singular, institucional e educacional, incentivando a autonomia e participação das pessoas que se encontram na condição de internos." },
+            { "key": "e", "text": "do incentivo ao uso das drogas lícitas, que não têm potencial de causar danos, e da abstinência do uso das drogas ilícitas, por seu potencial de causar dependência." }
+          ],
+          "gabarito": "c"
+        },
+        {
+          "numero": "011",
+          "fonte": "COPESE/UFPI/PREFEITURA DE UNIÃO/PI/PSICÓLOGO/2022",
+          "enunciado": "A Redução de Danos (RD) humaniza a relação entre sujeitos e substâncias, reconhece a singularidade e a diversidade no uso de drogas, trazendo a participação desses usuários para traçar metas visando promover saúde e qualidade de vida. Pensando na atuação dos/as psicólogos/as em políticas de redução de danos, marque a opção CORRETA.",
+          "alternativas": [
+            { "key": "a", "text": "A perspectiva da redução de danos pode prejudicar o acolhimento dos usuários. Com o uso contínuo, tornam-se objeto de discriminação, preconceito e exclusão, podendo incidir em práticas de recolhimento e internação compulsória." },
+            { "key": "b", "text": "A expansão da política repressiva, chamada internacionalmente de guerra às drogas, recai no próprio uso das substâncias ilícitas, caso o uso seja interrompido, os índices de violência também diminuem." },
+            { "key": "c", "text": "O trabalho precisa ser realizado de maneira normativa e prescritiva, havendo uma única verdade com saberes que auxiliarão na construção de manejos do tratamento em relação à saúde do usuário." },
+            { "key": "d", "text": "O grande desafio é atuar de modo ampliado e intersetorial na perspectiva da garantia de direitos e, dessa maneira, enfrentar a lógica reducionista que trata a questão das drogas pela via da doença e da periculosidade." },
+            { "key": "e", "text": "Os(as) psicólogos/as devem respeitar, orientar e incentivar as práticas de determinação de credo religioso como recurso de tratamento para atingir a abstinência se essa for a perspectiva de trabalho do serviço ao qual está vinculado, em casos de abuso e de dependência das substâncias psicoativas." }
+          ],
+          "gabarito": "d"
+        },
+        {
+          "numero": "012",
+          "fonte": "CESPE/CEBRASPE/DEPEN/CARGO 5/PSICOLOGIA/2021",
+          "tipo": "CERTO_ERRADO",
+          "enunciado": "No que se refere à política de redução de danos no tratamento e prevenção da dependência química, julgue o item que se segue. Os agentes redutores de danos, podem responder judicialmente se flagrados distribuindo insumos em atividade de campo.",
+          "gabarito": "Errado"
+        },
+        {
+          "numero": "013",
+          "fonte": "CESPE/CEBRASPE/DEPEN/CARGO 5/PSICOLOGIA/2021",
+          "tipo": "CERTO_ERRADO",
+          "enunciado": "Essa política atua tanto na distribuição das substâncias, incluindo-se trocas e desinfecção de seringas e agulhas, para evitar roubos, furtos e outros tipos de violência causados pelos dependentes químicos, quanto em terapias de substituição (heroína por metadona; crack por cannabis; cocaína pela folha de coca etc.) e estabelecimento de locais seguros para o uso das substâncias.",
+          "gabarito": "Errado"
+        },
+        {
+          "numero": "014",
+          "fonte": "CESPE/CEBRASPE/DEPEN/CARGO 5/PSICOLOGIA/2021",
+          "tipo": "CERTO_ERRADO",
+          "enunciado": "A política de redução de danos se propõe a reduzir os prejuízos de natureza biológica, social e econômica do uso de drogas, pautada no respeito ao indivíduo, mas não no seu direito de consumir drogas.",
+          "gabarito": "Errado"
+        },
+        {
+          "numero": "015",
+          "fonte": "FGV/PREFEITURA DE PAULÍNIA/SP/PSICÓLOGO/2021",
+          "enunciado": "Com relação à dependência química, avalie as afirmativas a seguir.\nI. A utilização de substâncias psicoativas lícitas ou ilícitas deve ser considerada um problema de origem multifatorial que deve ser discutido no âmbito da saúde, da segurança social, justiça e educação.\nII. A família sofre com as experiências pelo uso de substâncias psicoativas de seu familiar usuário e é importante que os serviços de saúde possam incluí-la no tratamento.\nIII. A Política de Atenção Integral para Usuários de Álcool e outras Drogas vem procurando vincular o usuário ao traficante, buscando a criminalização da dependência química.\nEstá correto o que se afirma em:",
+          "alternativas": [
+            { "key": "a", "text": "I, apenas." },
+            { "key": "b", "text": "II, apenas." },
+            { "key": "c", "text": "III, apenas." },
+            { "key": "d", "text": "I e II, apenas." },
+            { "key": "e", "text": "I, II e III." }
+          ],
+          "gabarito": "d"
+        }
+      ]
+    },
+    {
+      "tema": "Psicanálise",
+      "questoesDeConcurso": [
+        {
+          "numero": "001",
+          "fonte": "Aula 8.1.pdf - Exercícios de Fixação",
+          "enunciado": "Sobre as instâncias do aparelho psíquico, segundo Freud, é correto afirmar:",
+          "alternativas": [
+            { "key": "a", "text": "O Id é regido pelo princípio da realidade." },
+            { "key": "b", "text": "O Ego busca o equilíbrio entre o Id e o Superego." },
+            { "key": "c", "text": "O Superego representa os impulsos e desejos primitivos." },
+            { "key": "d", "text": "O Id, o Ego e o Superego são totalmente conscientes." }
+          ],
+          "gabarito": "b"
+        },
+        {
+          "numero": "002",
+          "fonte": "Aula 8.2.pdf - Exercícios de Fixação",
+          "enunciado": "Qual das fases do desenvolvimento psicossexual de Freud é caracterizada pelo Complexo de Édipo?",
+          "alternativas": [
+            { "key": "a", "text": "Fase Oral" },
+            { "key": "b", "text": "Fase Anal" },
+            { "key": "c", "text": "Fase Fálica" },
+            { "key": "d", "text": "Período de Latência" }
+          ],
+          "gabarito": "c"
+        },
+        {
+          "numero": "003",
+          "fonte": "Aula 8.4.pdf - Exercícios de Fixação",
+          "enunciado": "Um indivíduo que, sentindo raiva do chefe, chega em casa e chuta o cachorro, está utilizando qual mecanismo de defesa?",
+          "alternativas": [
+            { "key": "a", "text": "Projeção" },
+            { "key": "b", "text": "Negação" },
+            { "key": "c", "text": "Deslocamento" },
+            { "key": "d", "text": "Sublimação" }
+          ],
+          "gabarito": "c"
+        },
+        {
+          "numero": "004",
+          "fonte": "Aula 8.5.pdf - Exercícios de Fixação",
+          "enunciado": "Qual autor da Escola Freudiana é conhecido por seus estudos sobre o trauma da sedução real e a importância do ambiente no desenvolvimento psíquico?",
+          "alternativas": [
+            { "key": "a", "text": "Karl Abraham" },
+            { "key": "b", "text": "Anna Freud" },
+            { "key": "c", "text": "Wilhelm Reich" },
+            { "key": "d", "text": "Sándor Ferenczi" }
+          ],
+          "gabarito": "d"
+        },
+        {
+          "numero": "005",
+          "fonte": "Aula 8.6.pdf - Exercícios de Fixação",
+          "enunciado": "Segundo Melanie Klein, a posição em que o bebê divide o objeto (como o seio da mãe) em \"bom\" e \"mau\" para lidar com a ansiedade é chamada de:",
+          "alternativas": [
+            { "key": "a", "text": "Posição Depressiva" },
+            { "key": "b", "text": "Posição Esquizoparanoide" },
+            { "key": "c", "text": "Posição Narcísica" },
+            { "key": "d", "text": "Posição Edípica" }
+          ],
+          "gabarito": "b"
+        },
+        {
+          "numero": "006",
+          "fonte": "Aula 8.7.pdf - Exercícios de Fixação",
+          "enunciado": "O conceito de \"mãe suficientemente boa\" foi desenvolvido por qual psicanalista?",
+          "alternativas": [
+            { "key": "a", "text": "Sigmund Freud" },
+            { "key": "b", "text": "Melanie Klein" },
+            { "key": "c", "text": "Donald Winnicott" },
+            { "key": "d", "text": "Jacques Lacan" }
+          ],
+          "gabarito": "c"
+        }
+      ]
+    },
+    {
+      "tema": "Psicoterapia",
+      "questoesDeConcurso": [
+        {
+          "numero": "001",
+          "fonte": "Aula 9.2.pdf - Exercícios de Fixação",
+          "enunciado": "Pichon Rivière foi o idealizador dos grupos ______, que se caracterizam pela realização de atendimentos psicológicos em grupos, voltados para a realização de tarefas objetivas, num modo de intervenção, organização e resolução dos problemas grupais.",
+          "alternativas": [
+            { "key": "a", "text": "de convivência" },
+            { "key": "b", "text": "de psicodrama" },
+            { "key": "c", "text": "informativos" },
+            { "key": "d", "text": "operativos" },
+            { "key": "e", "text": "de sala de espera" }
+          ],
+          "gabarito": "d"
+        },
+        {
+          "numero": "002",
+          "fonte": "Aula 9.2.pdf - Exercícios de Fixação",
+          "enunciado": "Considerando o trabalho com grupos desenvolvido por Yalom (2006), analise as afirmativas abaixo e dê valores Verdadeiro (V) ou Falso (F).\n( ) O profissional que trabalha com grupos precisa ter clareza sobre o propósito de montar um grupo, bem como, dispor de recursos avaliativos para verificar se o grupo tem sido um facilitador do processo terapêutico.\n( ) O grupo é um organismo constituído por elementos diferentes e variados e, em decorrência desta diversidade, é comum que o grupo não estabeleça um foco de trabalho, tendo seus encontros com benefícios pontuais e eventuais.\n( ) Participar de grupos pode ajudar os indivíduos a quebrar barreiras criadas por sentimentos de solidão e isolamento, em especial, pela possibilidade de receberem sugestões construtivas de outras pessoas que passaram ou estão passando por situações semelhantes.",
+          "alternativas": [],
+          "gabarito": "V, F, V"
+        },
+        {
+          "numero": "003",
+          "fonte": "Aula 9.3.pdf - Exercícios de Fixação",
+          "enunciado": "Conforme os principais fundamentos da técnica no cotidiano da prática grupal, destacados por Zimerman e Osório, analise as afirmativas abaixo.\nI- É fundamental durante a composição de um grupo realizar o planejamento prévio e sua operacionalização, isto é, compreender a finalidade do grupo, para quem se destina, quem o coordenará, como será o seu funcionamento, o local onde será realizado.\nII- O grupoterapeuta poderá organizar critérios de seleção dos indivíduos para a composição do grupo, quer seja um grupo operativo ou terapêutico, sendo importante e delicada a escolha das indicações e contraindicações dos integrantes.\nIII- É favorável que o coordenador do grupo reconheça as ansiedades e resistências emergentes no grupo, para que possa ter uma ideia clara da função que elas representam na dinâmica do grupo.\nIV- Os aspectos da comunicação verbal são essencialmente importantes para o bom andamento do grupo, sendo fundamental que o coordenador alerte todos os integrantes a respeito das técnicas e das maneiras que devem se comunicar grupalmente.\nAssinale a alternativa correta:",
+          "alternativas": [
+            { "key": "a", "text": "Apenas as afirmativas I e II estão corretas" },
+            { "key": "b", "text": "Apenas as afirmativas I, II e III estão corretas" },
+            { "key": "c", "text": "Apenas as afirmativas III e IV estão corretas" },
+            { "key": "d", "text": "As afirmativas I, II, III e IV estão corretas" }
+          ],
+          "gabarito": "b"
+        },
+        {
+          "numero": "004",
+          "fonte": "Aula 9.5.pdf - Exercícios de Fixação",
+          "enunciado": "Em relação à prática da psicoterapia individual no âmbito das políticas públicas de saúde e assistência social, assinale a alternativa correta:",
+          "alternativas": [
+            { "key": "a", "text": "A psicoterapia individual, no SUS, deve obrigatoriamente seguir o modelo psicanalítico tradicional." },
+            { "key": "b", "text": "No SUAS, o psicólogo tem liberdade para realizar psicoterapia contínua sem considerar a demanda institucional." },
+            { "key": "c", "text": "A escuta clínica no SUS e no SUAS deve ser entendida como psicoterapia formal." },
+            { "key": "d", "text": "A atuação do psicólogo nesses contextos deve considerar a brevidade, o vínculo e o foco na autonomia do sujeito." },
+            { "key": "e", "text": "Psicoterapia individual em instituições públicas é reservada exclusivamente a profissionais com título de especialista." }
+          ],
+          "gabarito": "d"
+        },
+        {
+          "numero": "005",
+          "fonte": "Aula 9.5.pdf - Exercícios de Fixação",
+          "enunciado": "Sobre as etapas de desenvolvimento de um grupo terapêutico, assinale a alternativa correta:",
+          "alternativas": [
+            { "key": "a", "text": "A fase inicial é marcada pela espontaneidade dos participantes e pela ausência de conflitos." },
+            { "key": "b", "text": "A fase de transição geralmente envolve resistência e conflitos interpessoais." },
+            { "key": "c", "text": "O encerramento do grupo terapêutico não deve ser planejado para evitar ansiedade nos participantes." },
+            { "key": "d", "text": "O terapeuta deve se manter neutro durante toda a condução do grupo." },
+            { "key": "e", "text": "A liderança diretiva é inadequada em qualquer etapa do grupo." }
+          ],
+          "gabarito": "b"
+        },
+        {
+          "numero": "006",
+          "fonte": "Aula 9.5.pdf - Exercícios de Fixação",
+          "enunciado": "Analise as afirmativas abaixo sobre as diferenças entre psicoterapia individual e psicoterapia de grupo:",
+          "alternativas": [
+            { "key": "a", "text": "A psicoterapia individual permite maior economia de tempo e recursos que a grupal." },
+            { "key": "b", "text": "A psicoterapia de grupo impede o aprofundamento das questões emocionais do indivíduo." },
+            { "key": "c", "text": "A psicoterapia individual é mais indicada quando há necessidade de confidencialidade e sigilo extremo." },
+            { "key": "d", "text": "A psicoterapia de grupo deve ser aplicada somente após o fracasso da terapia individual." },
+            { "key": "e", "text": "Psicoterapia individual e grupal não podem ser combinadas no mesmo plano terapêutico." }
+          ],
+          "gabarito": "c"
+        }
+      ]
+    },
+    {
+      "tema": "Projeto Terapêutico Singular",
+      "questoesDeConcurso": [
+        {
+          "numero": "001",
+          "fonte": "METRÓPOLE/PREFEITURA DE PEDRA BRANCA DO AMAPARI-AP/PSICÓLOGO/2022",
+          "enunciado": "Define-se como um conjunto de propostas de condutas terapêuticas articuladas, para um sujeito individual ou coletivo, resultado da discussão de uma equipe interdisciplinar. Trata-se de um recurso de clínica ampliada e da humanização em saúde, configurando-se como um instrumento de organização do cuidado em saúde construído entre equipe e o caso, considerando as singularidades deste e a complexidade de cada situação. Assinale a alternativa que descreve o instrumento utilizado no matriciamento conforme a citação acima.",
+          "alternativas": [
+            { "key": "a", "text": "Projeto Terapêutico Singular-PTS" },
+            { "key": "b", "text": "Consulta Conjunta" },
+            { "key": "c", "text": "Visita Domiciliar Conjunta" },
+            { "key": "d", "text": "Interconsulta e Ecomapa" }
+          ],
+          "gabarito": "a"
+        },
+        {
+          "numero": "002",
+          "fonte": "FGV/PREFEITURA DE SÃO JOSÉ DOS CAMPOS-SP/ANALISTA EM SAÚDE/PSICOLOGIA/2023",
+          "enunciado": "A partir das demandas e das mudanças de paradigmas no cuidado e assistência em saúde mental advindos da Reforma Psiquiátrica Brasileira, o Projeto Terapêutico Singular (PTS) foi bastante desenvolvido em dispositivos da RAPS, como as unidades onde atuam as equipes de Saúde da Família e os CAPS. Em documentos que tratam do Projeto Terapêutico Singular, o Ministério da Saúde identifica 4 (quatro) etapas que devem fazer parte da elaboração do PTS. Acerca do PTS e suas etapas, assinale a afirmativa correta.",
+          "alternativas": [
+            { "key": "a", "text": "Projeto Terapêutico Singular é definido como um conceito equivalente a Projeto Terapêutico Individual." },
+            { "key": "b", "text": "O próprio usuário participa do diagnóstico, da definição das metas e da divisão de responsabilidades no PTS." },
+            { "key": "c", "text": "A clínica ampliada é um modelo que valoriza o saber médico, privilegiando a autoridade do psiquiatra na equipe de saúde." },
+            { "key": "d", "text": "O paciente receberá do técnico de referência do PTS o apoio matricial necessário para o tratamento." },
+            { "key": "e", "text": "O psicodiagnóstico do paciente, com avaliação psicométrica, projetiva e clínica, é indispensável para a elaboração do PTS." }
+          ],
+          "gabarito": "b"
+        },
+        {
+          "numero": "003",
+          "fonte": "FURB/FURB-SC/PSICÓLOGO/2023",
+          "enunciado": "O Projeto Terapêutico Singular (PTS) é um conjunto de propostas de condutas terapêuticas articuladas para um indivíduo, uma família ou um grupo e resulta da discussão coletiva de uma equipe interdisciplinar com Apoio Matricial se esse for necessário. Assinale a alternativa CORRETA:",
+          "alternativas": [
+            { "key": "a", "text": "Na etapa de definição de problemas, ocorre a avaliação e problematização dos aspectos orgânicos, psicológicos e sociais que possibilita identificar riscos, vulnerabilidades e potencialidades para a produção do cuidado." },
+            { "key": "b", "text": "O PTS geralmente é dedicado a situações mais complexas, buscando a singularidade como elemento central de articulação na tentativa de mudar a tendência de igualar as situações ou os sujeitos, a partir dos diagnósticos firmados. Ele pode ser uma ferramenta de cogestão e compartilhamento do cuidado, na medida em que possibilita a definição de objetivos comuns e o estabelecimento de tarefas correlacionadas e pactuadas em equipe." },
+            { "key": "c", "text": "Na etapa de definição de metas, deve-se definir as tarefas de cada sujeito envolvido no PTS a curto, médio e longo prazo." },
+            { "key": "d", "text": "O PTS é desenvolvido em quatro momentos distintos: diagnóstico, definição de problemas, definição de metas e reavaliação." },
+            { "key": "e", "text": "Na etapa de reavaliação, a equipe deverá captar como o \"sujeito singular\" se produz diante de forças como as doenças, os desejos e os interesses, como também o trabalho, a cultura, a família. Portanto, tentar entender o que o sujeito faz de tudo o que fizeram dele." }
+          ],
+          "gabarito": "b"
+        },
+        {
+          "numero": "004",
+          "fonte": "GANZAROLI/PREFEITURA DE CUMARI/TÉCNICO/ÁREA PSICOLOGIA/2024",
+          "enunciado": "O Projeto Terapêutico Singular é um trabalho efetivado pela equipe interdisciplinar de saúde com vistas ao acompanhamento de um caso específico que envolve um sujeito ou um coletivo. Assinale a alternativa que NÃO corresponde a uma das suas características:",
+          "alternativas": [
+            { "key": "a", "text": "Geralmente é encaminhado para situações mais complexas." },
+            { "key": "b", "text": "Em relação à reunião de equipe, o fundamental no caso deste encontro para a realização do Projeto Terapêutico Singular é o vínculo dos membros da equipe com o usuário e a família." },
+            { "key": "c", "text": "O nome Projeto Terapêutico Singular destaca que o projeto pode ser efetivado para grupos ou famílias e não só para indivíduos, além de salientar que o projeto procura a singularidade (a diferença) como elemento principal de articulação." },
+            { "key": "d", "text": "O Projeto Terapêutico Singular envolve quatro momentos: diagnóstico, definição de metas, responsabilização e reavaliação prognóstica." }
+          ],
+          "gabarito": "d"
+        },
+        {
+          "numero": "005",
+          "fonte": "COPESE/UFPI/PREFEITURA DE UNIÃO-PI/PSICÓLOGO/2022",
+          "enunciado": "O Projeto Terapêutico Singular (PTS), enquanto ferramenta que compõe o trabalho dos profissionais na atenção básica ou nos serviços de saúde mental, incluindo o(a) psicólogo(a), envolve um conjunto de propostas de condutas terapêuticas articuladas, direcionadas a um indivíduo, família ou coletividade. Partindo do trabalho com usuários de saúde mental, a opção CORRETA é:",
+          "alternativas": [
+            { "key": "a", "text": "Situações em que o PTS é desenvolvido na Atenção Primária em Saúde devem priorizar os aspectos biológicos e fisiológicos já que esse nível de atenção está pautado nessa perspectiva." },
+            { "key": "b", "text": "A coordenação do PTS para casos de usuários de saúde mental, independente dos casos, deve ser feita por psicólogos/as, haja vista seu maior conhecimento sobre a temática." },
+            { "key": "c", "text": "A construção de um PTS deve ser realizada orientada por quatro pilares: hipótese diagnóstica, definição de metas, divisão de responsabilidades e reavaliação." },
+            { "key": "d", "text": "O contexto social deve ser negado devido à multiplicidade das realidades dos usuários, apresentando-se como uma variável inconstante, podendo atrapalhar a definição de metas, sendo preciso se nortear apenas pelos aspectos internos." },
+            { "key": "e", "text": "O foco deve estar no estabelecimento do diagnóstico, pois em saúde mental o quadro se mantém estável, fazendo com que não seja preciso revisar as condutas terapêuticas." }
+          ],
+          "gabarito": "c"
+        },
+        {
+          "numero": "006",
+          "fonte": "IVIN/PREFEITURA DE SANTARÉM-PA/PSICÓLOGO/SEC. TRABALHO E ASSISTÊNCIA SOCIAL/2024",
+          "enunciado": "O Projeto Terapêutico Singular (PTS) é um conjunto de propostas de condutas terapêuticas articuladas para um sujeito individual ou coletivo, resultado da discussão coletiva de uma equipe interdisciplinar, com Apoio Matricial se necessário. Entendido como uma variação da discussão de \"caso clínico\" nos espaços de cuidado à saúde mental, é realizado perante situações/problemas mais complexos. É importante destacar que o projeto pode ser pensado ou realizado não somente para indivíduos, mas também para grupos ou famílias. Sobre o tema, assinale a alternativa correta:",
+          "alternativas": [
+            { "key": "a", "text": "O mercado formal de trabalho não faz parte de aspectos a serem trabalhados no PTS, principalmente quando for demandado pelo usuário da saúde mental." },
+            { "key": "b", "text": "A elaboração do PTS ocorre em reuniões ou encontros dos sujeitos envolvidos e comprometidos com propostas e condutas terapêuticas articuladas, com os trabalhadores do CAPS e a família do usuário, evitando sua participação." },
+            { "key": "c", "text": "Deve-se retirar do PTS alguns sujeitos como amigos e profissionais da rede intersetorial da assistência social, educação e cultura." },
+            { "key": "d", "text": "É desenvolvido tendo como base quatro pilares: a definição situacional, a definição de metas, a divisão de responsabilidades e finalmente a reavaliação." },
+            { "key": "e", "text": "Entendido como uma variação da discussão de \"caso clínico\" nos espaços de cuidado à saúde mental, o PTS é realizado perante situações/problemas mais complexos. É importante destacar que o projeto é pensado ou realizado para indivíduos." }
+          ],
+          "gabarito": "d"
+        },
+        {
+          "numero": "007",
+          "fonte": "IESES/PREFEITURA DE PALHOÇA-SC/PSICÓLOGO AUTÁRQUICO/2022",
+          "enunciado": "A Sra. Olinda, de 47 anos, procurou a atenção primária de seu território a fim de realizar vinculação a esse serviço, tendo em vista que se mudou de Brumadinho, município de Minas Gerais para Santa Catarina. Em Minas, não vinha tendo atendimento da atenção primária, pois trabalhava e tinha plano de saúde, a partir do qual apenas visitava um ginecologista anualmente. Mudou-se, pois, meses depois do grande acidente na barragem da Valle que acometeu aquele município, ficou viúva. Vem até a Atenção Básica, pois, frequentemente se vê com forte dores de estômago. Aqui veio morar com o filho, nora e netos. Não tem rede social e apenas faz algumas costuras, mas sem grande ânimo, sobre o que diz para a enfermeira que a acolheu passar grande parte do dia sem vontade de conversar com as pessoas. A enfermeira que a acolheu ficou preocupada com a possibilidade de a paciente estar apresentando depressão em algum nível. Diante disso, levou o caso para a discussão do NASF, a fim pensar um projeto terapêutico específico, ou singular, para a paciente. Com base no CASO DA DONA OLINDA, indique o que seja correto no desenvolvimento de um Projeto Terapêutico Singular para o caso.\nI- Dona Olinda deverá ser encaminhada para um Centro de Atenção Psicossocial ou serviço equivalente, a fim de alcançar atendimento psicossocial e medicamentoso e específico, como o próprio nome diz, especializado, para sua condição, que pode envolver um quadro depressivo.\nII - Uma vez que na atenção primária da região ocorre um grupo de mulheres coordenado pela equipe do NASF, deve ser discutido com Dona Olinda sua vontade de participar dessa atividade; e, paralelamente, deverá ser acompanhada pelo médico de saúde da família, a fim de ter avaliada sua condição gástrica.\nIII- Dona Olinda não deve ser encaminhada para um outro nível de atenção em saúde, mas deve ser pensada junto a ela estratégias de saúde integral, que envolva sua condição biopsicossocial, a fim de retomar o ânimo para suas atividades e resolver sua condição gástrica. Nesse processo, deve ser potencializada sua rede social, a fim de construir vínculos e apoio no acompanhamento de seu autocuidado.\nEstá(ao) correta(s) apenas a(s) assertiva(s):",
+          "alternativas": [
+            { "key": "a", "text": "II, III." },
+            { "key": "b", "text": "I." },
+            { "key": "c", "text": "II." },
+            { "key": "d", "text": "I, II." }
+          ],
+          "gabarito": "a"
+        }
+      ]
     }
   ]
 }
+
