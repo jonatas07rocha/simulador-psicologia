@@ -3487,7 +3487,7 @@
             { "key": "b", "text": "V, F, F" },
             { "key": "c", "text": "F, V, V" },
             { "key": "d", "text": "V, V, F" },
-            { "key": "e", "text": "V, F, V" },
+            { "key": "e", "text": "V, F, V" }
           ]			
           "gabarito": "e"
         },
