@@ -3482,8 +3482,13 @@
           "numero": "002",
           "fonte": "Aula 9.2.pdf - Exercícios de Fixação",
           "enunciado": "Considerando o trabalho com grupos desenvolvido por Yalom (2006), analise as afirmativas abaixo e dê valores Verdadeiro (V) ou Falso (F).\n( ) O profissional que trabalha com grupos precisa ter clareza sobre o propósito de montar um grupo, bem como, dispor de recursos avaliativos para verificar se o grupo tem sido um facilitador do processo terapêutico.\n( ) O grupo é um organismo constituído por elementos diferentes e variados e, em decorrência desta diversidade, é comum que o grupo não estabeleça um foco de trabalho, tendo seus encontros com benefícios pontuais e eventuais.\n( ) Participar de grupos pode ajudar os indivíduos a quebrar barreiras criadas por sentimentos de solidão e isolamento, em especial, pela possibilidade de receberem sugestões construtivas de outras pessoas que passaram ou estão passando por situações semelhantes.",
-          "alternativas": [],
-          "gabarito": "V, F, V"
+          "alternativas": [
+            { "key": "a", "text": "V, V, V" },
+            { "key": "b", "text": "V, F, F" },
+            { "key": "c", "text": "F, V, V" },
+            { "key": "d", "text": "V, V, F" },
+            { "key": "d", "text": "V, F, V" },			
+          "gabarito": "e"
         },
         {
           "numero": "003",
@@ -3633,4 +3638,3 @@
     }
   ]
 }
-
